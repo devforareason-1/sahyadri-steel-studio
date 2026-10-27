@@ -2,10 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
+import { ArrowLeft, Check } from "lucide-react";
 import { services } from "@/data/services";
 import { whatsappUrl } from "@/data/site";
 import SectionLabel from "@/components/SectionLabel";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 export const dynamicParams = false;
 
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const service = services.find((s) => s.slug === slug);
   if (!service) return {};
   return {
-    title: `${service.title} in Shimoga`,
+    title: `${service.title} in Shimoga & Udupi`,
     description: service.description,
   };
 }
@@ -53,7 +54,10 @@ export default async function ServicePage({ params }: Props) {
 
             <ul className="mt-8 space-y-4">
               {service.details.map((detail) => (
-                <li key={detail} className="flex items-start gap-3 text-sm leading-6">
+                <li
+                  key={detail}
+                  className="flex items-start gap-3 text-sm leading-6"
+                >
                   <Check size={16} className="mt-1 shrink-0 text-accent" />
                   {detail}
                 </li>
@@ -65,10 +69,10 @@ export default async function ServicePage({ params }: Props) {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-12 items-center gap-4 bg-foreground px-5 py-3 text-xs font-medium text-white transition-colors hover:bg-accent"
+                className="inline-flex min-h-12 items-center gap-3 bg-[#1fa855] px-6 py-3 text-xs font-medium text-white transition-opacity hover:opacity-90"
               >
-                Discuss on WhatsApp
-                <ArrowUpRight size={15} />
+                <WhatsAppIcon size={17} />
+                Chat on WhatsApp
               </a>
               <Link
                 href="/#contact"

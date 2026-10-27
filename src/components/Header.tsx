@@ -7,8 +7,8 @@ import { ArrowRight, ArrowUpRight, Menu, X } from "lucide-react";
 const navigation = [
   { label: "Services", href: "/#services" },
   { label: "Our Work", href: "/#projects" },
-  { label: "Our Approach", href: "/#approach" },
-  { label: "About", href: "/#about" },
+  { label: "How We Work", href: "/#approach" },
+  { label: "Studios", href: "/#studios" },
 ];
 
 export default function Header() {
