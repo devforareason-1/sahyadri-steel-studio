@@ -1,17 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: "export",
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "placehold.co",
-        pathname: "/**",
-      },
-    ],
+    unoptimized: true,
   },
-
+  basePath: "/sahyadri-steel-studio",
   allowedDevOrigins: ["192.168.0.164"],
 };
- 
+
 export default nextConfig;
