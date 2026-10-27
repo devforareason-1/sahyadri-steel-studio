@@ -15,66 +15,66 @@ X,
 const WHATSAPP_NUMBER = "916362689220"; 
 
 const services = [
-{
-number: "01",
-title: "Modular Kitchens",
-description:
-"Thoughtfully planned kitchens where refined materials meet everyday functionality.",
-image:
-"https://placehold.co/1000x1150/E5DED3/292A25?text=Modular+Kitchens",
-alt: "Contemporary residential interior with warm natural finishes",
-href: "/services/modular-kitchens",
-},
-{
-number: "02",
-title: "Wardrobes & Storage",
-description:
-"Purpose-built storage solutions designed around your space and lifestyle.",
-image:
-"https://placehold.co/1000x1150/D9D2C7/292A25?text=Wardrobes+%26+Storage",
-alt: "Contemporary interior with coordinated furniture and finishes",
-href: "/services/wardrobes",
-},
-{
-number: "03",
-title: "Interior Upgrades",
-description:
-"Considered improvements that bring a fresh perspective to existing spaces.",
-image:
-"https://placehold.co/1000x1150/EAE5DC/292A25?text=Interior+Upgrades",
-alt: "Modern interior featuring a warm, understated design",
-href: "/services/interior-upgrades",
-},
+  {
+    number: "01",
+    title: "Modular Kitchens",
+    description:
+      "Thoughtfully planned kitchens where refined materials meet everyday functionality.",
+    image:
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=85",
+    alt: "Contemporary residential interior with warm natural finishes",
+    href: "/services/modular-kitchens",
+  },
+  {
+    number: "02",
+    title: "Wardrobes & Storage",
+    description:
+      "Purpose-built storage solutions designed around your space and lifestyle.",
+    image:
+      "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1000&q=85",
+    alt: "Contemporary interior with coordinated furniture and finishes",
+    href: "/services/wardrobes",
+  },
+  {
+    number: "03",
+    title: "Interior Upgrades",
+    description:
+      "Considered improvements that bring a fresh perspective to existing spaces.",
+    image:
+      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1000&q=85",
+    alt: "Modern interior featuring a warm, understated design",
+    href: "/services/interior-upgrades",
+  },
 ];
 
 const projects = [
-{
-title: "The Quiet Residence",
-category: "Residential Interiors",
-location: "Project location to be confirmed",
-image:
-"https://placehold.co/1400x700/F0ECE5/292A25?text=The+Quiet+Residence",
-alt: "Contemporary residential architecture",
-size: "large",
-},
-{
-title: "Natural Living",
-category: "Living Room",
-location: "Project location to be confirmed",
-image:
-"https://placehold.co/1000x875/EAE5DC/292A25?text=Natural+Living",
-alt: "Warm contemporary living room",
-size: "small",
-},
-{
-title: "Everyday Elegance",
-category: "Interior Design",
-location: "Project location to be confirmed",
-image:
-"https://placehold.co/1000x875/D9D2C7/292A25?text=Everyday+Elegance",
-alt: "Minimal contemporary interior",
-size: "small",
-},
+  {
+    title: "The Quiet Residence",
+    category: "Residential Interiors",
+    location: "Project location to be confirmed",
+    image:
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=85",
+    alt: "Contemporary residential architecture",
+    size: "large",
+  },
+  {
+    title: "Natural Living",
+    category: "Living Room",
+    location: "Project location to be confirmed",
+    image:
+      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1000&q=85",
+    alt: "Warm contemporary living room",
+    size: "small",
+  },
+  {
+    title: "Everyday Elegance",
+    category: "Interior Design",
+    location: "Project location to be confirmed",
+    image:
+      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1000&q=85",
+    alt: "Minimal contemporary interior",
+    size: "small",
+  },
 ];
 
 const process = [
@@ -644,7 +644,7 @@ STEEL STUDIO
   <div className="section-rule">
     <div className="container-shell flex flex-col gap-3 py-5 text-[10px] text-[var(--muted)] sm:flex-row sm:items-center sm:justify-between">
       <p>© {new Date().getFullYear()} Sahyadri Steel Studio.</p>
-      <p>Designed with intention.</p>
+      <p>Designed for a reason 💖.</p>
     </div>
   </div>
 </footer>
