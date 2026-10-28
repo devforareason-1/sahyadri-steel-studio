@@ -6,9 +6,11 @@ import WardrobeExperience from "@/components/WardrobeExperience";
 import Vanities from "@/components/Vanities";
 import Projects from "@/components/Projects";
 import Partners from "@/components/Partners";
+import InstagramFeed from "@/components/InstagramFeed";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import { partners, testimonials } from "@/data/content";
+import { showInstagram } from "@/data/instagram";
 
 // Short chapters, so the enquiry is never far away: the studio, the kitchen,
 // the wardrobe, the vanity, the work, (partners and client words, once there
@@ -19,6 +21,7 @@ export default function Home() {
   let next = 6;
   const label = () => String(next++).padStart(2, "0");
   const partnersNumber = partners.length > 0 ? label() : "";
+  const instagramNumber = showInstagram ? label() : "";
   const testimonialsNumber = testimonials.length > 0 ? label() : "";
   const contactNumber = label();
 
@@ -32,6 +35,7 @@ export default function Home() {
       <Vanities />
       <Projects />
       <Partners number={partnersNumber} />
+      {showInstagram && <InstagramFeed number={instagramNumber} />}
       <Testimonials number={testimonialsNumber} />
       <Contact number={contactNumber} />
     </main>

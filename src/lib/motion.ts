@@ -1,6 +1,6 @@
 "use client";
 
-import { useMotionValue,motion } from "motion/react";
+import { useMotionValue } from "motion/react";
 import { useEffect } from "react";
 
 // Shared feel for scroll-linked motion: a soft spring, so movement trails

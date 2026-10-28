@@ -3,19 +3,10 @@
 import Link from "next/link";
 import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
-import { images, type Img } from "@/data/images";
 import { services } from "@/data/services";
 import Folio from "./Folio";
 import Photo from "./Photo";
 import Reveal from "./Reveal";
-
-function InlineImage({ image }: { image: Img }) {
-  return (
-    <span className="inline-image" aria-hidden="true">
-      <Photo image={image} sizes="120px" />
-    </span>
-  );
-}
 
 export default function Solutions() {
   const [active, setActive] = useState(0);
