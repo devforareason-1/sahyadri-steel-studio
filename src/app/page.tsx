@@ -5,6 +5,7 @@ import Projects from "@/components/Projects";
 import Process from "@/components/Process";
 import Studios from "@/components/Studios";
 import Contact from "@/components/Contact";
+import PhotoBand from "@/components/PhotoBand";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <About />
       <Services />
       <Projects />
+      <PhotoBand />
       <Process />
       <Studios />
       <Contact />

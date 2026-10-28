@@ -1,19 +1,22 @@
 import Image from "next/image";
 import { ArrowDown, ArrowRight, ArrowUpRight } from "lucide-react";
 import Reveal from "./Reveal";
+import Parallax from "./Parallax";
 
 export default function Hero() {
   return (
     <section className="container-shell pt-8 sm:pt-10">
       <div className="relative min-h-[600px] overflow-hidden bg-[#c6bcae] sm:min-h-[660px] lg:min-h-[700px]">
-        <Image
-          src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=2400&q=85"
-          alt="A warm, welcoming living room with natural light"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center"
-        />
+        <Parallax className="absolute inset-0" speed={0.12}>
+          <Image
+            src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=2400&q=85"
+            alt="A warm, welcoming living room with natural light"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+        </Parallax>
         <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/30 to-black/5" />
 
         <div className="relative z-10 flex min-h-[600px] flex-col justify-between p-7 text-white sm:min-h-[660px] sm:p-12 lg:min-h-[700px] lg:p-16">

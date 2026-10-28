@@ -6,6 +6,7 @@ export const site = {
   phone: "", // e.g. "+91 63626 89220"
   email: "",
   instagram: "", // e.g. "https://instagram.com/yourhandle"
+  formEndpoint: "https://script.google.com/macros/s/AKfycbwICyZcW_1KM8eMQ0oS_SZ2c1VsYBxZPXVId6-vXBFKa2A-p5nb90Z_Pl2MEy5fU3Wz/exec",
 };
 
 export type StudioLocation = {

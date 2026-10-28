@@ -105,7 +105,7 @@ export default function Footer() {
       </div>
 
       <div className="section-rule">
-        <div className="container-shell py-5 text-[11px] text-muted">
+        <div className="container-shell py-5 text-center text-[11px] text-muted">
           <p>
             © {new Date().getFullYear()} Sahyadri Steel Studio. All rights
             reserved.
