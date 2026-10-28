@@ -1,11 +1,13 @@
 import { ArrowRight } from "lucide-react";
 import { images } from "@/data/images";
 import Photo from "./Photo";
+import { HeroDrift, HeroLift } from "./ScrollMotion";
 
 export default function Hero() {
   return (
     <section
       data-hero
+      data-tone="dark"
       aria-labelledby="hero-title"
       className="on-dark relative bg-graphite text-ivory"
     >
@@ -13,15 +15,18 @@ export default function Hero() {
         {/* The photograph: a tall frame on the right that opens on load.
             On phones it sits on top and the headline overlaps its base. */}
         <div className="hero-frame relative h-[60svh] overflow-hidden min-h-[380px] lg:col-span-7 lg:col-start-6 lg:row-start-1 lg:h-auto">
-          <div className="hero-media absolute inset-0">
-            <Photo
-              image={images.kitchenWalnut}
-              sizes="(max-width: 1024px) 100vw, 60vw"
-              priority
-            />
-          </div>
+          {/* Drifts and slowly enlarges as the page scrolls away. */}
+          <HeroDrift className="absolute inset-0">
+            <div className="hero-media absolute inset-0">
+              <Photo
+                image={images.kitchenWalnut}
+                sizes="(max-width: 1024px) 100vw, 60vw"
+                priority
+              />
+            </div>
+          </HeroDrift>
           {/* Keeps the header legible, and melts the image into the page. */}
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,20,18,.6)_0%,rgba(20,20,18,0)_26%,rgba(20,20,18,0)_55%,rgba(28,28,26,1)_100%)] lg:bg-[linear-gradient(180deg,rgba(20,20,18,.55)_0%,rgba(20,20,18,0)_22%),linear-gradient(90deg,rgba(28,28,26,.85)_0%,rgba(28,28,26,0)_38%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--ink-rgb)/.6)_0%,rgb(var(--ink-rgb)/0)_26%,rgb(var(--ink-rgb)/0)_55%,rgb(var(--ink-rgb))_100%)] lg:bg-[linear-gradient(180deg,rgb(var(--ink-rgb)/.55)_0%,rgb(var(--ink-rgb)/0)_22%),linear-gradient(90deg,rgb(var(--ink-rgb)/.85)_0%,rgb(var(--ink-rgb)/0)_38%)]" />
 
           <p className="absolute right-[var(--gutter)] top-[calc(var(--header-height)+20px)] hidden text-[11px] tracking-[0.08em] text-ivory/70 lg:block">
             Walnut, stone &amp; steel · concept visual
@@ -29,7 +34,7 @@ export default function Hero() {
 
         </div>
 
-        <div className="relative z-10 -mt-28 flex flex-col pb-10 pl-[var(--gutter)] pr-[var(--gutter)] sm:pb-14 lg:col-span-7 lg:col-start-1 lg:row-start-1 lg:mt-0 lg:pr-0 lg:pt-[calc(var(--header-height)+clamp(48px,9vh,112px))]">
+        <HeroLift className="relative z-10 -mt-28 flex flex-col pb-10 pl-[var(--gutter)] pr-[var(--gutter)] sm:pb-14 lg:col-span-7 lg:col-start-1 lg:row-start-1 lg:mt-0 lg:pr-0 lg:pt-[calc(var(--header-height)+clamp(48px,9vh,112px))]">
           <p
             className="eyebrow fade-up text-champagne"
             style={{ animationDelay: "700ms" }}
@@ -89,7 +94,7 @@ export default function Hero() {
               </span>
             </a>
           </div>
-        </div>
+        </HeroLift>
       </div>
 
       {/* Detail inset that hangs over the edge into the next section. */}

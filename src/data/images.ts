@@ -40,10 +40,6 @@ export const images = {
     src: unsplash("photo-1764526624453-db32c24eca55"),
     alt: "Bright kitchen with a wood-veneer tall unit and pale stone worktops",
   },
-  kitchenMarble: {
-    src: unsplash("photo-1755316388093-faff473ffdfb"),
-    alt: "Light kitchen with a marble waterfall island and warm wood shelving",
-  },
   steelTap: {
     src: unsplash("photo-1784790601912-b30717b805b8"),
     alt: "Brushed-steel tap running into a double sink, with a warm strip of light behind",
@@ -76,10 +72,6 @@ export const images = {
     src: unsplash("photo-1784012980517-005c26585344"),
     alt: "Minimal study with a fluted walnut desk and a linear pendant",
   },
-  joineryDetail: {
-    src: unsplash("photo-1684846416931-dddf8cbfc2ad"),
-    alt: "Close view of curved wooden joinery against a white wall",
-  },
   livingWood: {
     src: unsplash("photo-1774200981075-a728eaaa3824"),
     alt: "Open living and kitchen space with warm wood joinery",
@@ -87,9 +79,5 @@ export const images = {
   interiorMinimal: {
     src: unsplash("photo-1600607687939-ce8a6c25118c"),
     alt: "Contemporary living space with a timber feature wall",
-  },
-  residence: {
-    src: unsplash("photo-1600585154340-be6161a56a0c"),
-    alt: "Contemporary home at dusk with warm light inside",
   },
 } satisfies Record<string, Img>;

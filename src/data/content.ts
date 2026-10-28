@@ -1,47 +1,3 @@
-import { images, type Img } from "./images";
-
-/* ── Craftsmanship features ─────────────────────────────────────────── */
-
-export type Feature = { title: string; text: string; image: Img };
-
-export const features: Feature[] = [
-  {
-    title: "Smart internal storage",
-    text: "Pull-outs, inner drawers and tall units planned around what you actually keep, so everything has a home.",
-    image: images.kitchenOak,
-  },
-  {
-    title: "Efficient use of space",
-    text: "Corners, lofts and awkward walls turned into usable storage without crowding the room.",
-    image: images.kitchenFluted,
-  },
-  {
-    title: "Practical drawer organisation",
-    text: "Drawer depths and dividers sized for cutlery, utensils, folded clothes or accessories.",
-    image: images.drawerDetail,
-  },
-  {
-    title: "Material and finish options",
-    text: "Steel, wood textures, matte and stone-look surfaces, combined to suit your home and how you use it.",
-    image: images.kitchenGraphite,
-  },
-  {
-    title: "Durable construction",
-    text: "Materials and hardware chosen with daily use in mind, so the space keeps working as well as it looks.",
-    image: images.steelTap,
-  },
-  {
-    title: "Clean detailing",
-    text: "Aligned gaps, tidy edges and considered handles. The details you notice less, because they are right.",
-    image: images.joineryDetail,
-  },
-  {
-    title: "Customised configurations",
-    text: "No standard boxes forced into your room. Each layout is drawn for your walls and your routine.",
-    image: images.bedroomJoinery,
-  },
-];
-
 /* ── Materials and finishes ─────────────────────────────────────────── */
 
 const svg = (markup: string) =>
@@ -179,35 +135,6 @@ export const finishGroups: {
   },
 ];
 
-/* ── Why Sahyadri ───────────────────────────────────────────────────── */
-
-export const principles = [
-  {
-    title: "Thoughtful design",
-    text: "Every layout starts with how you live, not with a catalogue.",
-  },
-  {
-    title: "Practical functionality",
-    text: "Drawers, shelves and clearances planned for real, everyday use.",
-  },
-  {
-    title: "Attention to detail",
-    text: "Alignments, edges and junctions considered as carefully as the big picture.",
-  },
-  {
-    title: "Customised solutions",
-    text: "Designed for your walls, your storage and your routine.",
-  },
-  {
-    title: "Material-conscious",
-    text: "Steel, wood and stone-look surfaces chosen for where they work best.",
-  },
-  {
-    title: "Beauty that works",
-    text: "Spaces that look composed on day one and stay easy to live with.",
-  },
-];
-
 /* ── Testimonials ───────────────────────────────────────────────────── */
 
 export type Testimonial = {
@@ -225,15 +152,3 @@ export const testimonials: Testimonial[] = [];
 // Add partner names (and logos in /public/images/partners) once the
 // partnership and permission to display them are confirmed.
 export const partners: { name: string; logo?: string }[] = [];
-
-/* ── Instagram preview ──────────────────────────────────────────────── */
-
-// Preview tiles only, not a live feed. Replace with your own post images.
-export const instagramTiles: Img[] = [
-  images.steelTap,
-  images.walkIn,
-  images.kitchenGraphite,
-  images.studyNook,
-  images.drawerDetail,
-  images.kitchenMarble,
-];

@@ -1,5 +1,5 @@
 import { Mail, Phone } from "lucide-react";
-import { site, telLink, whatsappUrl } from "@/data/site";
+import { locations, site, telLink, whatsappLink, whatsappUrl } from "@/data/site";
 import EnquiryForm from "./EnquiryForm";
 import Folio from "./Folio";
 import Reveal from "./Reveal";
@@ -11,16 +11,17 @@ const steps = [
   "We plan a consultation and prepare a clear quotation.",
 ];
 
-export default function Contact() {
+export default function Contact({ number }: { number: string }) {
   return (
     <section
       id="contact"
+      data-tone="sand"
       aria-labelledby="contact-title"
       className="section grain bg-travertine"
     >
       <div className="shell">
         <Reveal>
-          <Folio number="11" label="Enquiries & quotations" aside="Shivamogga · Udupi" />
+          <Folio number={number} label="Enquiries & quotations" aside="Shivamogga · Udupi" />
         </Reveal>
       </div>
       <div className="shell mt-14 grid gap-14 lg:mt-20 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
@@ -72,6 +73,45 @@ export default function Contact() {
                 </li>
               ))}
             </ol>
+
+            {/* The two studios, in brief. */}
+            <div id="studios" className="mt-14 grid gap-10 sm:grid-cols-2 sm:gap-8">
+              {locations.map((loc) => (
+                <div key={loc.slug}>
+                  <p className="caption uppercase tracking-[0.2em]">{loc.coordinates}</p>
+                  <h3 className="display mt-3 text-[2.4rem]">{loc.city}</h3>
+                  <p className="mt-3 text-[14px] leading-6 text-muted">
+                    {loc.address || "Address to be announced"}
+                    {loc.hours && (
+                      <>
+                        <br />
+                        {loc.hours}
+                      </>
+                    )}
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3">
+                    <a
+                      href={whatsappLink(
+                        `Hello Sahyadri Steel Studio, I would like to enquire about a project with your ${loc.city} studio.`,
+                        loc.whatsapp || undefined
+                      )}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link-line"
+                    >
+                      <WhatsAppIcon size={14} />
+                      WhatsApp
+                    </a>
+                    {loc.phone && (
+                      <a href={telLink(loc.phone)} className="link-line">
+                        <Phone size={14} />
+                        Call
+                      </a>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </Reveal>
 

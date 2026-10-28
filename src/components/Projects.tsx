@@ -64,13 +64,14 @@ export default function Projects() {
   return (
     <section
       id="projects"
+      data-tone="dark"
       aria-labelledby="projects-title"
       className="section on-dark bg-graphite text-ivory"
     >
       <div className="shell">
         <SectionHeading
           dark
-          number="05"
+          number="04"
           id="projects-title"
           eyebrow="Selected work"
           aside="Concept visuals"

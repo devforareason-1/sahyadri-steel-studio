@@ -1,33 +1,27 @@
 import Hero from "@/components/Hero";
 import Solutions from "@/components/Solutions";
 import Kitchens from "@/components/Kitchens";
-import Materials from "@/components/Materials";
 import WardrobeExperience from "@/components/WardrobeExperience";
 import Projects from "@/components/Projects";
-import Craftsmanship from "@/components/Craftsmanship";
-import About from "@/components/About";
 import Testimonials from "@/components/Testimonials";
-import Studios from "@/components/Studios";
-import Instagram from "@/components/Instagram";
 import Contact from "@/components/Contact";
+import { testimonials } from "@/data/content";
 
-// Read as chapters: the studio, the kitchen and its materials, the
-// wardrobe, the work, the craft, the ethos, and how to begin.
+// Six short chapters, so the enquiry is never far away: the studio, the
+// kitchen, the wardrobe, the work, (client words, once there are some) and
+// how to begin. The interactive planners live on the solution pages.
 export default function Home() {
+  const hasReviews = testimonials.length > 0;
+
   return (
     <main>
       <Hero />
       <Solutions />
       <Kitchens />
-      <Materials />
       <WardrobeExperience />
       <Projects />
-      <Craftsmanship />
-      <About />
-      <Testimonials />
-      <Studios />
-      <Instagram />
-      <Contact />
+      <Testimonials number="05" />
+      <Contact number={hasReviews ? "06" : "05"} />
     </main>
   );
 }

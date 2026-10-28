@@ -3,6 +3,8 @@ import { Cormorant_Garamond, Manrope } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import MotionProvider from "@/components/MotionProvider";
+import ToneScroller from "@/components/ToneScroller";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { site } from "@/data/site";
 
@@ -54,7 +56,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#1c1c1a",
+  themeColor: "#1a2520",
 };
 
 export default function RootLayout({
@@ -68,7 +70,7 @@ export default function RootLayout({
     >
       <body className="flex min-h-screen flex-col">
         <noscript>
-          <style>{`.reveal{opacity:1;transform:none}.reveal-media{clip-path:none}.reveal-media img{scale:1}`}</style>
+          <style>{`[data-reveal]{opacity:1!important;transform:none!important;filter:none!important;clip-path:none!important}`}</style>
         </noscript>
         <a
           href="#main"
@@ -76,12 +78,15 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <Header />
-        <div id="main" className="flex-1">
-          {children}
-        </div>
-        <Footer />
-        <WhatsAppButton />
+        <MotionProvider>
+          <Header />
+          <div id="main" className="flex-1">
+            {children}
+          </div>
+          <Footer />
+          <WhatsAppButton />
+          <ToneScroller />
+        </MotionProvider>
       </body>
     </html>
   );

@@ -23,6 +23,7 @@ export default function Solutions() {
   return (
     <section
       id="solutions"
+      data-tone="light"
       aria-labelledby="solutions-title"
       className="section"
     >
@@ -32,7 +33,7 @@ export default function Solutions() {
         </Reveal>
 
         {/* Manifesto */}
-        <div className="mt-14 grid gap-10 lg:mt-20 lg:grid-cols-12 lg:gap-0">
+        <div id="about" className="mt-14 grid gap-10 lg:mt-20 lg:grid-cols-12 lg:gap-0">
           <Reveal className="lg:col-span-3">
             <p className="max-w-[260px] text-[13px] leading-6 text-muted">
               A design studio for kitchens, wardrobes and stainless steel,

@@ -94,18 +94,19 @@ function Preview({ pick }: { pick: Selection }) {
   );
 }
 
-export default function Materials() {
+export default function Materials({ number }: { number: string }) {
   const [pick, setPick] = useState<Selection>(presets[0].pick);
 
   return (
     <section
       id="materials"
+      data-tone="stone"
       aria-labelledby="materials-title"
       className="section bg-ivory-deep"
     >
       <div className="shell">
         <SectionHeading
-          number="03"
+          number={number}
           aside="Steel · Wood · Stone · Matte"
           id="materials-title"
           eyebrow="Materials & finishes"

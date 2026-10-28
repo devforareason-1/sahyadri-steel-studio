@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
     // responsive srcsets from the image CDN (see src/lib/image-loader.ts).
     loader: "custom",
     loaderFile: "./src/lib/image-loader.ts",
+    qualities: [75, 80],
   },
   allowedDevOrigins: ["192.168.0.164"],
 };

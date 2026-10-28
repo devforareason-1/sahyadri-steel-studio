@@ -1,45 +1,55 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { motion } from "motion/react";
+import type { ReactNode } from "react";
+
+const ease = [0.2, 0.7, 0.2, 1] as const;
+
+// "fade" lifts content in from a soft blur; "media" unveils a photograph
+// like a blind. Both play once, as the element enters the screen. Visitors
+// who prefer reduced motion get the fade without movement (MotionProvider).
+const variants = {
+  fade: {
+    hidden: { opacity: 0, y: 28, filter: "blur(6px)" },
+    shown: { opacity: 1, y: 0, filter: "blur(0px)", transitionEnd: { filter: "none" } },
+  },
+  media: {
+    // The final inset sits outside the box so focus rings are not clipped.
+    hidden: { clipPath: "inset(18% -16px -16px -16px)" },
+    shown: { clipPath: "inset(-16px -16px -16px -16px)" },
+  },
+};
+
+const tags = { div: motion.div, li: motion.li, article: motion.article };
 
 export default function Reveal({
   children,
   className = "",
   delay = 0,
-  as: Tag = "div",
+  as = "div",
   variant = "fade",
 }: {
   children: ReactNode;
   className?: string;
   delay?: number;
   as?: "div" | "li" | "article";
-  // "media" unveils a photograph instead of fading it in.
   variant?: "fade" | "media";
 }) {
-  const ref = useRef<HTMLDivElement & HTMLLIElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const Tag = tags[as];
 
   return (
     <Tag
-      ref={ref}
-      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
-      className={`${variant === "media" ? "reveal-media" : "reveal"} ${visible ? "is-visible" : ""} ${className}`}
+      data-reveal=""
+      className={className}
+      variants={variants[variant]}
+      initial="hidden"
+      whileInView="shown"
+      viewport={{ once: true, margin: "0px 0px -40px 0px", amount: 0.08 }}
+      transition={{
+        duration: variant === "media" ? 1.5 : 1.1,
+        ease: variant === "media" ? [0.65, 0, 0.2, 1] : ease,
+        delay: delay / 1000,
+      }}
     >
       {children}
     </Tag>

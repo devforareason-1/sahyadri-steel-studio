@@ -31,7 +31,7 @@ export const projects: Project[] = [
     label: "Modular kitchen",
     description:
       "An island-led layout with continuous storage, a stone-look worktop and soft, layered lighting.",
-    image: images.kitchenMarble,
+    image: images.kitchenWalnut,
     completed: false,
   },
   {

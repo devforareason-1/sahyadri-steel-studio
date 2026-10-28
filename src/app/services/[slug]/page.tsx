@@ -4,8 +4,10 @@ import type { Metadata } from "next";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { services } from "@/data/services";
 import { whatsappLink } from "@/data/site";
+import Materials from "@/components/Materials";
 import Photo from "@/components/Photo";
 import Reveal from "@/components/Reveal";
+import WardrobePlanner from "@/components/WardrobePlanner";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
 
 export const dynamicParams = false;
@@ -33,18 +35,22 @@ export default async function ServicePage({ params }: Props) {
   if (index === -1) notFound();
   const service = services[index];
   const next = services[(index + 1) % services.length];
+  // Kitchens and wardrobes carry an interactive tool between the approach
+  // and the gallery.
+  const hasTool = service.slug === "modular-kitchens" || service.slug === "designer-wardrobes";
 
   return (
     <main>
       <section
         data-hero
+        data-tone="dark"
         aria-labelledby="service-title"
         className="on-dark relative flex min-h-[max(560px,88svh)] items-end overflow-hidden bg-graphite text-ivory"
       >
         <div className="hero-media absolute inset-0">
           <Photo image={service.image} sizes="100vw" priority />
         </div>
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,20,18,.55),rgba(20,20,18,.1)_35%,rgba(20,20,18,.8))]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--ink-rgb)/.55),rgb(var(--ink-rgb)/.1)_35%,rgb(var(--ink-rgb)/.8))]" />
         <div aria-hidden="true" className="hero-curtain absolute inset-0 bg-graphite" />
 
         <div className="shell relative pb-14 pt-[calc(var(--header-height)+40px)] sm:pb-20">
@@ -79,7 +85,7 @@ export default async function ServicePage({ params }: Props) {
         </div>
       </section>
 
-      <section className="section">
+      <section data-tone="light" className="section">
         <div className="shell grid gap-14 lg:grid-cols-12 lg:gap-0">
           <Reveal className="lg:col-span-5">
             <p className="eyebrow text-champagne-ink">Our approach</p>
@@ -118,7 +124,41 @@ export default async function ServicePage({ params }: Props) {
         </div>
       </section>
 
-      <section aria-label="Concept imagery" className="pb-24 sm:pb-32">
+      {service.slug === "modular-kitchens" && <Materials number="02" />}
+
+      {service.slug === "designer-wardrobes" && (
+        <section
+          data-tone="stone"
+          aria-labelledby="planner-title"
+          className="section-tight bg-ivory-deep"
+        >
+          <div className="shell">
+            <Reveal className="grid gap-8 pb-14 lg:grid-cols-12 lg:gap-0">
+              <h2 id="planner-title" className="display h-md max-w-[560px] lg:col-span-6">
+                Designed from the inside out, around the way you{" "}
+                <em>dress each morning.</em>
+              </h2>
+              <div className="space-y-4 text-[15px] leading-7 text-muted lg:col-span-5 lg:col-start-8">
+                <p>
+                  We start with what you own: how much hangs, how much folds,
+                  what needs a drawer. Then we plan each bay to match, using the
+                  full height of the wall so nothing ends up on a chair.
+                </p>
+                <p>Explore a sample layout below. Select a zone to see how it works.</p>
+              </div>
+            </Reveal>
+            <Reveal>
+              <WardrobePlanner />
+            </Reveal>
+          </div>
+        </section>
+      )}
+
+      <section
+        data-tone="light"
+        aria-label="Concept imagery"
+        className={hasTool ? "section" : "pb-24 sm:pb-32"}
+      >
         <div className="shell grid gap-6 md:grid-cols-12">
           {service.gallery.map((img, i) => (
             <Reveal
@@ -141,7 +181,7 @@ export default async function ServicePage({ params }: Props) {
         </p>
       </section>
 
-      <section className="on-dark bg-graphite text-ivory">
+      <section data-tone="dark" className="on-dark bg-graphite text-ivory">
         <Link
           href={`/services/${next.slug}`}
           className="group shell flex flex-col gap-6 py-16 sm:flex-row sm:items-end sm:justify-between sm:py-24"

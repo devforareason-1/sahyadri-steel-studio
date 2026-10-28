@@ -48,7 +48,8 @@ export default function Header() {
     <header
       // No backdrop-filter while the menu is open: it would become the
       // containing block for the fixed menu panel and collapse it.
-      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,color,border-color] duration-500 ${
+      data-solid={transparent || menuOpen ? undefined : ""}
+      className={`site-header fixed inset-x-0 top-0 z-50 ${
         transparent
           ? "on-dark border-b border-transparent text-ivory"
           : menuOpen
@@ -87,11 +88,12 @@ export default function Header() {
         <div className="relative z-10 flex items-center gap-3">
           <Link
             href="/#contact"
-            className={`btn btn-sm hidden sm:inline-flex ${
+            className={`btn btn-sm px-4 sm:px-[18px] ${
               transparent ? "btn-outline-light" : "btn-dark"
             }`}
           >
-            Request a Quote
+            <span className="sm:hidden">Quote</span>
+            <span className="hidden sm:inline">Request a Quote</span>
           </Link>
 
           <button
@@ -101,7 +103,7 @@ export default function Header() {
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             onClick={() => setMenuOpen((open) => !open)}
-            className={`flex h-11 w-11 items-center justify-center border transition-colors xl:hidden ${
+            className={`menu-toggle flex h-11 w-11 items-center justify-center border transition-colors xl:hidden ${
               transparent ? "border-ivory/40" : "border-line-strong"
             }`}
           >
