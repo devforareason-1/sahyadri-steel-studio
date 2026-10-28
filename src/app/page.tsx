@@ -1,22 +1,28 @@
 import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Services from "@/components/Services";
+import Solutions from "@/components/Solutions";
 import Projects from "@/components/Projects";
-import Process from "@/components/Process";
+import WardrobeExperience from "@/components/WardrobeExperience";
+import Craftsmanship from "@/components/Craftsmanship";
+import Materials from "@/components/Materials";
+import About from "@/components/About";
+import Testimonials from "@/components/Testimonials";
 import Studios from "@/components/Studios";
+import Instagram from "@/components/Instagram";
 import Contact from "@/components/Contact";
-import PhotoBand from "@/components/PhotoBand";
 
 export default function Home() {
   return (
     <main>
       <Hero />
-      <About />
-      <Services />
+      <Solutions />
       <Projects />
-      <PhotoBand />
-      <Process />
+      <WardrobeExperience />
+      <Craftsmanship />
+      <Materials />
+      <About />
+      <Testimonials />
       <Studios />
+      <Instagram />
       <Contact />
     </main>
   );

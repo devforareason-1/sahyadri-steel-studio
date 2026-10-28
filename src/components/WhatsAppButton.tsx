@@ -1,22 +1,40 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { whatsappUrl } from "@/data/site";
 import WhatsAppIcon from "./WhatsAppIcon";
 
 export default function WhatsAppButton() {
-  const [hidden, setHidden] = useState(false);
+  const pathname = usePathname();
+  const [nearForm, setNearForm] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
 
+  // Stay out of the way on the first screen and beside the enquiry form,
+  // where WhatsApp is already offered.
   useEffect(() => {
+    const hasHero = Boolean(document.querySelector("[data-hero]"));
+    const onScroll = () =>
+      setPastHero(!hasHero || window.scrollY > window.innerHeight * 0.5);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
     const target = document.getElementById("contact");
-    if (!target) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setHidden(entry.isIntersecting),
-      { threshold: 0.05 }
-    );
-    observer.observe(target);
-    return () => observer.disconnect();
-  }, []);
+    const observer = target
+      ? new IntersectionObserver(([entry]) => setNearForm(entry.isIntersecting), {
+          threshold: 0.05,
+        })
+      : null;
+    if (target) observer?.observe(target);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      observer?.disconnect();
+      setNearForm(false);
+    };
+  }, [pathname]);
+
+  const hidden = nearForm || !pastHero;
 
   return (
     <a
@@ -24,12 +42,15 @@ export default function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with us on WhatsApp"
-      className={`fixed bottom-4 right-4 z-40 flex h-12 items-center justify-center gap-3 rounded-full bg-[#1fa855] px-3.5 text-white shadow-lg transition-all duration-300 hover:scale-105 md:bottom-5 md:right-5 md:h-14 md:px-6 ${
-        hidden ? "pointer-events-none translate-y-4 opacity-0" : ""
+      tabIndex={hidden ? -1 : undefined}
+      className={`group fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-4 z-40 flex h-14 items-center gap-3 rounded-full bg-[#1f7a4a] pl-4 pr-4 text-white shadow-[0_10px_30px_-8px_rgba(0,0,0,.45)] transition-[opacity,transform,background-color] duration-500 hover:bg-[#17603a] md:bottom-6 md:right-6 md:pr-6 ${
+        hidden ? "pointer-events-none translate-y-6 opacity-0" : ""
       }`}
     >
       <WhatsAppIcon size={24} />
-      <span className="hidden text-sm font-medium md:inline">Chat with us</span>
+      <span className="hidden text-[13px] font-semibold tracking-[0.04em] md:inline">
+        Chat with us
+      </span>
     </a>
   );
 }

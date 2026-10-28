@@ -1,55 +1,85 @@
-import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Cormorant_Garamond, Manrope } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { site } from "@/data/site";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const display = Cormorant_Garamond({
+  variable: "--font-display",
   subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  style: ["normal", "italic"],
+  display: "swap",
 });
+
+const body = Manrope({
+  variable: "--font-body",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const title =
+  "Sahyadri Steel Studio | Modular Kitchens, Wardrobes & Steel Interiors in Shivamogga and Udupi";
+const description =
+  "Thoughtfully designed modular kitchens, wardrobes and bespoke stainless-steel interiors for modern living. Studios in Shivamogga and Udupi, Karnataka.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url + "/"),
   title: {
-    default: "Sahyadri Steel Studio | Interior Designers in Shimoga & Udupi",
+    default: title,
     template: "%s | Sahyadri Steel Studio",
   },
-  description:
-    "Modular kitchens, wardrobes and interior upgrades for homes in Shimoga and Udupi, Karnataka. Planned with you, built with care.",
+  description,
   keywords: [
-    "interior designer in Shimoga",
-    "interior designer in Udupi",
-    "modular kitchen Shimoga",
+    "modular kitchen Shivamogga",
     "modular kitchen Udupi",
-    "wardrobe design Karnataka",
+    "wardrobe design Shivamogga",
+    "wardrobe design Udupi",
+    "stainless steel kitchen Karnataka",
+    "interior design Shivamogga",
+    "interior design Udupi",
     "Sahyadri Steel Studio",
   ],
   openGraph: {
     type: "website",
     locale: "en_IN",
     siteName: site.name,
-    title: "Sahyadri Steel Studio | Interior Designers in Shimoga & Udupi",
-    description:
-      "Modular kitchens, wardrobes and interior upgrades in Shimoga and Udupi.",
+    title,
+    description,
   },
   // TEMPORARY: remove this line at launch, once real photos and contact details are in.
   robots: { index: false, follow: false },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#1c1c1a",
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={`${geistSans.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col">
+    <html
+      lang="en-IN"
+      data-scroll-behavior="smooth"
+      className={`${display.variable} ${body.variable} antialiased`}
+    >
+      <body className="flex min-h-screen flex-col">
         <noscript>
           <style>{`.reveal{opacity:1;transform:none}`}</style>
         </noscript>
+        <a
+          href="#main"
+          className="sr-only z-[100] bg-graphite px-5 py-3 text-xs text-ivory focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+        >
+          Skip to content
+        </a>
         <Header />
-        <div className="flex-1">{children}</div>
+        <div id="main" className="flex-1">
+          {children}
+        </div>
         <Footer />
         <WhatsAppButton />
       </body>

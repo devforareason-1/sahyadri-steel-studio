@@ -1,37 +1,87 @@
+import { images, type Img } from "./images";
+
+export type ProjectCategory = "Kitchens" | "Wardrobes" | "Steel" | "Interiors";
+
 export type Project = {
+  slug: string;
   title: string;
-  category: string;
-  location: string; // leave "" for sample images
-  image: string;
-  alt: string;
+  category: ProjectCategory;
+  label: string;
+  description: string;
+  image: Img;
+  // Set true once the image shows a real, completed Sahyadri project.
+  // While false the gallery labels it as a concept visual.
+  completed: boolean;
 };
 
-// Set to false once these are replaced with the studio's own project photos.
-export const usingSamplePhotos = true;
+export const projectCategories: ProjectCategory[] = [
+  "Kitchens",
+  "Wardrobes",
+  "Steel",
+  "Interiors",
+];
 
+// Concept visuals only. Do not add locations, clients or budgets until they
+// belong to a real project the studio has completed.
 export const projects: Project[] = [
   {
-    title: "The Quiet Residence",
-    category: "Residential Interiors",
-    location: "",
-    image:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=85",
-    alt: "Contemporary home interior with warm natural finishes",
+    slug: "contemporary-kitchen",
+    title: "The Contemporary Kitchen",
+    category: "Kitchens",
+    label: "Modular kitchen",
+    description:
+      "An island-led layout with continuous storage, a stone-look worktop and soft, layered lighting.",
+    image: images.kitchenIsland,
+    completed: false,
   },
   {
-    title: "Natural Living",
-    category: "Living Room",
-    location: "",
-    image:
-      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1000&q=85",
-    alt: "Warm, light-filled living room",
+    slug: "sliding-wardrobe",
+    title: "The Sliding Wardrobe",
+    category: "Wardrobes",
+    label: "Sliding-door wardrobe",
+    description:
+      "Full-height sliding fronts that keep the bedroom calm, with an interior planned bay by bay.",
+    image: images.wardrobeSliding,
+    completed: false,
   },
   {
-    title: "Everyday Elegance",
-    category: "Kitchen & Dining",
-    location: "",
-    image:
-      "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1000&q=85",
-    alt: "Minimal contemporary kitchen",
+    slug: "walk-in-wardrobe",
+    title: "The Walk-in Wardrobe",
+    category: "Wardrobes",
+    label: "Walk-in wardrobe",
+    description:
+      "Open hanging, folded storage and drawers arranged as a quiet dressing room.",
+    image: images.walkIn,
+    completed: false,
+  },
+  {
+    slug: "steel-kitchen",
+    title: "The Steel Kitchen",
+    category: "Steel",
+    label: "Stainless-steel kitchen",
+    description:
+      "Brushed stainless steel paired with warm surfaces, for a kitchen that is precise and easy to keep.",
+    image: images.kitchenSteel,
+    completed: false,
+  },
+  {
+    slug: "utility-storage",
+    title: "The Utility Wall",
+    category: "Steel",
+    label: "Bespoke storage",
+    description:
+      "A floor-to-ceiling storage wall for pantry, cleaning and everyday essentials, all behind one clean face.",
+    image: images.interiorShelving,
+    completed: false,
+  },
+  {
+    slug: "minimal-interior",
+    title: "The Quiet Interior",
+    category: "Interiors",
+    label: "Warm minimal interior",
+    description:
+      "Natural textures, restrained joinery and soft light, brought together with a single material palette.",
+    image: images.interiorWarm,
+    completed: false,
   },
 ];
