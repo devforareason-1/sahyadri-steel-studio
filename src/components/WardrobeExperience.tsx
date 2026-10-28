@@ -23,7 +23,7 @@ export default function WardrobeExperience() {
         <div className="media relative aspect-[4/5] bg-graphite-soft sm:aspect-[5/4] lg:col-span-7 lg:aspect-auto">
           <Parallax className="absolute inset-0" speed={0.07}>
             <Photo
-              image={images.wardrobeSystem}
+              image={images.wardrobeGlass}
               sizes="(max-width: 1024px) 100vw, 75vw"
               className="object-[82%_50%]"
             />
@@ -34,12 +34,12 @@ export default function WardrobeExperience() {
           <Reveal>
             <Folio dark number="03" label="The wardrobe" />
             <h2 id="wardrobes-title" className="display h-xl mt-12 lg:mt-16">
-              Order, <em className="text-champagne">quietly built in.</em>
+              Order, <em className="text-champagne">behind glass.</em>
             </h2>
             <p className="mt-7 max-w-[420px] text-base leading-7 text-ivory/70">
-              A beautiful wardrobe is mostly invisible work: the right heights,
-              the right depths, and a place for everything you own. Sliding or
-              hinged, built-in or walk-in, planned bay by bay.
+              Glass shutters in slim steel profiles, lit from within, so you
+              see what you own and nothing swells through the monsoon. Sliding
+              or hinged, built-in or walk-in, planned bay by bay.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <a href="#contact" data-enquiry-project={wardrobes.enquiry} className="btn btn-light">
@@ -71,10 +71,10 @@ export default function WardrobeExperience() {
             </Link>
             <figure className="group">
               <div className="media media-zoom aspect-[3/4] bg-graphite-soft">
-                <Photo image={images.bedroomJoinery} sizes="(max-width: 1024px) 50vw, 20vw" />
+                <Photo image={images.mirrorWardrobe} sizes="(max-width: 1024px) 50vw, 20vw" />
               </div>
               <figcaption className="mt-3 text-[11px] tracking-[0.08em] text-ivory/50">
-                Bedroom joinery · concept visual
+                Mirror glass, black steel profile
               </figcaption>
             </figure>
           </Reveal>

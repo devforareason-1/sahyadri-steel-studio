@@ -10,25 +10,25 @@ type Selection = Record<(typeof finishGroups)[number]["key"], Finish>;
 
 const presets: { name: string; pick: Selection }[] = [
   {
+    name: "Steel & basalt",
+    pick: { fronts: finishes.steel, surface: finishes.basalt, hardware: finishes.hwSteel },
+  },
+  {
     name: "Graphite & travertine",
     pick: { fronts: finishes.graphite, surface: finishes.travertine, hardware: finishes.hwChampagne },
   },
   {
-    name: "Walnut & steel",
-    pick: { fronts: finishes.walnut, surface: finishes.steel, hardware: finishes.hwSteel },
-  },
-  {
-    name: "Linen & basalt",
-    pick: { fronts: finishes.linen, surface: finishes.basalt, hardware: finishes.hwBlack },
+    name: "Smoked glass & steel",
+    pick: { fronts: finishes.smoked, surface: finishes.steel, hardware: finishes.hwBlack },
   },
 ];
 
 const showcase = [
   finishes.steel,
   finishes.graphite,
-  finishes.walnut,
-  finishes.oak,
-  finishes.sand,
+  finishes.smoked,
+  finishes.fluted,
+  finishes.linen,
   finishes.travertine,
   finishes.basalt,
   finishes.hwChampagne,
@@ -107,12 +107,12 @@ export default function Materials({ number }: { number: string }) {
       <div className="shell">
         <SectionHeading
           number={number}
-          aside="Steel · Wood · Stone · Matte"
+          aside="Steel · Glass · Stone · Matte"
           id="materials-title"
           eyebrow="Materials & finishes"
           title={
             <>
-              Steel, wood and stone, <em>in balance.</em>
+              Steel, glass and stone, <em>in balance.</em>
             </>
           }
           intro="Combine fronts, surfaces and hardware to imagine the character of your space. We help you refine the palette in person, with physical samples."

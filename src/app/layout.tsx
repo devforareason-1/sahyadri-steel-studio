@@ -23,9 +23,9 @@ const body = Manrope({
 });
 
 const title =
-  "Sahyadri Steel Studio | Modular Kitchens, Wardrobes & Steel Interiors in Shivamogga and Udupi";
+  "Sahyadri Steel Studio | Stainless-Steel Kitchens, Wardrobes & Vanities in Shivamogga and Udupi";
 const description =
-  "Thoughtfully designed modular kitchens, wardrobes and bespoke stainless-steel interiors for modern living. Studios in Shivamogga and Udupi, Karnataka.";
+  "A women-led studio for stainless-steel kitchen accessories, glass-and-steel wardrobes and vanity units, with full-home interiors on request. No wood. Studios in Shivamogga and Udupi, Karnataka.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url + "/"),
@@ -35,11 +35,12 @@ export const metadata: Metadata = {
   },
   description,
   keywords: [
-    "modular kitchen Shivamogga",
-    "modular kitchen Udupi",
-    "wardrobe design Shivamogga",
-    "wardrobe design Udupi",
-    "stainless steel kitchen Karnataka",
+    "stainless steel kitchen Shivamogga",
+    "stainless steel kitchen Udupi",
+    "stainless steel kitchen accessories",
+    "glass wardrobe Shivamogga",
+    "steel wardrobe Udupi",
+    "stainless steel vanity unit",
     "interior design Shivamogga",
     "interior design Udupi",
     "Sahyadri Steel Studio",

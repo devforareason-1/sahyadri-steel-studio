@@ -36,16 +36,17 @@ export default function Solutions() {
         <div id="about" className="mt-14 grid gap-10 lg:mt-20 lg:grid-cols-12 lg:gap-0">
           <Reveal className="lg:col-span-3">
             <p className="max-w-[260px] text-[13px] leading-6 text-muted">
-              A design studio for kitchens, wardrobes and stainless steel,
-              working with homes across Karnataka&rsquo;s Malnad and coast.
+              A women-led studio for stainless-steel kitchens, wardrobes and
+              vanities, working with homes across Karnataka&rsquo;s Malnad and
+              coast. No wood, anywhere.
             </p>
           </Reveal>
           <Reveal delay={120} className="lg:col-span-9">
             <p className="display h-statement">
-              We design kitchens <InlineImage image={images.kitchenGraphite} />{" "}
-              wardrobes <InlineImage image={images.walkIn} /> and steel
-              interiors <InlineImage image={images.steelTap} /> that feel
-              composed on the first day,{" "}
+              We fit out <em className="text-champagne-ink">kitchens, {" "}</em>
+              <em className="text-champagne-ink">wardrobes</em>  and 
+              <em className="text-champagne-ink"> vanities</em>  in steel and
+              glass that feel composed on the first day,{" "}
               <em className="text-champagne-ink">
                 and stay easy to live with for years of ordinary mornings.
               </em>

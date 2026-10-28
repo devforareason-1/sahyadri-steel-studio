@@ -1,83 +1,95 @@
-// Every photograph on the site is defined here, so swapping concept imagery
-// for real project photos is a one-file change.
+// Every photograph on the site is defined here, so swapping in real project
+// photos is a one-file change.
 //
 // To use your own photos: put them in /public/images/... and replace the
 // value with a path such as "/images/projects/kitchen-01.jpg".
 //
-// Current images are royalty-free concept photography and renders from
-// Unsplash (free Unsplash License). They are illustrative only and do not
-// show Sahyadri Steel Studio projects. They were chosen for a warm,
-// architectural palette: walnut, stone, graphite and brushed steel.
+// The studio works in stainless steel and glass only, so no image here
+// should show wood fronts or wooden fittings. The photographs below are
+// royalty-free concept images from Unsplash (Unsplash License) and Pexels
+// (Pexels License), both free for commercial use without attribution. Each
+// was checked to show steel, glass, lacquer or matte metal rather than
+// wooden cabinetry. They are illustrative only and do not show Sahyadri
+// Steel Studio projects.
+//
+// An empty src shows a brushed-steel "photograph to come" plate with the
+// alt text, so the entries with src: "" double as a shot list for the
+// studio's own photography: Indian homes, real installations.
 
 const unsplash = (id: string) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop`;
+
+const pexels = (id: number) =>
+  `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg`;
 
 export type Img = { src: string; alt: string };
 
 export const images = {
   /* Kitchens */
-  kitchenWalnut: {
-    src: unsplash("photo-1783841193339-9a2ec13b4118"),
-    alt: "Walnut and stone kitchen with an island, integrated wine storage and a slim linear pendant",
-  },
-  kitchenIsland: {
-    src: unsplash("photo-1709747820806-057272eddd5d"),
-    alt: "Long kitchen island with a black stone top, walnut cabinetry and pendant lights",
+  kitchenSteel: {
+    src: unsplash("photo-1639405069836-f82aa6dcb900"),
+    alt: "Kitchen with metallic graphite cabinetry, built-in steel appliances and a stone island",
   },
   kitchenGraphite: {
     src: unsplash("photo-1600684388091-627109f3cd60"),
-    alt: "Matte black handle-less kitchen with a slim chimney and steel tap",
+    alt: "Matte graphite handle-less kitchen with a slim chimney and a steel sink and tap",
   },
-  kitchenSteel: {
-    src: unsplash("photo-1639405069836-f82aa6dcb900"),
-    alt: "Kitchen with graphite cabinetry, built-in steel appliances and stone worktops",
-  },
-  kitchenFluted: {
-    src: unsplash("photo-1751290741395-8fd9bc214f61"),
-    alt: "Fluted wood panelling with concealed doors beside a dark worktop and steel refrigerator",
-  },
-  kitchenOak: {
-    src: unsplash("photo-1764526624453-db32c24eca55"),
-    alt: "Bright kitchen with a wood-veneer tall unit and pale stone worktops",
+  kitchenGrey: {
+    src: unsplash("photo-1782290546855-03a5def1d265"),
+    alt: "Grey handle-less L-shaped kitchen with tall units and a lit white counter",
   },
   steelTap: {
     src: unsplash("photo-1784790601912-b30717b805b8"),
-    alt: "Brushed-steel tap running into a double sink, with a warm strip of light behind",
+    alt: "Brushed-steel tap running into a double sink",
   },
-  drawerDetail: {
-    src: unsplash("photo-1708426045412-08658fb82e1e"),
-    alt: "Open kitchen drawer with a fitted wooden cutlery organiser",
+  steelVessels: {
+    src: pexels(28726706),
+    alt: "Stacked stainless-steel cooking pots, lit warmly in a kitchen",
+  },
+  plateBasket: {
+    src: unsplash("photo-1676907229752-ac14b0152b92"),
+    alt: "Looking down into a deep drawer fitted with a metal plate, bowl and cup organiser",
+  },
+  cutleryDrawer: {
+    src: "",
+    alt: "Stainless-steel cutlery and spoon organiser in a top drawer",
+  },
+  tallUnit: {
+    src: "",
+    alt: "Stainless-steel tall pantry pull-out, open, with dabbas and oil bottles",
+  },
+  cornerUnit: {
+    src: "",
+    alt: "Stainless-steel corner carousel swung out of a base cabinet",
   },
 
-  /* Wardrobes and bedrooms */
-  wardrobeSystem: {
+  /* Wardrobes */
+  wardrobeGlass: {
     src: unsplash("photo-1672137233327-37b0c1049e77"),
-    alt: "Fitted wardrobe with glass-fronted hanging, lit shelves, a sliding panel and a dressing niche",
+    alt: "Fitted wardrobe with glass-fronted hanging, lit shelves, sliding panels and a dressing niche",
   },
-  walkIn: {
-    src: unsplash("photo-1785395407788-71b829c98bb4"),
-    alt: "Minimal walk-in wardrobe with wooden shelving and white shirts on a steel rail",
+  glassShutters: {
+    src: pexels(6492385),
+    alt: "Bedroom with a full-height glass wardrobe in slim metal profiles",
   },
-  bedroomJoinery: {
-    src: unsplash("photo-1757344454333-cc666252e596"),
-    alt: "Bedroom with walnut built-ins, lit display shelves and full-height wardrobe fronts",
-  },
-  bedroomCalm: {
-    src: unsplash("photo-1784653548504-c0928cd4737e"),
-    alt: "Soft, neutral bedroom with an upholstered bed and warm pendant light",
+  mirrorWardrobe: {
+    src: unsplash("photo-1722603929412-18920329dee3"),
+    alt: "Sliding mirror wardrobe in slim black profiles, open to show the hanging",
   },
 
-  /* Interiors and details */
-  studyNook: {
-    src: unsplash("photo-1784012980517-005c26585344"),
-    alt: "Minimal study with a fluted walnut desk and a linear pendant",
+  /* Vanities */
+  vanityGloss: {
+    src: pexels(6538892),
+    alt: "Wall-hung vanity with glossy dark fronts, a vessel basin and a long mirror",
   },
-  livingWood: {
-    src: unsplash("photo-1774200981075-a728eaaa3824"),
-    alt: "Open living and kitchen space with warm wood joinery",
+  vanityMarble: {
+    src: pexels(6301184),
+    alt: "Vanity with soft-grey drawers, a marble counter and a round mirror",
   },
-  interiorMinimal: {
-    src: unsplash("photo-1600607687939-ce8a6c25118c"),
-    alt: "Contemporary living space with a timber feature wall",
+
+  /* Full home */
+  fullHome: {
+    src: pexels(6492403),
+    alt: "Open-plan living and kitchen with glossy lacquered units",
   },
 } satisfies Record<string, Img>;

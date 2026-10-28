@@ -15,12 +15,15 @@ export default function Hero() {
         {/* The photograph: a tall frame on the right that opens on load.
             On phones it sits on top and the headline overlaps its base. */}
         <div className="hero-frame relative h-[60svh] overflow-hidden min-h-[380px] lg:col-span-7 lg:col-start-6 lg:row-start-1 lg:h-auto">
-          {/* Drifts and slowly enlarges as the page scrolls away. */}
-          <HeroDrift className="absolute inset-0">
+          {/* Parallax: the photograph lags behind the page as it scrolls. */}
+          <HeroDrift className="absolute inset-x-0 -top-[24%] h-[124%]">
             <div className="hero-media absolute inset-0">
+              {/* The frame is taller than the 3:2 photograph, so object-cover
+                  scales it by height: request width ≈ 1.5 × the layer's
+                  height (124% of the frame), not the frame's width. */}
               <Photo
-                image={images.kitchenWalnut}
-                sizes="(max-width: 1024px) 100vw, 60vw"
+                image={images.kitchenSteel}
+                sizes="(max-width: 1024px) max(100vw, 112vh), max(60vw, 186vh)"
                 priority
               />
             </div>
@@ -29,7 +32,7 @@ export default function Hero() {
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--ink-rgb)/.6)_0%,rgb(var(--ink-rgb)/0)_26%,rgb(var(--ink-rgb)/0)_55%,rgb(var(--ink-rgb))_100%)] lg:bg-[linear-gradient(180deg,rgb(var(--ink-rgb)/.55)_0%,rgb(var(--ink-rgb)/0)_22%),linear-gradient(90deg,rgb(var(--ink-rgb)/.85)_0%,rgb(var(--ink-rgb)/0)_38%)]" />
 
           <p className="absolute right-[var(--gutter)] top-[calc(var(--header-height)+20px)] hidden text-[11px] tracking-[0.08em] text-ivory/70 lg:block">
-            Walnut, stone &amp; steel · concept visual
+            Steel, glass &amp; stone · concept visual
           </p>
 
         </div>
@@ -39,7 +42,7 @@ export default function Hero() {
             className="eyebrow fade-up text-champagne"
             style={{ animationDelay: "700ms" }}
           >
-            Kitchens · Wardrobes · Steel
+            Kitchens · Wardrobes · Vanities
           </p>
 
           <h1 id="hero-title" className="display h-hero mt-6 lg:mt-9">
@@ -61,8 +64,9 @@ export default function Hero() {
               className="fade-up max-w-[420px] text-base leading-[1.75] text-ivory/75 sm:text-[1.05rem]"
               style={{ animationDelay: "1250ms" }}
             >
-              Kitchens, wardrobes and bespoke stainless-steel interiors,
-              drawn for your rooms and made to be lived in.
+              Stainless-steel kitchen accessories, glass-and-steel wardrobes
+              and vanity units for Indian homes. No wood, so nothing to swell,
+              warp or rot.
             </p>
 
             <div

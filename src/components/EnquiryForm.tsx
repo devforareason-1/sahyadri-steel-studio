@@ -7,12 +7,11 @@ import { locations, site, whatsappLink } from "@/data/site";
 import WhatsAppIcon from "./WhatsAppIcon";
 
 export const projectTypes = [
-  "Modular kitchen",
-  "Wardrobe",
-  "Walk-in wardrobe",
-  "Custom stainless-steel solution",
-  "Bespoke interior details",
-  "Complete home interiors",
+  "Stainless-steel kitchen",
+  "Kitchen accessories only",
+  "Glass & steel wardrobe",
+  "Vanity unit",
+  "Full-home interiors",
   "Not sure yet",
 ];
 
@@ -399,7 +398,7 @@ export default function EnquiryForm() {
             id="f-dimensions"
             rows={2}
             maxLength={600}
-            placeholder="e.g. L-shaped kitchen, roughly 10 ft × 8 ft, with a tall pantry unit"
+            placeholder="e.g. L-shaped kitchen, roughly 10 ft × 8 ft, with plate baskets and a tall pantry pull-out"
             value={values.dimensions}
             onChange={(e) => set("dimensions", e.target.value)}
             className={`${input} resize-y`}

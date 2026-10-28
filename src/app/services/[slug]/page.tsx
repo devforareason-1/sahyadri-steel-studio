@@ -37,7 +37,7 @@ export default async function ServicePage({ params }: Props) {
   const next = services[(index + 1) % services.length];
   // Kitchens and wardrobes carry an interactive tool between the approach
   // and the gallery.
-  const hasTool = service.slug === "modular-kitchens" || service.slug === "designer-wardrobes";
+  const hasTool = service.slug === "stainless-steel-kitchens" || service.slug === "glass-steel-wardrobes";
 
   return (
     <main>
@@ -124,9 +124,9 @@ export default async function ServicePage({ params }: Props) {
         </div>
       </section>
 
-      {service.slug === "modular-kitchens" && <Materials number="02" />}
+      {service.slug === "stainless-steel-kitchens" && <Materials number="02" />}
 
-      {service.slug === "designer-wardrobes" && (
+      {service.slug === "glass-steel-wardrobes" && (
         <section
           data-tone="stone"
           aria-labelledby="planner-title"
@@ -162,7 +162,7 @@ export default async function ServicePage({ params }: Props) {
         <div className="shell grid gap-6 md:grid-cols-12">
           {service.gallery.map((img, i) => (
             <Reveal
-              key={img.src}
+              key={img.alt}
               delay={i * 100}
               className={`group ${
                 i === 0 ? "md:col-span-7" : i === 1 ? "md:col-span-5 md:mt-24" : "md:col-span-8 md:col-start-3"
@@ -171,7 +171,7 @@ export default async function ServicePage({ params }: Props) {
               <div className={`media media-zoom ${i === 1 ? "aspect-[4/5]" : "aspect-[4/3]"} ${i === 2 ? "md:aspect-[16/9]" : ""}`}>
                 <Photo image={img} sizes="(max-width: 768px) 100vw, 60vw" />
               </div>
-              <p className="caption mt-3">{img.alt} · concept visual</p>
+              {img.src && <p className="caption mt-3">{img.alt} · concept visual</p>}
             </Reveal>
           ))}
         </div>

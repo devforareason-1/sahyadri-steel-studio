@@ -14,11 +14,14 @@ function useFirstScreen() {
   );
 }
 
-// Hero photograph: enlarges slightly and sinks as the page scrolls away.
+// Hero photograph: parallax. The layer is 24% taller than its frame and
+// starts lifted by that much, then sinks through it as the first screen
+// scrolls away, so the photograph moves at roughly 60% of the page's speed
+// and never shows an edge. 19.35% of the layer's own height is the 24%.
 export function HeroDrift({ children, className = "" }: { children: ReactNode; className?: string }) {
   const t = useFirstScreen();
-  const scale = useTransform(t, (v) => 1 + v * 0.08);
-  const y = useTransform(t, (v) => `${v * 6}vh`);
+  const scale = useTransform(t, (v) => 1 + v * 0.04);
+  const y = useTransform(t, (v) => `${v * 19.35}%`);
   return (
     <motion.div style={{ scale, y }} className={className}>
       {children}

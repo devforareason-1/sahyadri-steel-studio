@@ -21,13 +21,21 @@ export default function Photo({
 }) {
   const [failed, setFailed] = useState(false);
 
-  if (failed) {
+  // No src yet means the studio's own photo is still to come.
+  if (failed || !image.src) {
     return (
       <div className="media-fallback" role="img" aria-label={image.alt}>
         {/* Hero images carry their own text, so skip the caption there. */}
         {!priority && (
-          <span className="max-w-[260px] text-[11px] tracking-[0.08em]">
-            {image.alt}
+          <span className="max-w-[280px]">
+            {!image.src && (
+              <span className="mb-2 block text-[10px] font-semibold uppercase tracking-[0.24em] opacity-70">
+                Photograph to come
+              </span>
+            )}
+            <span className="block font-serif text-[15px] italic leading-snug sm:text-[17px]">
+              {image.alt}
+            </span>
           </span>
         )}
       </div>

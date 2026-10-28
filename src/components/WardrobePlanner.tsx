@@ -165,13 +165,13 @@ function Front() {
           <line x1={x + 50} y1="98" x2={x + 88} y2="98" stroke="#b39668" strokeWidth="2" />
         </g>
       ))}
-      {/* Sliding panels with a slim profile handle */}
-      <rect x="42" y="112" width="282" height="406" fill="#ddd2c1" />
-      <rect x="316" y="114" width="282" height="404" fill="#e6dccd" />
+      {/* Sliding glass panels in steel profiles, with a slim profile handle */}
+      <rect x="42" y="112" width="282" height="406" fill="#c9d1cf" fillOpacity=".75" />
+      <rect x="316" y="114" width="282" height="404" fill="#d6dcda" fillOpacity=".75" />
       <line x1="316" y1="114" x2="316" y2="518" strokeWidth="1.5" />
-      <rect x="306" y="250" width="4" height="140" fill="#b39668" stroke="none" />
-      <rect x="590" y="250" width="4" height="140" fill="#b39668" stroke="none" />
-      {/* Subtle grain lines on the panels */}
+      <rect x="306" y="250" width="4" height="140" fill="#9fa4a7" stroke="none" />
+      <rect x="590" y="250" width="4" height="140" fill="#9fa4a7" stroke="none" />
+      {/* Fluting on the glass */}
       {[90, 150, 210, 270].map((x) => (
         <line key={x} x1={x} y1="118" x2={x} y2="512" strokeWidth=".5" opacity=".35" />
       ))}

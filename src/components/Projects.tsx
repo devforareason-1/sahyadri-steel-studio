@@ -16,8 +16,8 @@ const filterLabels: Record<ProjectCategory | "All", string> = {
   All: "All",
   Kitchens: "Kitchens",
   Wardrobes: "Wardrobes",
-  Steel: "Stainless steel",
-  Interiors: "Interiors",
+  Vanities: "Vanities",
+  "Full home": "Full home",
 };
 
 // Editorial rhythm for the full set: a wide/narrow pair, a row of three,
@@ -71,7 +71,7 @@ export default function Projects() {
       <div className="shell">
         <SectionHeading
           dark
-          number="04"
+          number="05"
           id="projects-title"
           eyebrow="Selected work"
           aside="Concept visuals"
@@ -80,7 +80,7 @@ export default function Projects() {
               Spaces worth <em>coming home to.</em>
             </>
           }
-          intro="A curated set of concept visuals that show the direction of our work: calm kitchens, wardrobes with order built in, and stainless steel used with warmth."
+          intro="A curated set of concept visuals that show the direction of our work: steel kitchens organised drawer by drawer, glass wardrobes and vanities made for wet rooms."
         />
 
         <Reveal className="mt-14 flex flex-wrap items-center justify-between gap-6 border-y border-ivory/15 py-4">

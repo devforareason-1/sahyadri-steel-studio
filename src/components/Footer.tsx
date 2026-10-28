@@ -31,8 +31,9 @@ export default function Footer() {
               <Wordmark size="lg" />
             </Link>
             <p className="mt-8 max-w-[340px] text-[15px] leading-7 text-ivory/65">
-              Kitchens, wardrobes and bespoke stainless-steel interiors,
-              designed for the way you live. Shivamogga and Udupi, Karnataka.
+              A women-led studio for stainless-steel kitchens, glass-and-steel
+              wardrobes and vanity units, with full-home interiors on request.
+              Shivamogga and Udupi, Karnataka.
             </p>
             <div className="mt-8 flex gap-3">
               <a

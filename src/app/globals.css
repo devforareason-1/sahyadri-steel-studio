@@ -437,18 +437,34 @@
   }
 }
 
-/* Shown in place of a photograph that fails to load. */
+/* Shown in place of a photograph that is still to come or fails to load:
+   a brushed-steel plate with a fine engraved border, so an empty frame
+   still reads as part of the studio's material. */
 .media-fallback {
   position: absolute;
   inset: 0;
   display: flex;
   align-items: flex-end;
-  padding: 20px;
+  padding: clamp(22px, 3vw, 36px);
   background:
-    linear-gradient(rgb(var(--ink-rgb) / 0.05) 1px, transparent 1px) 0 0 / 48px 48px,
-    linear-gradient(90deg, rgb(var(--ink-rgb) / 0.05) 1px, transparent 1px) 0 0 / 48px 48px,
-    linear-gradient(160deg, var(--travertine), var(--sand));
-  color: rgb(var(--ink-rgb) / 0.6);
+    linear-gradient(120deg, rgb(255 255 255 / 0) 30%, rgb(255 255 255 / 0.22) 48%, rgb(255 255 255 / 0) 64%),
+    repeating-linear-gradient(90deg, rgb(255 255 255 / 0.09) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgb(0 0 0 / 0.035) 0 1px, transparent 1px 7px),
+    linear-gradient(115deg, #b9bdbf 0%, #9a9fa2 38%, #cfd2d3 58%, #a3a8ab 100%);
+  color: rgb(var(--ink-rgb) / 0.72);
+}
+
+.media-fallback::before {
+  position: absolute;
+  inset: clamp(10px, 1.2vw, 16px);
+  border: 1px solid rgb(255 255 255 / 0.38);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.04);
+  content: "";
+  pointer-events: none;
+}
+
+.media-fallback > * {
+  position: relative;
 }
 
 /* ── Motion ─────────────────────────────────────────────────────────── */
@@ -562,6 +578,16 @@
   animation: marquee 70s linear infinite;
 }
 
+/* Logos fade out at both edges, and the strip pauses under the pointer so
+   a logo can be read. */
+.partner-strip {
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+.partner-strip:hover .marquee {
+  animation-play-state: paused;
+}
+
 .hero-curtain {
   transform-origin: top;
   animation: hero-curtain 1400ms cubic-bezier(0.7, 0, 0.2, 1) 100ms both;
@@ -647,6 +673,17 @@ html.tone-live [data-tone] > * {
 html.tone-live[data-tone="dark"] [data-tone]:not([data-tone="dark"]) > *,
 html.tone-live:not([data-tone="dark"]) [data-tone="dark"] > * {
   opacity: 0.06;
+}
+
+/* Heroes stay solid: they leave the screen at the top while the next section
+   is already setting the tone, and a fading hero reads as an empty gap.
+   Specificity is raised on purpose to beat the fade rules above. */
+html.tone-live[data-tone] [data-hero][data-tone] {
+  background-color: var(--graphite);
+}
+
+html.tone-live[data-tone] [data-hero][data-tone] > * {
+  opacity: 1;
 }
 
 /* The solid header follows the tone underneath it. */

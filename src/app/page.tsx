@@ -1,27 +1,39 @@
 import Hero from "@/components/Hero";
 import Solutions from "@/components/Solutions";
+import SteelStandard from "@/components/SteelStandard";
 import Kitchens from "@/components/Kitchens";
 import WardrobeExperience from "@/components/WardrobeExperience";
+import Vanities from "@/components/Vanities";
 import Projects from "@/components/Projects";
+import Partners from "@/components/Partners";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
-import { testimonials } from "@/data/content";
+import { partners, testimonials } from "@/data/content";
 
-// Six short chapters, so the enquiry is never far away: the studio, the
-// kitchen, the wardrobe, the work, (client words, once there are some) and
-// how to begin. The interactive planners live on the solution pages.
+// Short chapters, so the enquiry is never far away: the studio, the kitchen,
+// the wardrobe, the vanity, the work, (partners and client words, once there
+// are some) and how to begin. The interactive planners live on the solution
+// pages.
 export default function Home() {
-  const hasReviews = testimonials.length > 0;
+  // Chapters 01–05 are fixed; the optional ones number on from there.
+  let next = 6;
+  const label = () => String(next++).padStart(2, "0");
+  const partnersNumber = partners.length > 0 ? label() : "";
+  const testimonialsNumber = testimonials.length > 0 ? label() : "";
+  const contactNumber = label();
 
   return (
     <main>
       <Hero />
       <Solutions />
+      <SteelStandard />
       <Kitchens />
       <WardrobeExperience />
+      <Vanities />
       <Projects />
-      <Testimonials number="05" />
-      <Contact number={hasReviews ? "06" : "05"} />
+      <Partners number={partnersNumber} />
+      <Testimonials number={testimonialsNumber} />
+      <Contact number={contactNumber} />
     </main>
   );
 }

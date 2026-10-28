@@ -14,137 +14,139 @@ export type Service = {
   whatsappMessage: string;
 };
 
+// Steel kitchens and their accessories lead: they are most of the studio's
+// work. Wardrobes and vanities follow; full homes are taken on as well.
 export const services: Service[] = [
   {
-    slug: "modular-kitchens",
+    slug: "stainless-steel-kitchens",
     number: "01",
-    title: "Modular Kitchens",
-    kicker: "Cook, gather, repeat",
+    title: "Stainless-Steel Kitchens",
+    kicker: "Steel, drawer by drawer",
     summary:
-      "Kitchens planned around the way you cook, with storage that keeps every surface calm.",
+      "Stainless-steel kitchen accessories and cabinets: baskets, pull-outs, tall units and corner systems, sized to your kitchen.",
     intro:
-      "A good kitchen is measured in steps saved and drawers that open exactly where you need them. We plan the layout around your routine, then refine the finishes until the room feels as good as it works.",
-    image: images.kitchenIsland,
-    gallery: [images.kitchenGraphite, images.drawerDetail, images.kitchenOak],
+      "An Indian kitchen works hard: heavy vessels, pressure cookers, water on every surface, a wash every day. We fit it out in stainless steel, from plate baskets to tall pantry pull-outs, so nothing swells, warps or sags with the years.",
+    image: images.kitchenSteel,
+    gallery: [images.plateBasket, images.steelVessels, images.kitchenGrey],
     considerations: [
       {
-        title: "Layout and workflow",
-        text: "Cooking, prep and cleaning zones arranged to suit how your household actually uses the kitchen.",
+        title: "An accessory for every drawer",
+        text: "Thali and plate baskets, cup-and-saucer racks, cutlery trays and bottle pull-outs, planned around what you actually keep.",
       },
       {
-        title: "Storage that earns its place",
-        text: "Deep drawers, corner solutions and tall units planned around what you store and how often.",
+        title: "Tall units and pantry pull-outs",
+        text: "Floor-to-ceiling steel storage for dabbas, grains and oil, every shelf reachable from the front.",
       },
       {
-        title: "Finishes that live well",
-        text: "Shutters, counters and hardware chosen for everyday use as much as for appearance.",
+        title: "Corners that earn their place",
+        text: "Carousels and swing-out corner systems that bring the back of the cabinet to you.",
       },
       {
-        title: "Clean detailing",
-        text: "Aligned lines, considered handles and tidy junctions that make the room feel composed.",
+        title: "No wood, anywhere",
+        text: "Steel carcasses and fittings that shrug off water, heat and termites. Nothing porous for food or damp to settle into, so they wipe clean in seconds.",
       },
     ],
-    enquiry: "Modular kitchen",
+    enquiry: "Stainless-steel kitchen",
     whatsappMessage:
-      "Hello Sahyadri Steel Studio, I would like to enquire about a modular kitchen.",
+      "Hello Sahyadri Steel Studio, I would like to enquire about a stainless-steel kitchen and accessories.",
   },
   {
-    slug: "designer-wardrobes",
+    slug: "glass-steel-wardrobes",
     number: "02",
-    title: "Designer Wardrobes",
-    kicker: "Order, quietly built in",
+    title: "Glass & Steel Wardrobes",
+    kicker: "Order, behind glass",
     summary:
-      "Sliding, hinged and walk-in wardrobes with interiors designed around what you own.",
+      "Wardrobes in glass and steel: sliding or hinged shutters, lit interiors and steel fittings that never warp.",
     intro:
-      "Behind every calm bedroom is a wardrobe that does its job well. We plan hanging, folding, drawers and accessory storage around your belongings, then design fronts that sit beautifully in the room.",
-    image: images.wardrobeSystem,
-    gallery: [images.walkIn, images.bedroomJoinery, images.bedroomCalm],
+      "Glass shutters in slim steel profiles let a wardrobe feel light, even when it fills a wall. Behind them, steel interiors are planned around what you own, and nothing swells or smells through the monsoon.",
+    image: images.wardrobeGlass,
+    gallery: [images.glassShutters, images.mirrorWardrobe, images.wardrobeGlass],
     considerations: [
+      {
+        title: "Glass, your way",
+        text: "Clear, tinted, frosted or fluted shutters, chosen for how much you want to see and how much light the room has.",
+      },
       {
         title: "Interiors that fit you",
         text: "Long and short hanging, shelves, drawers and trays in proportions that match your wardrobe.",
       },
       {
-        title: "Sliding or hinged",
-        text: "Door styles chosen around the room, the bed position and how much clearance you have.",
+        title: "Steel fittings",
+        text: "Trouser pull-outs, tie and belt racks, and hanging rails in steel, built for daily use.",
       },
       {
-        title: "Walk-in options",
-        text: "Open or enclosed dressing areas for rooms where a dedicated space makes sense.",
-      },
-      {
-        title: "Finishes in harmony",
-        text: "Fronts that relate to your flooring, walls and furniture rather than competing with them.",
+        title: "Light inside",
+        text: "Profile lighting that switches on with the door, so the wardrobe reads clearly at any hour.",
       },
     ],
-    enquiry: "Wardrobe",
+    enquiry: "Glass & steel wardrobe",
     whatsappMessage:
-      "Hello Sahyadri Steel Studio, I would like to enquire about a wardrobe.",
+      "Hello Sahyadri Steel Studio, I would like to enquire about a glass and steel wardrobe.",
   },
   {
-    slug: "custom-steel-solutions",
+    slug: "vanity-units",
     number: "03",
-    title: "Custom Stainless-Steel Solutions",
-    kicker: "Precise by nature",
+    title: "Vanity Units",
+    kicker: "Made for wet rooms",
     summary:
-      "Bespoke stainless-steel kitchens, storage and fittings, designed for hard-working spaces.",
+      "Stainless-steel vanities for bathrooms and wash areas, with mirror cabinets and glass shelves.",
     intro:
-      "Stainless steel brings a clean, practical character to a home. We design bespoke steel kitchens, utility storage and fittings that feel considered and architectural, not industrial.",
-    image: images.kitchenSteel,
-    gallery: [images.steelTap, images.kitchenGraphite, images.kitchenFluted],
+      "A bathroom is the hardest room on furniture. Our vanities are built in stainless steel, so they stand up to water and steam for years, with mirrors, glass and storage planned around your basin.",
+    image: images.vanityMarble,
+    gallery: [images.vanityMarble, images.vanityGloss, images.steelTap],
     considerations: [
       {
-        title: "Made to measure",
-        text: "Steel units planned for your exact walls, corners and appliances.",
+        title: "Water is no problem",
+        text: "Steel bodies that do not swell, peel or rot, however wet the bathroom gets.",
       },
       {
-        title: "Practical surfaces",
-        text: "A material that suits kitchens, utility areas and other spaces that see heavy daily use.",
+        title: "Wall-hung or floor-standing",
+        text: "Wall-hung units keep the floor clear for cleaning; floor-standing ones hold more.",
       },
       {
-        title: "Brushed or combined",
-        text: "Steel on its own, or paired with wood, stone-look or matte finishes for warmth.",
+        title: "Mirror and storage together",
+        text: "Mirror cabinets, glass shelves and drawers sized for daily toiletries.",
       },
       {
-        title: "Utility and storage",
-        text: "Pantry, utility and laundry storage that keeps the working parts of a home organised.",
+        title: "Wash areas too",
+        text: "Units for the dining wash basin and utility corners, matched to the rest of the home.",
       },
     ],
-    enquiry: "Custom stainless-steel solution",
+    enquiry: "Vanity unit",
     whatsappMessage:
-      "Hello Sahyadri Steel Studio, I would like to enquire about a custom stainless-steel solution.",
+      "Hello Sahyadri Steel Studio, I would like to enquire about a vanity unit.",
   },
   {
-    slug: "bespoke-interior-details",
+    slug: "full-home-interiors",
     number: "04",
-    title: "Bespoke Interior Details",
-    kicker: "The finishing layer",
+    title: "Full-Home Interiors",
+    kicker: "One team, every room",
     summary:
-      "Storage walls, units and joinery details that tie a home together.",
+      "Complete interiors in steel and glass, from the kitchen to the bedrooms, planned as one.",
     intro:
-      "The pieces between rooms often make a home feel finished: a TV unit with hidden storage, a crockery wall, a quiet study nook. We design these details to match the rest of your interiors.",
-    image: images.studyNook,
-    gallery: [images.kitchenFluted, images.livingWood, images.interiorMinimal],
+      "When you are building or renovating a whole home, we can take on every room: kitchen, wardrobes, vanities, and the TV, crockery and storage units between them, in one consistent language of steel and glass.",
+    image: images.fullHome,
+    gallery: [images.fullHome, images.kitchenGrey, images.mirrorWardrobe],
     considerations: [
       {
-        title: "Storage walls",
-        text: "Floor-to-ceiling units that hold more while keeping the room visually quiet.",
+        title: "Planned together",
+        text: "One layout for the whole home, so storage, finishes and lighting carry from room to room.",
       },
       {
         title: "Living and dining units",
-        text: "TV units, crockery units and sideboards designed alongside the rest of the space.",
+        text: "TV units, crockery units and storage walls in steel and glass, designed alongside the rest.",
       },
       {
-        title: "Small spaces, used well",
-        text: "Study nooks, shoe storage and entry units that make the most of every corner.",
+        title: "One point of contact",
+        text: "A single team from first measurement to final installation.",
       },
       {
-        title: "A consistent language",
-        text: "Materials and details that carry through from kitchen to bedroom.",
+        title: "Built to last",
+        text: "The same no-wood approach throughout, for interiors that handle Karnataka's monsoons.",
       },
     ],
-    enquiry: "Bespoke interior details",
+    enquiry: "Full-home interiors",
     whatsappMessage:
-      "Hello Sahyadri Steel Studio, I would like to enquire about bespoke interior details for my home.",
+      "Hello Sahyadri Steel Studio, I would like to enquire about interiors for my whole home.",
   },
 ];

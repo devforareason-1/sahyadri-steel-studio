@@ -19,11 +19,11 @@ export default function Kitchens() {
     >
       <div className="shell">
         <Reveal>
-          <Folio number="02" label="The kitchen" aside="Modular · Island · Galley · L-shaped" />
+          <Folio number="02" label="The kitchen" aside="Baskets · Pull-outs · Tall units · Corners" />
         </Reveal>
         <Reveal className="mt-12 grid gap-8 lg:mt-16 lg:grid-cols-12 lg:items-end lg:gap-0">
           <h2 id="kitchens-title" className="display h-xl lg:col-span-7">
-            The kitchen, <em>edited.</em>
+            The kitchen, <em>in steel.</em>
           </h2>
           <p className="lede max-w-[420px] lg:col-span-4 lg:col-start-9 lg:pb-2">
             {kitchens.intro}
@@ -34,25 +34,25 @@ export default function Kitchens() {
       {/* The plate opens from the page margins to the full width of the
           screen as it scrolls into view. */}
       <FrameOpen className="mt-14 aspect-[4/5] bg-travertine sm:aspect-auto sm:h-[min(56vw,88svh)] lg:mt-20">
-        <Photo image={images.kitchenIsland} sizes="100vw" />
+        <Photo image={images.kitchenGraphite} sizes="100vw" />
       </FrameOpen>
       <p className="shell caption mt-3 text-right">
-        Walnut, black stone &amp; brass · concept visual
+        Matte graphite &amp; steel · concept visual
       </p>
 
       <div className="shell mt-14 grid grid-cols-2 gap-x-4 gap-y-12 lg:mt-20 lg:grid-cols-12 lg:gap-x-0">
         <Reveal className="group lg:col-span-3">
           <div className="media media-zoom aspect-[3/4]">
-            <Photo image={images.drawerDetail} sizes="(max-width: 1024px) 50vw, 24vw" />
+            <Photo image={images.plateBasket} sizes="(max-width: 1024px) 50vw, 24vw" />
           </div>
-          <p className="caption mt-3">Fitted drawer organisation</p>
+          <p className="caption mt-3">Plate &amp; cup organiser</p>
         </Reveal>
 
         <Reveal delay={120} className="group mt-12 lg:col-span-3 lg:col-start-5 lg:mt-24">
           <div className="media media-zoom aspect-[3/4]">
-            <Photo image={images.kitchenGraphite} sizes="(max-width: 1024px) 50vw, 24vw" />
+            <Photo image={images.steelVessels} sizes="(max-width: 1024px) 50vw, 24vw" />
           </div>
-          <p className="caption mt-3">Matte graphite, handle-less</p>
+          <p className="caption mt-3">Built for heavy steel vessels</p>
         </Reveal>
 
         <Reveal

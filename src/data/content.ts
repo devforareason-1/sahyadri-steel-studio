@@ -8,12 +8,6 @@ const grain = svg(
   `<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(#n)'/></svg>`
 );
 
-// Long vertical grain for wood. `ink` is the grain colour.
-const woodGrain = (ink: string, seed: number) =>
-  svg(
-    `<svg xmlns='http://www.w3.org/2000/svg' width='480' height='480'><filter id='w'><feTurbulence type='fractalNoise' baseFrequency='.16 .007' numOctaves='3' seed='${seed}'/><feColorMatrix values='0 0 0 0 ${ink} 0 0 0 0 ${ink} 0 0 0 0 ${ink} 1.6 0 0 0 -.55'/></filter><rect width='100%' height='100%' filter='url(#w)'/></svg>`
-  );
-
 // Soft mottling for stone-inspired surfaces.
 const stoneCloud = (opacity: number, seed: number) =>
   svg(
@@ -22,6 +16,14 @@ const stoneCloud = (opacity: number, seed: number) =>
 
 const brushed =
   "repeating-linear-gradient(90deg, rgba(255,255,255,.10) 0 1px, transparent 1px 3px), repeating-linear-gradient(90deg, rgba(0,0,0,.05) 0 1px, transparent 1px 7px)";
+
+// A soft diagonal sheen, for glass.
+const sheen =
+  "linear-gradient(120deg, rgba(255,255,255,0) 30%, rgba(255,255,255,.28) 46%, rgba(255,255,255,0) 60%)";
+
+// Vertical ribs, for fluted glass.
+const flutes =
+  "repeating-linear-gradient(90deg, rgba(255,255,255,.35) 0 2px, rgba(255,255,255,0) 2px 7px, rgba(0,0,0,.06) 7px 9px, rgba(255,255,255,0) 9px 12px)";
 
 export type Finish = {
   id: string;
@@ -40,38 +42,38 @@ export const finishes = {
   graphite: {
     id: "graphite",
     name: "Matte graphite",
-    family: "Matte finish",
+    family: "Powder-coated steel",
     surface: `${grain}, #34332f`,
   },
   clay: {
     id: "clay",
     name: "Matte clay",
-    family: "Matte finish",
+    family: "Powder-coated steel",
     surface: `${grain}, #a8927a`,
   },
-  walnut: {
-    id: "walnut",
-    name: "Dark walnut",
-    family: "Wood texture",
-    surface: `${woodGrain(".12", 7)}, linear-gradient(90deg, #5a3e2b, #6b4a33 45%, #553a28)`,
+  smoked: {
+    id: "smoked",
+    name: "Smoked glass",
+    family: "Glass",
+    surface: `${sheen}, linear-gradient(160deg, #5d6467, #3b4144 55%, #4d5457)`,
   },
-  oak: {
-    id: "oak",
-    name: "Natural oak",
-    family: "Wood texture",
-    surface: `${woodGrain(".38", 3)}, linear-gradient(90deg, #c4a27c, #cfae88 50%, #bf9c75)`,
+  fluted: {
+    id: "fluted",
+    name: "Fluted glass",
+    family: "Glass",
+    surface: `${flutes}, ${sheen}, linear-gradient(160deg, #d3dad8, #b9c3c1 60%, #cdd5d3)`,
   },
   linen: {
     id: "linen",
     name: "Linen white",
-    family: "Neutral laminate",
-    surface: `${grain}, #ece6da`,
+    family: "Lacquered glass",
+    surface: `${sheen}, #ece6da`,
   },
   sand: {
     id: "sand",
     name: "Sand beige",
-    family: "Neutral laminate",
-    surface: `${grain}, #d5c5ab`,
+    family: "Lacquered glass",
+    surface: `${sheen}, #d5c5ab`,
   },
   travertine: {
     id: "travertine",
@@ -114,13 +116,13 @@ export const finishGroups: {
     key: "fronts",
     label: "Cabinet fronts",
     options: [
+      finishes.steel,
       finishes.graphite,
-      finishes.walnut,
-      finishes.oak,
+      finishes.clay,
+      finishes.smoked,
+      finishes.fluted,
       finishes.linen,
       finishes.sand,
-      finishes.clay,
-      finishes.steel,
     ],
   },
   {
@@ -141,14 +143,64 @@ export type Testimonial = {
   quote: string;
   name: string;
   context: string; // e.g. "Modular kitchen, Udupi"
+  // Client photo, e.g. "/images/clients/anita.jpg", shared with permission.
+  // Until set, a neutral person placeholder is shown.
+  photo?: string;
+  // True for a stand-in written to show the layout, not a client's words.
+  // The page labels these as samples; replace each with a genuine review
+  // (with the client's permission) and drop the flag.
+  sample?: boolean;
 };
 
-// Add genuine client reviews here, with the client's permission.
-// While this list is empty the section shows clearly marked placeholders.
-export const testimonials: Testimonial[] = [];
+// While this list is empty the section is hidden.
+export const testimonials: Testimonial[] = [
+  {
+    quote:
+      "Every vessel finally has its place. Two monsoons on, the drawers still glide and nothing has swollen or rusted.",
+    name: "Homeowner",
+    context: "Steel kitchen, Shivamogga",
+    sample: true,
+  },
+  {
+    quote:
+      "The glass wardrobe makes our bedroom feel twice the size, and the lights inside are the detail everyone asks about.",
+    name: "Homeowner",
+    context: "Glass & steel wardrobe, Udupi",
+    sample: true,
+  },
+  {
+    quote:
+      "Our old vanity peeled within a year. This one still looks new, and cleaning it takes a minute.",
+    name: "Homeowner",
+    context: "Vanity unit, Shivamogga",
+    sample: true,
+  },
+];
 
 /* ── Partner brands ─────────────────────────────────────────────────── */
 
-// Add partner names (and logos in /public/images/partners) once the
-// partnership and permission to display them are confirmed.
-export const partners: { name: string; logo?: string }[] = [];
+export type Partner = {
+  name: string; // as the brand writes it
+  offer: string; // what the studio uses them for, in a few words
+  // Official logo file supplied by the brand or its dealer portal, e.g.
+  // "/images/partners/hettich.svg". Until set, the name is typeset instead.
+  logo?: string;
+  // Logos differ in shape; this evens out their visual weight (1 = default).
+  logoScale?: number;
+  // True for a logo drawn for dark backgrounds (white lettering); the strip
+  // then shows it as a dark silhouette so it reads on the light page.
+  logoOnDark?: boolean;
+};
+
+// Brands whose fittings and systems the studio works with. Only list a brand
+// once the partnership and permission to show its name are confirmed.
+export const partners: Partner[] = [
+  // Hettich and Häfele: public-domain SVGs from Wikimedia Commons.
+  // CenturyPly: the logo from centuryply.com. Aristo: supplied by the studio
+  // (the white, dark-background version). Carysil: the logo from carysil.com.
+  { name: "Hettich", offer: "Drawer systems & hinges", logo: "/images/partners/hettich.svg", logoScale: 1.35 },
+  { name: "Häfele", offer: "Kitchen & wardrobe fittings", logo: "/images/partners/hafele.svg", logoScale: 0.6 },
+  { name: "CenturyPly", offer: "Boards & panels", logo: "/images/partners/centuryply.png", logoScale: 1.2 },
+  { name: "Aristo", offer: "Sliding wardrobe systems", logo: "/images/partners/aristo.png", logoScale: 0.75, logoOnDark: true },
+  { name: "Carysil", offer: "Sinks & kitchen appliances", logo: "/images/partners/carysil.svg", logoScale: 0.45 },
+];
