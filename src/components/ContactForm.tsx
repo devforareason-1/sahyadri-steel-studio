@@ -7,12 +7,11 @@ import { site, whatsappUrl } from "@/data/site";
 type Status = "idle" | "sending" | "success" | "error";
 
 const field =
-  "w-full border border-border bg-background px-4 py-3 text-sm outline-none transition-colors focus:border-accent";
+  "w-full border border-border bg-background px-4 py-3.5 text-base outline-none transition-colors focus:border-accent sm:py-3 sm:text-sm";
 const label =
   "mb-2 block text-[11px] font-medium tracking-[0.12em] uppercase text-muted";
 const chip =
-  "inline-block border border-border bg-background px-3.5 py-2.5 text-xs transition-colors hover:border-accent peer-checked:border-foreground peer-checked:bg-foreground peer-checked:text-white peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent";
-
+  "inline-block border border-border bg-background px-3.5 py-3 text-[13px] transition-colors hover:border-accent peer-checked:border-foreground peer-checked:bg-foreground peer-checked:text-white peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent sm:py-2.5 sm:text-xs";
 const cityOptions = ["Shimoga", "Udupi", "Somewhere else"];
 const projectOptions = [
   "Modular kitchen",
@@ -103,7 +102,7 @@ export default function ContactForm() {
   return (
     <form
       onSubmit={onSubmit}
-      className="relative border border-border bg-background p-7 sm:p-9"
+      className="relative border border-border bg-background p-5 sm:p-9"
     >
       {/* Honeypot: hidden from people, bots fill it */}
       <div
@@ -118,7 +117,9 @@ export default function ContactForm() {
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label htmlFor="name" className={label}>Your name *</label>
+          <label htmlFor="name" className={label}>
+            Your name *
+          </label>
           <input
             id="name"
             name="name"
@@ -131,7 +132,9 @@ export default function ContactForm() {
         </div>
 
         <div>
-          <label htmlFor="phone" className={label}>Phone *</label>
+          <label htmlFor="phone" className={label}>
+            Phone *
+          </label>
           <input
             id="phone"
             name="phone"
@@ -165,7 +168,10 @@ export default function ContactForm() {
 
         <fieldset className="sm:col-span-2">
           <legend className={label}>
-            I am looking for * (select all that apply)
+            I am looking for *{" "}
+            <span className="normal-case tracking-normal">
+              (select all that apply)
+            </span>
           </legend>
           <div className="flex flex-wrap gap-2">
             {projectOptions.map((opt) => (
@@ -181,50 +187,58 @@ export default function ContactForm() {
             ))}
           </div>
         </fieldset>
+        <details className="group sm:col-span-2">
+          <summary className="cursor-pointer list-none border-b border-foreground/20 py-3 text-xs font-medium text-muted [&::-webkit-details-marker]:hidden">
+            + Add more details (optional)
+          </summary>
+          <div className="mt-5 grid gap-5 sm:grid-cols-2">
+            <div>
+              <label htmlFor="stage" className={label}>
+                Project stage
+              </label>
+              <div className="relative">
+                <select
+                  id="stage"
+                  name="stage"
+                  defaultValue=""
+                  className={`${field} appearance-none pr-10`}
+                >
+                  <option value="">Select (optional)</option>
+                  {stageOptions.map((o) => (
+                    <option key={o}>{o}</option>
+                  ))}
+                </select>
+                <ChevronDown
+                  size={16}
+                  className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-muted"
+                />
+              </div>
+            </div>
 
-        <div>
-          <label htmlFor="stage" className={label}>Project stage</label>
-          <div className="relative">
-            <select
-              id="stage"
-              name="stage"
-              defaultValue=""
-              className={`${field} appearance-none pr-10`}
-            >
-              <option value="">Select (optional)</option>
-              {stageOptions.map((o) => (
-                <option key={o}>{o}</option>
-              ))}
-            </select>
-            <ChevronDown
-              size={16}
-              className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-muted"
-            />
+            <div>
+              <label htmlFor="calltime" className={label}>
+                Best time to reach you
+              </label>
+              <div className="relative">
+                <select
+                  id="calltime"
+                  name="calltime"
+                  defaultValue=""
+                  className={`${field} appearance-none pr-10`}
+                >
+                  <option value="">Select (optional)</option>
+                  {callTimeOptions.map((o) => (
+                    <option key={o}>{o}</option>
+                  ))}
+                </select>
+                <ChevronDown
+                  size={16}
+                  className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-muted"
+                />
+              </div>
+            </div>
           </div>
-        </div>
-
-        <div>
-          <label htmlFor="calltime" className={label}>
-            Best time to reach you
-          </label>
-          <div className="relative">
-            <select
-              id="calltime"
-              name="calltime"
-              defaultValue=""
-              className={`${field} appearance-none pr-10`}
-            >
-              <option value="">Select (optional)</option>
-              {callTimeOptions.map((o) => (
-                <option key={o}>{o}</option>
-              ))}
-            </select>
-            <ChevronDown
-              size={16}
-              className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-muted"
-            />
-          </div>
-        </div>
+        </details>
       </div>
 
       <div className="mt-5">

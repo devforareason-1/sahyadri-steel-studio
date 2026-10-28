@@ -15,7 +15,7 @@ export default function Contact() {
     <section id="contact" className="section-padding">
       <div className="container-shell">
         <Reveal>
-          <div className="overflow-hidden bg-[#e9e4d9] px-7 py-14 sm:px-12 sm:py-16 lg:px-20 lg:py-20">
+          <div className="overflow-hidden bg-[#e9e4d9] px-4 py-10 sm:px-12 sm:py-16 lg:px-20 lg:py-20">
             <div
               className={
                 hasForm ? "grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16" : ""
