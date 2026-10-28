@@ -7,11 +7,14 @@ export default function Reveal({
   className = "",
   delay = 0,
   as: Tag = "div",
+  variant = "fade",
 }: {
   children: ReactNode;
   className?: string;
   delay?: number;
   as?: "div" | "li" | "article";
+  // "media" unveils a photograph instead of fading it in.
+  variant?: "fade" | "media";
 }) {
   const ref = useRef<HTMLDivElement & HTMLLIElement>(null);
   const [visible, setVisible] = useState(false);
@@ -26,7 +29,7 @@ export default function Reveal({
           observer.disconnect();
         }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -36,7 +39,7 @@ export default function Reveal({
     <Tag
       ref={ref}
       style={delay ? { transitionDelay: `${delay}ms` } : undefined}
-      className={`reveal ${visible ? "is-visible" : ""} ${className}`}
+      className={`${variant === "media" ? "reveal-media" : "reveal"} ${visible ? "is-visible" : ""} ${className}`}
     >
       {children}
     </Tag>

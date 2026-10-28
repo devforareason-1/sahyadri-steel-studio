@@ -1,6 +1,7 @@
 import { Mail, Phone } from "lucide-react";
 import { site, telLink, whatsappUrl } from "@/data/site";
 import EnquiryForm from "./EnquiryForm";
+import Folio from "./Folio";
 import Reveal from "./Reveal";
 import WhatsAppIcon from "./WhatsAppIcon";
 
@@ -17,11 +18,15 @@ export default function Contact() {
       aria-labelledby="contact-title"
       className="section grain bg-travertine"
     >
-      <div className="shell grid gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
+      <div className="shell">
+        <Reveal>
+          <Folio number="11" label="Enquiries & quotations" aside="Shivamogga · Udupi" />
+        </Reveal>
+      </div>
+      <div className="shell mt-14 grid gap-14 lg:mt-20 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
         <Reveal className="lg:sticky lg:top-[calc(var(--header-height)+40px)] lg:self-start">
           <div>
-            <p className="eyebrow text-champagne-ink">Enquiries & quotations</p>
-            <h2 id="contact-title" className="display h-lg mt-6">
+            <h2 id="contact-title" className="display h-lg">
               Let&rsquo;s design <em>your space.</em>
             </h2>
             <p className="lede mt-6 max-w-[420px]">

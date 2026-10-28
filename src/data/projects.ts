@@ -31,7 +31,7 @@ export const projects: Project[] = [
     label: "Modular kitchen",
     description:
       "An island-led layout with continuous storage, a stone-look worktop and soft, layered lighting.",
-    image: images.kitchenIsland,
+    image: images.kitchenMarble,
     completed: false,
   },
   {
@@ -41,7 +41,7 @@ export const projects: Project[] = [
     label: "Sliding-door wardrobe",
     description:
       "Full-height sliding fronts that keep the bedroom calm, with an interior planned bay by bay.",
-    image: images.wardrobeSliding,
+    image: images.wardrobeSystem,
     completed: false,
   },
   {
@@ -71,7 +71,7 @@ export const projects: Project[] = [
     label: "Bespoke storage",
     description:
       "A floor-to-ceiling storage wall for pantry, cleaning and everyday essentials, all behind one clean face.",
-    image: images.interiorShelving,
+    image: images.kitchenFluted,
     completed: false,
   },
   {
@@ -81,7 +81,7 @@ export const projects: Project[] = [
     label: "Warm minimal interior",
     description:
       "Natural textures, restrained joinery and soft light, brought together with a single material palette.",
-    image: images.interiorWarm,
+    image: images.livingWood,
     completed: false,
   },
 ];

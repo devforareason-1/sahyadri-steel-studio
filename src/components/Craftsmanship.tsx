@@ -13,8 +13,10 @@ export default function Craftsmanship() {
     <section id="craft" aria-labelledby="craft-title" className="section">
       <div className="shell">
         <SectionHeading
+          number="06"
           id="craft-title"
-          eyebrow="Modern features & craftsmanship"
+          eyebrow="Craftsmanship"
+          aside="Seven details"
           title={
             <>
               The details you use <em>every single day.</em>

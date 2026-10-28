@@ -25,7 +25,7 @@ export const services: Service[] = [
     intro:
       "A good kitchen is measured in steps saved and drawers that open exactly where you need them. We plan the layout around your routine, then refine the finishes until the room feels as good as it works.",
     image: images.kitchenIsland,
-    gallery: [images.kitchenMinimal, images.kitchenWarm, images.kitchenDark],
+    gallery: [images.kitchenGraphite, images.drawerDetail, images.kitchenOak],
     considerations: [
       {
         title: "Layout and workflow",
@@ -57,8 +57,8 @@ export const services: Service[] = [
       "Sliding, hinged and walk-in wardrobes with interiors designed around what you own.",
     intro:
       "Behind every calm bedroom is a wardrobe that does its job well. We plan hanging, folding, drawers and accessory storage around your belongings, then design fronts that sit beautifully in the room.",
-    image: images.wardrobeSliding,
-    gallery: [images.walkIn, images.wardrobeInterior, images.bedroomCalm],
+    image: images.wardrobeSystem,
+    gallery: [images.walkIn, images.bedroomJoinery, images.bedroomCalm],
     considerations: [
       {
         title: "Interiors that fit you",
@@ -91,7 +91,7 @@ export const services: Service[] = [
     intro:
       "Stainless steel brings a clean, practical character to a home. We design bespoke steel kitchens, utility storage and fittings that feel considered and architectural, not industrial.",
     image: images.kitchenSteel,
-    gallery: [images.kitchenMinimal, images.kitchenBright, images.interiorShelving],
+    gallery: [images.steelTap, images.kitchenGraphite, images.kitchenFluted],
     considerations: [
       {
         title: "Made to measure",
@@ -123,8 +123,8 @@ export const services: Service[] = [
       "Storage walls, units and joinery details that tie a home together.",
     intro:
       "The pieces between rooms often make a home feel finished: a TV unit with hidden storage, a crockery wall, a quiet study nook. We design these details to match the rest of your interiors.",
-    image: images.interiorShelving,
-    gallery: [images.interiorDetail, images.interiorCoordinated, images.livingNatural],
+    image: images.studyNook,
+    gallery: [images.kitchenFluted, images.livingWood, images.interiorMinimal],
     considerations: [
       {
         title: "Storage walls",

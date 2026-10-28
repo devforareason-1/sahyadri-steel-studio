@@ -68,7 +68,7 @@ export default function RootLayout({
     >
       <body className="flex min-h-screen flex-col">
         <noscript>
-          <style>{`.reveal{opacity:1;transform:none}`}</style>
+          <style>{`.reveal{opacity:1;transform:none}.reveal-media{clip-path:none}.reveal-media img{scale:1}`}</style>
         </noscript>
         <a
           href="#main"

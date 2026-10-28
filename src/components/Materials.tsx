@@ -105,6 +105,8 @@ export default function Materials() {
     >
       <div className="shell">
         <SectionHeading
+          number="03"
+          aside="Steel · Wood · Stone · Matte"
           id="materials-title"
           eyebrow="Materials & finishes"
           title={
@@ -115,8 +117,33 @@ export default function Materials() {
           intro="Combine fronts, surfaces and hardware to imagine the character of your space. We help you refine the palette in person, with physical samples."
         />
 
+      </div>
+
+      {/* A slow band of material names, edge to edge. */}
+      <div aria-hidden="true" className="mt-16 overflow-hidden border-y border-line py-5 lg:mt-20">
+        <div className="marquee">
+          {[0, 1].map((copy) => (
+            <p
+              key={copy}
+              className="flex shrink-0 items-center whitespace-nowrap font-serif text-[clamp(1.6rem,3vw,2.6rem)] italic text-graphite/70"
+            >
+              {showcase.map((f) => (
+                <span key={f.id} className="flex items-center">
+                  <span className="px-8">{f.name}</span>
+                  <span
+                    className="h-3 w-3 rounded-full"
+                    style={{ background: f.surface }}
+                  />
+                </span>
+              ))}
+            </p>
+          ))}
+        </div>
+      </div>
+
+      <div className="shell">
         {/* Swatch strip */}
-        <Reveal className="mt-16 grid grid-cols-2 gap-[3px] sm:grid-cols-4 lg:grid-cols-8">
+        <Reveal className="mt-12 grid grid-cols-4 gap-[3px] lg:mt-20 lg:grid-cols-8">
           {showcase.map((f) => (
             <figure key={f.id} className="group">
               <div
@@ -125,11 +152,11 @@ export default function Materials() {
                 role="img"
                 aria-label={`${f.name} sample`}
               />
-              <figcaption className="pt-3">
-                <span className="block text-[11px] uppercase tracking-[0.16em] text-muted">
+              <figcaption className="pt-2.5 sm:pt-3">
+                <span className="hidden text-[11px] uppercase tracking-[0.16em] text-muted sm:block">
                   {f.family}
                 </span>
-                <span className="mt-0.5 block font-serif text-lg">{f.name}</span>
+                <span className="mt-0.5 block font-serif text-[13px] leading-tight sm:text-lg">{f.name}</span>
               </figcaption>
             </figure>
           ))}

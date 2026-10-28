@@ -1,7 +1,5 @@
-import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { images } from "@/data/images";
-import { services } from "@/data/services";
 import Photo from "./Photo";
 
 export default function Hero() {
@@ -9,48 +7,62 @@ export default function Hero() {
     <section
       data-hero
       aria-labelledby="hero-title"
-      className="on-dark relative flex min-h-[max(640px,100svh)] flex-col overflow-hidden bg-graphite text-ivory"
+      className="on-dark relative bg-graphite text-ivory"
     >
-      <div className="hero-media absolute inset-0">
-        <Photo image={images.heroKitchen} sizes="100vw" priority />
-      </div>
-      {/* Graded overlay keeps the type legible over any photograph. */}
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,20,18,.55)_0%,rgba(20,20,18,.08)_30%,rgba(20,20,18,.18)_55%,rgba(20,20,18,.82)_100%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(20,20,18,.55),transparent_65%)]" />
-      <div aria-hidden="true" className="hero-curtain absolute inset-0 bg-graphite" />
+      <div className="grid min-h-[max(680px,100svh)] lg:grid-cols-12">
+        {/* The photograph: a tall frame on the right that opens on load.
+            On phones it sits on top and the headline overlaps its base. */}
+        <div className="hero-frame relative h-[60svh] overflow-hidden min-h-[380px] lg:col-span-7 lg:col-start-6 lg:row-start-1 lg:h-auto">
+          <div className="hero-media absolute inset-0">
+            <Photo
+              image={images.kitchenWalnut}
+              sizes="(max-width: 1024px) 100vw, 60vw"
+              priority
+            />
+          </div>
+          {/* Keeps the header legible, and melts the image into the page. */}
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,20,18,.6)_0%,rgba(20,20,18,0)_26%,rgba(20,20,18,0)_55%,rgba(28,28,26,1)_100%)] lg:bg-[linear-gradient(180deg,rgba(20,20,18,.55)_0%,rgba(20,20,18,0)_22%),linear-gradient(90deg,rgba(28,28,26,.85)_0%,rgba(28,28,26,0)_38%)]" />
 
-      <div className="shell relative flex flex-1 flex-col justify-end pb-10 pt-[calc(var(--header-height)+48px)] sm:pb-14">
-        <div className="grid items-end gap-12 lg:grid-cols-[1fr_auto]">
-          <div className="max-w-[980px]">
-            <p
-              className="eyebrow fade-up text-champagne"
-              style={{ animationDelay: "700ms" }}
-            >
-              Kitchens · Wardrobes · Steel
-            </p>
+          <p className="absolute right-[var(--gutter)] top-[calc(var(--header-height)+20px)] hidden text-[11px] tracking-[0.08em] text-ivory/70 lg:block">
+            Walnut, stone &amp; steel · concept visual
+          </p>
 
-            <h1 id="hero-title" className="display h-hero mt-7">
-              <span className="line-mask">
-                <span style={{ animationDelay: "800ms" }}>Crafted in Steel.</span>
+        </div>
+
+        <div className="relative z-10 -mt-28 flex flex-col pb-10 pl-[var(--gutter)] pr-[var(--gutter)] sm:pb-14 lg:col-span-7 lg:col-start-1 lg:row-start-1 lg:mt-0 lg:pr-0 lg:pt-[calc(var(--header-height)+clamp(48px,9vh,112px))]">
+          <p
+            className="eyebrow fade-up text-champagne"
+            style={{ animationDelay: "700ms" }}
+          >
+            Kitchens · Wardrobes · Steel
+          </p>
+
+          <h1 id="hero-title" className="display h-hero mt-6 lg:mt-9">
+            <span className="line-mask">
+              <span style={{ animationDelay: "800ms" }}>Crafted in steel.</span>
+            </span>
+            <span className="line-mask">
+              <span style={{ animationDelay: "930ms" }}>Designed for</span>
+            </span>
+            <span className="line-mask">
+              <span style={{ animationDelay: "1060ms" }}>
+                <em className="text-champagne">living.</em>
               </span>
-              <span className="line-mask">
-                <span style={{ animationDelay: "950ms" }}>
-                  Designed for <em className="text-champagne">Living.</em>
-                </span>
-              </span>
-            </h1>
+            </span>
+          </h1>
 
+          <div className="mt-auto pt-10 lg:max-w-[460px] lg:pt-14">
             <p
-              className="fade-up mt-8 max-w-[480px] text-base leading-[1.75] text-ivory/85 sm:text-[1.075rem]"
-              style={{ animationDelay: "1200ms" }}
+              className="fade-up max-w-[420px] text-base leading-[1.75] text-ivory/75 sm:text-[1.05rem]"
+              style={{ animationDelay: "1250ms" }}
             >
-              Thoughtfully designed kitchens, wardrobes and bespoke
-              stainless-steel interiors for modern living.
+              Kitchens, wardrobes and bespoke stainless-steel interiors,
+              drawn for your rooms and made to be lived in.
             </p>
 
             <div
-              className="fade-up mt-10 flex flex-wrap gap-3"
-              style={{ animationDelay: "1350ms" }}
+              className="fade-up mt-9 flex flex-wrap gap-3"
+              style={{ animationDelay: "1400ms" }}
             >
               <a href="#projects" className="btn btn-light">
                 Explore Our Work
@@ -62,52 +74,36 @@ export default function Hero() {
             </div>
           </div>
 
-          <nav
-            aria-label="Our solutions"
-            className="fade-up hidden w-[260px] lg:block"
-            style={{ animationDelay: "1500ms" }}
+          <div
+            className="fade-up mt-12 flex items-center justify-between gap-6 border-t border-ivory/15 pt-5 text-[11px] uppercase tracking-[0.2em] text-ivory/60 lg:mr-[calc(100%/7*2.2)]"
+            style={{ animationDelay: "1600ms" }}
           >
-            <ol className="border-t border-ivory/25">
-              {services.map((s) => (
-                <li key={s.slug} className="border-b border-ivory/25">
-                  <Link
-                    href={`/services/${s.slug}`}
-                    className="group flex items-baseline gap-4 py-3.5 text-[13px] text-ivory/80 transition-colors hover:text-ivory"
-                  >
-                    <span className="font-serif text-sm italic text-champagne">
-                      {s.number}
-                    </span>
-                    <span className="flex-1">{s.title}</span>
-                    <ArrowRight
-                      size={14}
-                      className="-translate-x-2 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:opacity-100"
-                    />
-                  </Link>
-                </li>
-              ))}
-            </ol>
-          </nav>
-        </div>
-
-        <div
-          className="fade-up mt-12 flex items-center justify-between gap-6 border-t border-ivory/20 pt-5 text-[11px] uppercase tracking-[0.2em] text-ivory/70"
-          style={{ animationDelay: "1600ms" }}
-        >
-          <span>Shivamogga · Udupi</span>
-          <span className="hidden normal-case tracking-[0.06em] sm:inline">
-            Concept visual shown
-          </span>
-          <a
-            href="#solutions"
-            className="flex items-center gap-3 transition-colors hover:text-ivory"
-          >
-            Scroll
-            <span aria-hidden="true" className="relative block h-8 w-px overflow-hidden bg-ivory/20">
-              <span className="scroll-cue absolute inset-0 bg-ivory" />
-            </span>
-          </a>
+            <span>Shivamogga · Udupi</span>
+            <a
+              href="#solutions"
+              className="flex items-center gap-3 transition-colors hover:text-ivory"
+            >
+              Scroll
+              <span aria-hidden="true" className="relative block h-8 w-px overflow-hidden bg-ivory/20">
+                <span className="scroll-cue absolute inset-0 bg-ivory" />
+              </span>
+            </a>
+          </div>
         </div>
       </div>
+
+      {/* Detail inset that hangs over the edge into the next section. */}
+      <figure className="hero-inset absolute bottom-0 right-[calc(var(--gutter)+3vw)] z-20 hidden translate-y-1/2 items-end gap-5 lg:flex">
+        <figcaption className="pb-[calc(clamp(140px,12vw,200px)*2/3+16px)] text-right text-[11px] leading-5 text-ivory/70">
+          <span className="block font-serif text-sm italic text-champagne">Detail</span>
+          Brushed steel,
+          <br />
+          made to measure
+        </figcaption>
+        <div className="media aspect-[3/4] w-[clamp(140px,12vw,200px)] bg-graphite-soft">
+          <Photo image={images.steelTap} sizes="200px" />
+        </div>
+      </figure>
     </section>
   );
 }

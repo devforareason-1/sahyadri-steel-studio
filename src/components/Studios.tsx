@@ -1,5 +1,8 @@
 import { ArrowRight } from "lucide-react";
 import { locations, telLink, whatsappLink } from "@/data/site";
+import { images } from "@/data/images";
+import Parallax from "./Parallax";
+import Photo from "./Photo";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
 import WhatsAppIcon from "./WhatsAppIcon";
@@ -24,6 +27,8 @@ export default function Studios() {
     >
       <div className="shell">
         <SectionHeading
+          number="09"
+          aside="Karnataka"
           id="studios-title"
           eyebrow="Our studios"
           title={
@@ -34,7 +39,15 @@ export default function Studios() {
           intro="Visit us in Shivamogga or Udupi to talk through your plans, or message us and we will arrange a time that suits you."
         />
 
-        <div className="mt-16 grid gap-px bg-line md:grid-cols-2 lg:mt-20">
+        <Reveal variant="media" className="mt-16 lg:mt-20">
+          <div className="media relative aspect-[4/3] sm:aspect-[21/9]">
+            <Parallax className="absolute inset-0" speed={0.07}>
+              <Photo image={images.residence} sizes="100vw" />
+            </Parallax>
+          </div>
+        </Reveal>
+
+        <div className="mt-4 grid gap-px bg-line md:grid-cols-2">
           {locations.map((loc, i) => (
             <Reveal key={loc.slug} delay={i * 120} as="article" className="bg-ivory-deep">
               <div

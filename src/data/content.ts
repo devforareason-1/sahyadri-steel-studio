@@ -8,37 +8,37 @@ export const features: Feature[] = [
   {
     title: "Smart internal storage",
     text: "Pull-outs, inner drawers and tall units planned around what you actually keep, so everything has a home.",
-    image: images.kitchenMinimal,
+    image: images.kitchenOak,
   },
   {
     title: "Efficient use of space",
     text: "Corners, lofts and awkward walls turned into usable storage without crowding the room.",
-    image: images.kitchenBright,
+    image: images.kitchenFluted,
   },
   {
     title: "Practical drawer organisation",
     text: "Drawer depths and dividers sized for cutlery, utensils, folded clothes or accessories.",
-    image: images.wardrobeInterior,
+    image: images.drawerDetail,
   },
   {
     title: "Material and finish options",
     text: "Steel, wood textures, matte and stone-look surfaces, combined to suit your home and how you use it.",
-    image: images.kitchenDark,
+    image: images.kitchenGraphite,
   },
   {
     title: "Durable construction",
     text: "Materials and hardware chosen with daily use in mind, so the space keeps working as well as it looks.",
-    image: images.kitchenSteel,
+    image: images.steelTap,
   },
   {
     title: "Clean detailing",
     text: "Aligned gaps, tidy edges and considered handles. The details you notice less, because they are right.",
-    image: images.interiorDetail,
+    image: images.joineryDetail,
   },
   {
     title: "Customised configurations",
     text: "No standard boxes forced into your room. Each layout is drawn for your walls and your routine.",
-    image: images.interiorCoordinated,
+    image: images.bedroomJoinery,
   },
 ];
 
@@ -230,10 +230,10 @@ export const partners: { name: string; logo?: string }[] = [];
 
 // Preview tiles only, not a live feed. Replace with your own post images.
 export const instagramTiles: Img[] = [
-  images.kitchenWarm,
-  images.wardrobeInterior,
-  images.interiorDetail,
-  images.kitchenDark,
-  images.bedroomCalm,
-  images.interiorLight,
+  images.steelTap,
+  images.walkIn,
+  images.kitchenGraphite,
+  images.studyNook,
+  images.drawerDetail,
+  images.kitchenMarble,
 ];

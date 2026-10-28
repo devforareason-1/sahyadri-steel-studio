@@ -4,8 +4,10 @@
 // To use your own photos: put them in /public/images/... and replace the
 // value with a path such as "/images/projects/kitchen-01.jpg".
 //
-// Current images are royalty-free concept photography from Unsplash.
-// They are illustrative only and do not show Sahyadri Steel Studio projects.
+// Current images are royalty-free concept photography and renders from
+// Unsplash (free Unsplash License). They are illustrative only and do not
+// show Sahyadri Steel Studio projects. They were chosen for a warm,
+// architectural palette: walnut, stone, graphite and brushed steel.
 
 const unsplash = (id: string) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop`;
@@ -13,92 +15,81 @@ const unsplash = (id: string) =>
 export type Img = { src: string; alt: string };
 
 export const images = {
-  heroKitchen: {
-    src: unsplash("photo-1600566753086-00f18fb6b3ea"),
-    alt: "Contemporary kitchen with clean cabinetry and warm architectural lighting",
-  },
-  kitchenWarm: {
-    src: unsplash("photo-1556911220-bff31c812dba"),
-    alt: "Modern kitchen with wood-finish cabinets and warm light",
-  },
-  kitchenMinimal: {
-    src: unsplash("photo-1484154218962-a197022b5858"),
-    alt: "Minimal contemporary kitchen with handle-less cabinets",
+  /* Kitchens */
+  kitchenWalnut: {
+    src: unsplash("photo-1783841193339-9a2ec13b4118"),
+    alt: "Walnut and stone kitchen with an island, integrated wine storage and a slim linear pendant",
   },
   kitchenIsland: {
-    src: unsplash("photo-1600489000022-c2086d79f9d4"),
-    alt: "Kitchen island with stone-look surface and pendant lighting",
+    src: unsplash("photo-1709747820806-057272eddd5d"),
+    alt: "Long kitchen island with a black stone top, walnut cabinetry and pendant lights",
   },
-  kitchenBright: {
-    src: unsplash("photo-1556909114-f6e7ad7d3136"),
-    alt: "Bright kitchen with pale cabinetry and natural daylight",
+  kitchenGraphite: {
+    src: unsplash("photo-1600684388091-627109f3cd60"),
+    alt: "Matte black handle-less kitchen with a slim chimney and steel tap",
   },
   kitchenSteel: {
-    src: unsplash("photo-1556912173-3bb406ef7e77"),
-    alt: "Kitchen with stainless-steel appliances and fittings",
+    src: unsplash("photo-1639405069836-f82aa6dcb900"),
+    alt: "Kitchen with graphite cabinetry, built-in steel appliances and stone worktops",
   },
-  kitchenDark: {
-    src: unsplash("photo-1565538810643-b5bdb714032a"),
-    alt: "Dark, moody kitchen with matte cabinetry",
+  kitchenFluted: {
+    src: unsplash("photo-1751290741395-8fd9bc214f61"),
+    alt: "Fluted wood panelling with concealed doors beside a dark worktop and steel refrigerator",
   },
-  wardrobeSliding: {
-    src: unsplash("photo-1595428774223-ef52624120d2"),
-    alt: "Built-in wardrobe with full-height doors",
+  kitchenOak: {
+    src: unsplash("photo-1764526624453-db32c24eca55"),
+    alt: "Bright kitchen with a wood-veneer tall unit and pale stone worktops",
+  },
+  kitchenMarble: {
+    src: unsplash("photo-1755316388093-faff473ffdfb"),
+    alt: "Light kitchen with a marble waterfall island and warm wood shelving",
+  },
+  steelTap: {
+    src: unsplash("photo-1784790601912-b30717b805b8"),
+    alt: "Brushed-steel tap running into a double sink, with a warm strip of light behind",
+  },
+  drawerDetail: {
+    src: unsplash("photo-1708426045412-08658fb82e1e"),
+    alt: "Open kitchen drawer with a fitted wooden cutlery organiser",
+  },
+
+  /* Wardrobes and bedrooms */
+  wardrobeSystem: {
+    src: unsplash("photo-1672137233327-37b0c1049e77"),
+    alt: "Fitted wardrobe with glass-fronted hanging, lit shelves, a sliding panel and a dressing niche",
   },
   walkIn: {
-    src: unsplash("photo-1558997519-83ea9252edf8"),
-    alt: "Walk-in wardrobe with open hanging and shelving",
+    src: unsplash("photo-1785395407788-71b829c98bb4"),
+    alt: "Minimal walk-in wardrobe with wooden shelving and white shirts on a steel rail",
   },
-  wardrobeInterior: {
-    src: unsplash("photo-1597072689227-8882273e8f6a"),
-    alt: "Organised wardrobe interior with hanging space and shelves",
+  bedroomJoinery: {
+    src: unsplash("photo-1757344454333-cc666252e596"),
+    alt: "Bedroom with walnut built-ins, lit display shelves and full-height wardrobe fronts",
   },
   bedroomCalm: {
-    src: unsplash("photo-1615874959474-d609969a20ed"),
-    alt: "Calm bedroom with soft, neutral tones",
+    src: unsplash("photo-1784653548504-c0928cd4737e"),
+    alt: "Soft, neutral bedroom with an upholstered bed and warm pendant light",
   },
-  bedroom: {
-    src: unsplash("photo-1505693416388-ac5ce068fe85"),
-    alt: "Quiet bedroom with built-in storage",
+
+  /* Interiors and details */
+  studyNook: {
+    src: unsplash("photo-1784012980517-005c26585344"),
+    alt: "Minimal study with a fluted walnut desk and a linear pendant",
   },
-  interiorWarm: {
-    src: unsplash("photo-1600210492486-724fe5c67fb0"),
-    alt: "Sunlit interior with natural textures",
+  joineryDetail: {
+    src: unsplash("photo-1684846416931-dddf8cbfc2ad"),
+    alt: "Close view of curved wooden joinery against a white wall",
   },
-  interiorLiving: {
-    src: unsplash("photo-1618221195710-dd6b41faaea6"),
-    alt: "Warm living space with natural light and soft furnishings",
+  livingWood: {
+    src: unsplash("photo-1774200981075-a728eaaa3824"),
+    alt: "Open living and kitchen space with warm wood joinery",
   },
   interiorMinimal: {
     src: unsplash("photo-1600607687939-ce8a6c25118c"),
-    alt: "Minimal contemporary interior",
-  },
-  interiorCoordinated: {
-    src: unsplash("photo-1600607687920-4e2a09cf159d"),
-    alt: "Contemporary interior with coordinated furniture and finishes",
-  },
-  interiorDetail: {
-    src: unsplash("photo-1616486338812-3dadae4b4ace"),
-    alt: "Interior detail with layered materials",
-  },
-  interiorShelving: {
-    src: unsplash("photo-1600585154526-990dced4db0d"),
-    alt: "Contemporary interior with built-in joinery",
-  },
-  interiorLight: {
-    src: unsplash("photo-1600607687644-c7171b42498f"),
-    alt: "Open interior with soft daylight",
+    alt: "Contemporary living space with a timber feature wall",
   },
   residence: {
     src: unsplash("photo-1600585154340-be6161a56a0c"),
-    alt: "Contemporary home with warm natural finishes",
-  },
-  livingLight: {
-    src: unsplash("photo-1586023492125-27b2c045efd7"),
-    alt: "Bright living room with natural light",
-  },
-  livingNatural: {
-    src: unsplash("photo-1522708323590-d24dbb6b0267"),
-    alt: "Light-filled living room with natural materials",
+    alt: "Contemporary home at dusk with warm light inside",
   },
 } satisfies Record<string, Img>;

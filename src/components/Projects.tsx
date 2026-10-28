@@ -70,8 +70,10 @@ export default function Projects() {
       <div className="shell">
         <SectionHeading
           dark
+          number="05"
           id="projects-title"
-          eyebrow="Featured projects"
+          eyebrow="Selected work"
+          aside="Concept visuals"
           title={
             <>
               Spaces worth <em>coming home to.</em>
@@ -115,6 +117,7 @@ export default function Projects() {
                 key={project.slug}
                 className={`${slot.span} ${wide ? "sm:col-span-2" : ""} flex flex-col`}
               >
+                <Reveal variant="media" className="flex flex-1 flex-col">
                 <button
                   type="button"
                   onClick={() => setActive(i)}
@@ -135,18 +138,21 @@ export default function Projects() {
                       <Maximize2 size={16} strokeWidth={1.5} />
                     </span>
                   </span>
-                  <span className="mt-5 flex items-baseline justify-between gap-4">
-                    <span className="display text-[1.7rem] leading-tight">
-                      {project.title}
+                  <span className="mt-5 grid grid-cols-[2.2rem_1fr] items-baseline border-t border-ivory/15 pt-4">
+                    <span className="font-serif text-base italic text-champagne">
+                      {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="shrink-0 text-[11px] uppercase tracking-[0.18em] text-champagne">
-                      {project.label}
+                    <span className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                      <span className="display text-[1.6rem] leading-tight transition-colors duration-500 group-hover:text-champagne">
+                        {project.title}
+                      </span>
+                      <span className="text-[11px] uppercase tracking-[0.18em] text-ivory/50">
+                        {project.label}
+                      </span>
                     </span>
-                  </span>
-                  <span className="mt-2 max-w-[520px] text-sm leading-6 text-ivory/65">
-                    {project.description}
                   </span>
                 </button>
+                </Reveal>
               </li>
             );
           })}

@@ -132,7 +132,17 @@
 }
 
 .h-hero {
-  font-size: clamp(3.1rem, 8.4vw, 8.4rem);
+  font-size: clamp(3.4rem, 7.4vw, 8.6rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+
+/* Long-form statement set in the display face, for manifesto paragraphs. */
+.h-statement {
+  font-size: clamp(1.85rem, 3.5vw, 3.35rem);
+  line-height: 1.12;
+  letter-spacing: -0.018em;
+  text-wrap: pretty;
 }
 
 .h-xl {
@@ -183,6 +193,47 @@
   letter-spacing: 0.08em;
   line-height: 1.6;
   color: var(--muted);
+}
+
+/* Running head that opens each chapter, like a monograph folio. */
+.folio {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+.on-dark .folio {
+  border-color: rgba(245, 241, 233, 0.18);
+}
+
+.folio-num {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 17px;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* A small photograph set into a line of display type. */
+.inline-image {
+  position: relative;
+  display: inline-block;
+  width: 1.9em;
+  height: 0.8em;
+  margin-inline: 0.06em;
+  overflow: hidden;
+  vertical-align: -0.02em;
+  border-radius: 999px;
+  background: var(--travertine);
 }
 
 .numeral {
@@ -399,6 +450,27 @@
 
 /* ── Motion ─────────────────────────────────────────────────────────── */
 
+/* Images open like a blind and settle from a slight zoom. `scale` composes
+   with the hover zoom, which uses `transform`. */
+/* The final inset sits outside the box so focus rings are not clipped. */
+.reveal-media {
+  clip-path: inset(18% -16px -16px -16px);
+  transition: clip-path 1500ms cubic-bezier(0.65, 0, 0.2, 1);
+}
+
+.reveal-media img {
+  scale: 1.14;
+  transition: scale 2000ms var(--ease-out);
+}
+
+.reveal-media.is-visible {
+  clip-path: inset(-16px);
+}
+
+.reveal-media.is-visible img {
+  scale: 1;
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(24px);
@@ -429,6 +501,30 @@
   }
   to {
     transform: scaleY(0);
+  }
+}
+
+@keyframes frame-in {
+  from {
+    clip-path: inset(0 0 0 100%);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+@keyframes frame-up {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
   }
 }
 
@@ -475,6 +571,26 @@
 
 .hero-media {
   animation: hero-media 2600ms var(--ease-out) both;
+}
+
+.hero-frame {
+  animation: frame-up 1600ms cubic-bezier(0.7, 0, 0.2, 1) 100ms both;
+}
+
+@media (min-width: 1024px) {
+  .hero-frame {
+    animation-name: frame-in;
+  }
+}
+
+.hero-inset {
+  animation: frame-up 1300ms cubic-bezier(0.7, 0, 0.2, 1) 1400ms both;
+}
+
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 70s linear infinite;
 }
 
 .hero-curtain {
@@ -524,5 +640,17 @@ dialog::backdrop {
   .reveal {
     opacity: 1;
     transform: none;
+  }
+
+  .reveal-media {
+    clip-path: none;
+  }
+
+  .reveal-media img {
+    scale: 1;
+  }
+
+  .marquee {
+    animation: none;
   }
 }

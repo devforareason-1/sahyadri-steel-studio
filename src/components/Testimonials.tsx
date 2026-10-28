@@ -1,4 +1,5 @@
 import { partners, testimonials } from "@/data/content";
+import Folio from "./Folio";
 import Reveal from "./Reveal";
 
 function PlaceholderNote({ children }: { children: string }) {
@@ -20,10 +21,12 @@ export default function Testimonials() {
       className="section"
     >
       <div className="shell">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-0">
+        <Reveal>
+          <Folio number="08" label="In their words" />
+        </Reveal>
+        <div className="mt-14 grid gap-12 lg:mt-20 lg:grid-cols-12 lg:gap-0">
           <Reveal className="lg:col-span-4">
-            <p className="eyebrow text-champagne-ink">In their words</p>
-            <h2 id="testimonials-title" className="display h-lg mt-6">
+            <h2 id="testimonials-title" className="display h-lg">
               Homes, <em>as lived in.</em>
             </h2>
           </Reveal>
@@ -79,34 +82,27 @@ export default function Testimonials() {
         )}
 
         {/* Partner brands */}
-        <Reveal className="mt-24 border-t border-line pt-10 lg:mt-32">
-          <div className="flex flex-wrap items-baseline justify-between gap-4">
-            <p className="eyebrow text-muted">Materials & hardware partners</p>
+        <Reveal className="mt-24 lg:mt-32">
+          <div className="flex flex-wrap items-baseline justify-between gap-4 border-t border-line pt-5">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-muted">
+              Materials &amp; hardware partners
+            </p>
             {partners.length === 0 && (
               <PlaceholderNote>Placeholder · partners to be confirmed</PlaceholderNote>
             )}
           </div>
-          <ul className="mt-8 grid grid-cols-2 gap-[1px] bg-line sm:grid-cols-3 lg:grid-cols-6">
-            {(partners.length > 0
-              ? partners
-              : Array.from({ length: 6 }, () => ({ name: "", logo: undefined }))
-            ).map((p, i) => (
-              <li
-                key={p.name || i}
-                className="flex h-24 items-center justify-center bg-ivory px-6"
-              >
-                {p.name ? (
-                  <span className="font-serif text-xl tracking-[0.06em] text-graphite/70">
-                    {p.name}
-                  </span>
-                ) : (
-                  <span className="text-[11px] uppercase tracking-[0.22em] text-graphite/30">
-                    Partner {String(i + 1).padStart(2, "0")}
-                  </span>
-                )}
-              </li>
-            ))}
-          </ul>
+          {partners.length > 0 && (
+            <ul className="mt-10 flex flex-wrap items-center gap-x-14 gap-y-8">
+              {partners.map((p) => (
+                <li
+                  key={p.name}
+                  className="font-serif text-2xl tracking-[0.06em] text-graphite/60"
+                >
+                  {p.name}
+                </li>
+              ))}
+            </ul>
+          )}
         </Reveal>
       </div>
     </section>

@@ -1,63 +1,24 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
-import { services, type Service } from "@/data/services";
+import { images, type Img } from "@/data/images";
+import { services } from "@/data/services";
+import Folio from "./Folio";
 import Photo from "./Photo";
 import Reveal from "./Reveal";
-import SectionHeading from "./SectionHeading";
 
-function SolutionText({ service }: { service: Service }) {
+function InlineImage({ image }: { image: Img }) {
   return (
-    <div>
-      <p className="flex items-baseline gap-4">
-        <span className="numeral text-3xl">{service.number}</span>
-        <span className="caption uppercase tracking-[0.22em]">{service.kicker}</span>
-      </p>
-      <h3 className="display h-md mt-5">
-        <Link
-          href={`/services/${service.slug}`}
-          className="transition-colors hover:text-walnut"
-        >
-          {service.title}
-        </Link>
-      </h3>
-      <p className="mt-4 max-w-[380px] text-[15px] leading-7 text-muted">
-        {service.summary}
-      </p>
-      <Link
-        href={`/services/${service.slug}`}
-        className="link-line mt-7"
-        aria-label={`Explore ${service.title}`}
-      >
-        Explore
-        <ArrowUpRight size={15} strokeWidth={1.6} />
-      </Link>
-    </div>
-  );
-}
-
-function SolutionImage({
-  service,
-  aspect,
-  sizes,
-}: {
-  service: Service;
-  aspect: string;
-  sizes: string;
-}) {
-  return (
-    <Link
-      href={`/services/${service.slug}`}
-      tabIndex={-1}
-      aria-hidden="true"
-      className={`media media-zoom block ${aspect}`}
-    >
-      <Photo image={service.image} sizes={sizes} />
-    </Link>
+    <span className="inline-image" aria-hidden="true">
+      <Photo image={image} sizes="120px" />
+    </span>
   );
 }
 
 export default function Solutions() {
-  const [kitchens, wardrobes, steel, details] = services;
+  const [active, setActive] = useState(0);
 
   return (
     <section
@@ -66,79 +27,113 @@ export default function Solutions() {
       className="section"
     >
       <div className="shell">
-        <SectionHeading
-          id="solutions-title"
-          eyebrow="Signature solutions"
-          title={
-            <>
-              Four ways to shape <em>a better home.</em>
-            </>
-          }
-          intro="From the kitchen to the wardrobe to the details in between, each piece is designed for the room it lives in and the people who use it."
-        />
+        <Reveal>
+          <Folio number="01" label="The studio" aside="Shivamogga · Udupi" />
+        </Reveal>
 
-        <div className="mt-20 space-y-24 lg:mt-28 lg:space-y-36">
-          {/* 01: wide image, text alongside */}
-          <article className="group grid items-center gap-10 lg:grid-cols-12 lg:gap-0">
-            <Reveal className="lg:col-span-7">
-              <SolutionImage
-                service={kitchens}
-                aspect="aspect-[4/3]"
-                sizes="(max-width: 1024px) 100vw, 58vw"
-              />
-            </Reveal>
-            <Reveal delay={150} className="lg:col-span-4 lg:col-start-9">
-              <SolutionText service={kitchens} />
-            </Reveal>
-          </article>
+        {/* Manifesto */}
+        <div className="mt-14 grid gap-10 lg:mt-20 lg:grid-cols-12 lg:gap-0">
+          <Reveal className="lg:col-span-3">
+            <p className="max-w-[260px] text-[13px] leading-6 text-muted">
+              A design studio for kitchens, wardrobes and stainless steel,
+              working with homes across Karnataka&rsquo;s Malnad and coast.
+            </p>
+          </Reveal>
+          <Reveal delay={120} className="lg:col-span-9">
+            <p className="display h-statement">
+              We design kitchens <InlineImage image={images.kitchenGraphite} />{" "}
+              wardrobes <InlineImage image={images.walkIn} /> and steel
+              interiors <InlineImage image={images.steelTap} /> that feel
+              composed on the first day,{" "}
+              <em className="text-champagne-ink">
+                and stay easy to live with for years of ordinary mornings.
+              </em>
+            </p>
+          </Reveal>
+        </div>
 
-          {/* 02: text first, tall image offset to the right */}
-          <article className="group grid items-end gap-10 lg:grid-cols-12 lg:gap-0">
-            <Reveal className="order-2 lg:order-1 lg:col-span-4 lg:col-start-2 lg:pb-16">
-              <SolutionText service={wardrobes} />
+        {/* Index of disciplines */}
+        <div className="mt-24 grid gap-12 lg:mt-36 lg:grid-cols-12 lg:gap-0">
+          <div className="lg:col-span-7">
+            <Reveal className="flex items-baseline justify-between gap-6">
+              <h2
+                id="solutions-title"
+                className="text-[11px] font-semibold uppercase tracking-[0.22em] text-muted"
+              >
+                Four disciplines
+              </h2>
+              <p className="text-[11px] uppercase tracking-[0.22em] text-muted">
+                Index
+              </p>
             </Reveal>
-            <Reveal delay={150} className="order-1 lg:order-2 lg:col-span-5 lg:col-start-7">
-              <SolutionImage
-                service={wardrobes}
-                aspect="aspect-[4/5]"
-                sizes="(max-width: 1024px) 100vw, 42vw"
-              />
-            </Reveal>
-          </article>
 
-          {/* 03 + 04: a staggered pair */}
-          <div className="grid gap-24 md:grid-cols-12 md:gap-0">
-            <article className="group md:col-span-6">
-              <Reveal>
-                <div className="relative">
-                  <SolutionImage
-                    service={steel}
-                    aspect="aspect-[5/4]"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                  <span
+            <ol className="mt-5 border-t border-line-strong">
+              {services.map((s, i) => {
+                const on = i === active;
+                return (
+                  <Reveal as="li" key={s.slug} delay={i * 80} className="border-b border-line">
+                    <Link
+                      href={`/services/${s.slug}`}
+                      onMouseEnter={() => setActive(i)}
+                      onFocus={() => setActive(i)}
+                      className="group grid grid-cols-[2.4rem_1fr_auto] items-center gap-x-3 py-6 sm:grid-cols-[3.5rem_1fr_auto] sm:py-8"
+                    >
+                      <span className="numeral self-start pt-2 text-lg sm:text-xl">{s.number}</span>
+                      <span className="min-w-0">
+                        <span
+                          className={`block font-serif text-[clamp(1.75rem,3.6vw,3.3rem)] leading-[1.02] tracking-[-0.02em] transition-[color,transform] duration-700 ease-[var(--ease-out)] lg:group-hover:translate-x-3 ${
+                            on ? "lg:text-graphite" : "lg:text-graphite/45"
+                          }`}
+                        >
+                          {s.title}
+                        </span>
+                        <span className="mt-2 block max-w-[420px] text-[14px] leading-6 text-muted">
+                          {s.summary}
+                        </span>
+                      </span>
+
+                      {/* Phones: a small plate beside each row. */}
+                      <span className="media relative block h-[84px] w-[66px] shrink-0 sm:h-[110px] sm:w-[88px] lg:hidden">
+                        <Photo image={s.image} sizes="90px" />
+                      </span>
+                      <span
+                        aria-hidden="true"
+                        className={`hidden h-12 w-12 items-center justify-center rounded-full border transition-all duration-500 lg:flex ${
+                          on
+                            ? "border-graphite bg-graphite text-ivory"
+                            : "border-line-strong text-graphite"
+                        }`}
+                      >
+                        <ArrowUpRight size={18} strokeWidth={1.4} />
+                      </span>
+                    </Link>
+                  </Reveal>
+                );
+              })}
+            </ol>
+          </div>
+
+          {/* Desktop: one plate that changes with the row in focus. */}
+          <div className="hidden lg:col-span-4 lg:col-start-9 lg:block">
+            <Reveal variant="media" className="sticky top-[calc(var(--header-height)+40px)]">
+              <div className="media aspect-[4/5]">
+                {services.map((s, i) => (
+                  <div
+                    key={s.slug}
                     aria-hidden="true"
-                    className="brushed-steel absolute -bottom-3 left-6 right-6 h-[3px]"
-                  />
-                </div>
-              </Reveal>
-              <Reveal delay={120} className="mt-10 md:pr-10">
-                <SolutionText service={steel} />
-              </Reveal>
-            </article>
-
-            <article className="group md:col-span-5 md:col-start-8 md:mt-40">
-              <Reveal>
-                <SolutionImage
-                  service={details}
-                  aspect="aspect-[4/5]"
-                  sizes="(max-width: 768px) 100vw, 40vw"
-                />
-              </Reveal>
-              <Reveal delay={120} className="mt-10">
-                <SolutionText service={details} />
-              </Reveal>
-            </article>
+                    className={`absolute inset-0 transition-[opacity,transform] duration-[1100ms] ease-[var(--ease-out)] ${
+                      i === active ? "scale-100 opacity-100" : "scale-[1.05] opacity-0"
+                    }`}
+                  >
+                    <Photo image={s.image} sizes="34vw" />
+                  </div>
+                ))}
+              </div>
+              <div className="mt-4 flex items-baseline justify-between gap-4 text-[11px] uppercase tracking-[0.2em] text-muted">
+                <span className="text-champagne-ink">{services[active].kicker}</span>
+                <span>Concept visual</span>
+              </div>
+            </Reveal>
           </div>
         </div>
       </div>
