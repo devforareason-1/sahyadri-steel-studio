@@ -4,22 +4,28 @@ Website for Sahyadri Steel Studio, a women-led design studio for
 stainless-steel kitchens, glass-and-steel wardrobes and vanities, with
 studios in Shivamogga and Udupi, Karnataka.
 
-Next.js 16 (static export), React 19, Tailwind CSS v4 and Motion, deployed
-to GitHub Pages under the base path `/sahyadri-steel-studio`.
+Next.js 16, React 19, Tailwind CSS v4 and Motion, hosted on Vercel.
 
 ## Run locally
 
     npm install
-    npm run dev      # http://localhost:3000/sahyadri-steel-studio
-    npm run build    # static site written to out/
+    npm run dev      # http://localhost:3000
+    npm run build    # production build, as Vercel runs it
     npm run lint
 
 `npx tsc --noEmit` type-checks the project.
 
 ## Deploy
 
-Every push to `main` builds the site and publishes `out/` to GitHub Pages
-(`.github/workflows/deploy.yml`). Day-to-day work happens on `Dev`.
+The site is hosted on Vercel, connected to this GitHub repository: every
+push to `main` goes live, and every other branch (including `Dev`) gets
+its own preview link. From the command line, `vercel` makes a preview
+deployment and `vercel --prod` a production one.
+
+`site.url`, used for the sitemap, robots.txt and link previews, comes from
+Vercel's production address. Once the studio's own domain is connected,
+set `NEXT_PUBLIC_SITE_URL` (e.g. `https://sahyadristeelstudio.com`, no
+trailing slash) in the Vercel project's environment variables.
 
 ## Where to edit content
 
@@ -66,8 +72,9 @@ the enquiry form (`EnquiryForm.tsx`).
 - **Styles**: design tokens, section spacing and shared classes (`.section`,
   `.folio`, `.display`, `.btn`) are in `src/app/globals.css`.
 - **Images**: `next/image` with a custom loader (`src/lib/image-loader.ts`)
-  that builds responsive sizes from the Unsplash and Pexels CDNs, since a
-  static export has no image server. An empty `src` shows a brushed-steel
+  that asks the Unsplash and Pexels CDNs for each responsive size, so stock
+  photos don't use Vercel's image-optimisation allowance. Local files in
+  `public/` are served as they are. An empty `src` shows a brushed-steel
   "photograph to come" plate.
 - **SEO**: metadata in `src/app/layout.tsx`, business structured data in
   `src/lib/structured-data.ts`, plus `sitemap.ts` and `robots.ts`.
@@ -92,7 +99,7 @@ the enquiry form (`EnquiryForm.tsx`).
 ## Before launch
 
 - [ ] Remove `robots: { index: false, follow: false }` in `src/app/layout.tsx`.
-- [ ] Set `site.url` in `src/data/site.ts` to the real domain (no trailing slash).
+- [ ] Connect the real domain in Vercel and set `NEXT_PUBLIC_SITE_URL` to it.
 - [ ] Fill in `site.phone`, `site.email` and each studio's address, hours and phone.
 - [ ] Replace the sample testimonials (`sample: true`) with real reviews.
 - [ ] Set the range sizes in `finishRange` (`src/data/content.ts`).

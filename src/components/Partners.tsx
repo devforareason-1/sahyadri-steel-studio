@@ -3,8 +3,6 @@ import { partners, type Partner } from "@/data/content";
 import Folio from "./Folio";
 import Reveal from "./Reveal";
 
-const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
-
 // Where a pointer can hover, logos rest in grey and colour up under it.
 // Touch screens can't hover, so there they show in colour from the start.
 function Mark({ partner }: { partner: Partner }) {
@@ -12,7 +10,7 @@ function Mark({ partner }: { partner: Partner }) {
     <li className="group flex h-32 overflow-hidden flex-col items-center justify-center gap-3 border-b border-r border-line px-4 sm:h-36">
       {partner.logo ? (
         <img
-          src={`${base}${partner.logo}`}
+          src={partner.logo}
           alt={partner.name}
           loading="lazy"
           draggable={false}

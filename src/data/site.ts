@@ -1,7 +1,12 @@
 export const site = {
   name: "Sahyadri Steel Studio",
-  // No trailing slash. Includes the GitHub Pages base path.
-  url: "https://YOUR-USERNAME.github.io/sahyadri-steel-studio",
+  // No trailing slash. Set NEXT_PUBLIC_SITE_URL in Vercel once the studio's
+  // own domain is connected; until then Vercel's production address is used.
+  url:
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    (process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`
+      : "http://localhost:3000"),
   whatsapp: "916362689220", // main number, used where no studio-specific one is set
   whatsappDisplay: "+91 63626 89220",
   phone: "", // e.g. "+91 63626 89220". Leave "" to hide the call button.

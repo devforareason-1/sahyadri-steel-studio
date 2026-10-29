@@ -1,16 +1,10 @@
 import type { NextConfig } from "next";
 
-const basePath = "/sahyadri-steel-studio";
-
 const nextConfig: NextConfig = {
-  output: "export",
-  basePath,
-  env: {
-    NEXT_PUBLIC_BASE_PATH: basePath,
-  },
   images: {
-    // Static export has no image server, so a custom loader builds
-    // responsive srcsets from the image CDN (see src/lib/image-loader.ts).
+    // Unsplash and Pexels resize on their own CDNs, so a custom loader asks
+    // them for each size (see src/lib/image-loader.ts) instead of spending
+    // Vercel's image-optimisation allowance on photos they already serve.
     loader: "custom",
     loaderFile: "./src/lib/image-loader.ts",
     qualities: [70, 75, 80],

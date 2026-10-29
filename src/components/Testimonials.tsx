@@ -5,8 +5,6 @@ import type { Testimonial } from "@/data/content";
 import Folio from "./Folio";
 import Reveal from "./Reveal";
 
-const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
-
 // Stand-in quotes (sample: true) carry a visible tag, so they are never
 // mistaken for a client's words.
 function SampleTag({ t }: { t: Testimonial }) {
@@ -30,7 +28,7 @@ function Avatar({ t, size }: { t: Testimonial; size: "lg" | "sm" }) {
       }`}
     >
       {t.photo ? (
-        <img src={`${base}${t.photo}`} alt="" loading="lazy" className="h-full w-full object-cover" />
+        <img src={t.photo} alt="" loading="lazy" className="h-full w-full object-cover" />
       ) : (
         <UserRound size={size === "lg" ? 26 : 20} strokeWidth={1.3} />
       )}
