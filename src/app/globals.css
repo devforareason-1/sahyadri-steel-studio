@@ -159,12 +159,6 @@
   color: rgb(245 244 240 / 0.5);
 }
 
-.h-hero {
-  font-size: clamp(2.6rem, 5.6vw, 6.2rem);
-  line-height: 0.96;
-  letter-spacing: -0.045em;
-}
-
 .h-statement {
   font-size: clamp(1.6rem, 3vw, 2.75rem);
   line-height: 1.18;
@@ -472,11 +466,12 @@
 }
 
 /* ── Motion ─────────────────────────────────────────────────────────────
-   Kept deliberately quiet: the hero settles once, sections fade in, and
-   nothing else moves on its own. */
+   Kept deliberately quiet: the home page's hero is lit by the visitor's
+   scroll (see Hero.tsx), a solution page's hero settles once, sections
+   fade in, and nothing else moves on its own. */
 
-/* Scale only: the frame's clip already unveils the photograph, and fading
-   it in from transparent would hold back the largest paint on the page. */
+/* A solution page's hero photograph. Scale only: fading it in from
+   transparent would hold back the largest paint on the page. */
 @keyframes hero-media {
   from {
     transform: scale(1.08);
@@ -530,8 +525,6 @@
 .hero-media {
   animation: hero-media 2400ms var(--ease-out) both;
 }
-
-
 
 .line-mask {
   display: block;

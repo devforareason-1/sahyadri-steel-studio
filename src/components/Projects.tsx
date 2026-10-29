@@ -128,7 +128,7 @@ export default function Projects() {
                 type="button"
                 aria-pressed={filter === cat}
                 onClick={() => setFilter(cat)}
-                className={`nav-link font-mono text-[11px] uppercase tracking-[0.12em] transition-colors ${
+                className={`nav-link inline-flex min-h-11 items-center font-mono text-[11px] uppercase tracking-[0.12em] transition-colors lg:min-h-0 ${
                   filter === cat
                     ? "text-ivory"
                     : "text-ivory/55 hover:text-ivory"

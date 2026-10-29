@@ -194,8 +194,10 @@ export default function WardrobePlanner() {
   const zone = zones.find((z) => z.id === active)!;
 
   return (
-    <div className="grid gap-12 lg:grid-cols-[1.15fr_1fr] lg:gap-20">
-      <div>
+    // On phones the drawing pins under the header while the zone list scrolls
+    // beneath it, so the highlighted zone is always in view.
+    <div className="grid gap-4 lg:grid-cols-[1.15fr_1fr] lg:gap-20">
+      <div className="sticky top-(--header-height) z-10 -mx-(--gutter) border-b border-line bg-ivory-deep px-(--gutter) py-3 lg:static lg:mx-0 lg:border-0 lg:bg-transparent lg:p-0">
         <div className="flex items-center justify-between gap-4">
           <p className="caption uppercase tracking-[0.2em]">
             Elevation · Illustrative
@@ -217,7 +219,7 @@ export default function WardrobePlanner() {
           </div>
         </div>
 
-        <div className="grain mt-5 border border-line bg-ivory p-4 sm:p-8">
+        <div className="grain mt-3 border border-line bg-ivory p-2 sm:p-8 lg:mt-5">
           <svg
             viewBox="0 0 640 560"
             role="img"
@@ -226,7 +228,7 @@ export default function WardrobePlanner() {
                 ? "Front elevation of a wardrobe with sliding doors and a loft above"
                 : `Interior elevation of a wardrobe, highlighting the ${zone.title.toLowerCase()} zone`
             }
-            className="h-auto w-full text-graphite"
+            className="mx-auto h-auto max-h-[38svh] w-full text-graphite lg:max-h-none"
           >
             <rect x="40" y="20" width="560" height="510" fill="#f5f1e9" stroke="currentColor" strokeWidth="2" />
             <line x1="40" y1="110" x2="600" y2="110" stroke="currentColor" strokeWidth="1.5" />
@@ -264,7 +266,7 @@ export default function WardrobePlanner() {
             </g>
           </svg>
         </div>
-        <p className="caption mt-3">
+        <p className="caption mt-3 hidden lg:block">
           A sample layout. Every wardrobe is planned to your room and your
           belongings.
         </p>

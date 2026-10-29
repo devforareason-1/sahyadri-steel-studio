@@ -50,7 +50,7 @@ const catalogue = [
     noun: "shades",
     note: "Powder-coat or PU lacquer, in high gloss or matt, matched to the RAL colour you choose.",
     finishes: colourFinishes,
-    grid: "grid-cols-6 sm:grid-cols-9",
+    grid: "grid-cols-3 sm:grid-cols-6 lg:grid-cols-9",
     aspect: "aspect-square",
   },
   {
@@ -147,7 +147,7 @@ function Preview({ pick }: { pick: Pick }) {
   const { fronts, worktop, hardware, gloss } = pick;
   return (
     <div
-      className="relative aspect-[5/4] overflow-hidden"
+      className="relative aspect-[16/9] overflow-hidden lg:aspect-[5/4]"
       style={{ background: "linear-gradient(180deg, #f1ede6, #e6e0d6)" }}
     >
       {/* Floor */}
@@ -318,18 +318,19 @@ export default function Materials() {
           ))}
         </div>
 
-        {/* Try a combination */}
-        <div className="mt-14 grid gap-12 border-t border-line pt-12 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
-          <Reveal>
+        {/* Try a combination. On phones the preview pins under the header
+            while the choices scroll beneath it, so every change shows. */}
+        <div className="mt-14 grid gap-6 border-t border-line pt-12 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
+          <Reveal className="sticky top-(--header-height) z-10 -mx-(--gutter) border-b border-line bg-ivory px-(--gutter) py-3 lg:static lg:mx-0 lg:border-0 lg:bg-transparent lg:p-0">
             <p className={legend}>Your combination</p>
-            <div className="mt-5" aria-live="polite">
+            <div className="mt-3 lg:mt-5" aria-live="polite">
               <Preview pick={pick} />
-              <p className="mt-4 text-[1.15rem] font-light leading-snug">
+              <p className="mt-3 text-[0.95rem] font-light leading-snug lg:mt-4 lg:text-[1.15rem]">
                 {pick.fronts.name}
                 {pick.fronts.kind === "colour" && (pick.gloss ? " gloss" : " matt")} fronts,{" "}
                 {pick.worktop.name.toLowerCase()} worktop, {pick.hardware.name.toLowerCase()} handles
               </p>
-              {pick.fronts.code && <p className="caption mt-1">{pick.fronts.code}</p>}
+              {pick.fronts.code && <p className="caption mt-1 hidden lg:block">{pick.fronts.code}</p>}
             </div>
           </Reveal>
 

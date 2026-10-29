@@ -17,7 +17,8 @@ export default function Folio({
     <div className={`folio ${dark ? "text-ivory/60" : "text-muted"} ${className}`}>
       <p>{label}</p>
       {aside && (
-        <span>
+        // Phones show the label alone: the note would wrap mid-phrase.
+        <span className="hidden sm:inline">
           <span aria-hidden="true" className="mr-3.5 opacity-50">/</span>
           {aside}
         </span>

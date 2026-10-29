@@ -19,8 +19,8 @@ export type InstagramPost = {
   caption?: string; // a short line shown on hover, optional
 };
 
-// Switch the Instagram section on or off. Off hides it from the homepage
-// (and the chapter numbers close up); the posts below are kept either way.
+// Switch the Instagram section on or off. Off hides it from the homepage;
+// the posts below are kept either way.
 export const showInstagram = false;
 
 export const instagramPosts: InstagramPost[] = [

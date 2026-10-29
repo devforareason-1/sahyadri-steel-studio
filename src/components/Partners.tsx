@@ -5,6 +5,8 @@ import Reveal from "./Reveal";
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
+// Where a pointer can hover, logos rest in grey and colour up under it.
+// Touch screens can't hover, so there they show in colour from the start.
 function Mark({ partner }: { partner: Partner }) {
   return (
     <li className="group flex h-32 overflow-hidden flex-col items-center justify-center gap-3 border-b border-r border-line px-4 sm:h-36">
@@ -15,8 +17,8 @@ function Mark({ partner }: { partner: Partner }) {
           loading="lazy"
           draggable={false}
           style={{ "--s": partner.logoScale ?? 1 } as React.CSSProperties}
-          className={`h-[calc(2.1rem*var(--s))] w-auto max-w-[140px] object-contain opacity-60 grayscale transition-[opacity,filter,scale] duration-500 ease-[var(--ease-out)] group-hover:scale-[1.12] group-hover:opacity-100 sm:h-[calc(2.5rem*var(--s))] sm:max-w-[160px] ${
-            partner.logoOnDark ? "brightness-0" : "group-hover:grayscale-0"
+          className={`h-[calc(2.1rem*var(--s))] w-auto max-w-[140px] object-contain transition-[opacity,filter,scale] duration-500 ease-[var(--ease-out)] group-hover:scale-[1.12] [@media(hover:hover)]:opacity-60 [@media(hover:hover)]:grayscale [@media(hover:hover)]:group-hover:opacity-100 sm:h-[calc(2.5rem*var(--s))] sm:max-w-[160px] ${
+            partner.logoOnDark ? "brightness-0" : "[@media(hover:hover)]:group-hover:grayscale-0"
           }`}
         />
       ) : (
@@ -53,7 +55,8 @@ export default function Partners() {
         </Reveal>
 
         <Reveal delay={120}>
-          <ul className="mt-10 grid grid-cols-2 border-l border-t border-line sm:grid-cols-3 lg:mt-12 lg:grid-cols-5">
+          {/* On phones an odd last logo spans the row instead of sitting alone. */}
+          <ul className="mt-10 grid grid-cols-2 border-l border-t border-line sm:grid-cols-3 lg:mt-12 lg:grid-cols-5 max-sm:[&>li:last-child:nth-child(odd)]:col-span-2">
             {partners.map((p) => (
               <Mark key={p.name} partner={p} />
             ))}

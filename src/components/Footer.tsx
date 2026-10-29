@@ -12,14 +12,15 @@ function Column({ title, children }: { title: string; children: React.ReactNode 
       <p className="font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-ivory/50">
         {title}
       </p>
-      <div className="mt-6 flex flex-col items-start gap-3 text-sm text-ivory/65">
+      <div className="mt-4 flex flex-col items-start gap-0.5 text-sm text-ivory/65 lg:mt-6 lg:gap-3">
         {children}
       </div>
     </div>
   );
 }
 
-const linkClass = "transition-colors hover:text-ivory";
+// Taller on touch screens, so each link is an easy tap.
+const linkClass = "inline-flex min-h-9 items-center transition-colors hover:text-ivory lg:min-h-0";
 
 export default function Footer() {
   return (
@@ -57,7 +58,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="grid gap-12 sm:grid-cols-2 lg:col-span-8 lg:grid-cols-4 lg:gap-8">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:col-span-8 lg:grid-cols-4 lg:gap-8">
             <Column title="Explore">
               {navigation.map((item) => (
                 <Link key={item.href} href={item.href} className={linkClass}>
@@ -88,8 +89,8 @@ export default function Footer() {
             </Column>
 
             <Column title="Contact">
-              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className={linkClass}>
-                WhatsApp {site.whatsappDisplay}
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className={`${linkClass} flex-wrap gap-x-1.5`}>
+                WhatsApp <span className="whitespace-nowrap">{site.whatsappDisplay}</span>
               </a>
               {site.phone ? (
                 <a href={telLink(site.phone)} className={linkClass}>
@@ -105,17 +106,17 @@ export default function Footer() {
               ) : (
                 <span className="text-ivory/40">Email: to be announced</span>
               )}
-              <a href={site.instagram} target="_blank" rel="noopener noreferrer" className={linkClass}>
-                Instagram {site.instagramHandle}
+              <a href={site.instagram} target="_blank" rel="noopener noreferrer" className={`${linkClass} flex-wrap gap-x-1.5`}>
+                Instagram <span className="whitespace-nowrap">{site.instagramHandle}</span>
               </a>
             </Column>
           </div>
         </div>
 
         <div className="steel-rule mt-14 opacity-40" aria-hidden="true" />
-        <div className="flex flex-col gap-3 py-8 text-[12px] text-ivory/45 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col items-center gap-3 py-8 text-center text-[12px] text-ivory/45 sm:flex-row sm:justify-between sm:text-left">
           <p>© {new Date().getFullYear()} Sahyadri Steel Studio. All rights reserved.</p>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1">
             <Link href="/privacy" className={linkClass}>
               Privacy policy
             </Link>
