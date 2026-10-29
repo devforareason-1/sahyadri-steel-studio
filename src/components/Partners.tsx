@@ -7,51 +7,39 @@ const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 function Mark({ partner }: { partner: Partner }) {
   return (
-    <li className="group flex h-28 w-[200px] shrink-0 flex-col items-center justify-center gap-3 border-r border-line sm:h-32 sm:w-[260px]">
+    <li className="group flex h-32 overflow-hidden flex-col items-center justify-center gap-3 border-b border-r border-line px-4 sm:h-36">
       {partner.logo ? (
         <img
           src={`${base}${partner.logo}`}
-          alt=""
+          alt={partner.name}
           loading="lazy"
           draggable={false}
           style={{ "--s": partner.logoScale ?? 1 } as React.CSSProperties}
-          className={`h-[calc(2.25rem*var(--s))] w-auto max-w-[150px] object-contain opacity-55 grayscale transition-[opacity,filter] duration-500 group-hover:opacity-100 sm:h-[calc(2.75rem*var(--s))] sm:max-w-[180px] ${
+          className={`h-[calc(2.1rem*var(--s))] w-auto max-w-[140px] object-contain opacity-60 grayscale transition-[opacity,filter,scale] duration-500 ease-[var(--ease-out)] group-hover:scale-[1.12] group-hover:opacity-100 sm:h-[calc(2.5rem*var(--s))] sm:max-w-[160px] ${
             partner.logoOnDark ? "brightness-0" : "group-hover:grayscale-0"
           }`}
         />
       ) : (
-        <span className="font-serif text-[1.9rem] leading-none text-graphite/60 transition-colors duration-500 group-hover:text-graphite">
+        <span className="text-[1.5rem] font-light leading-none tracking-[-0.02em] text-graphite/70 transition-[scale,color] duration-500 ease-[var(--ease-out)] group-hover:scale-[1.12] group-hover:text-graphite">
           {partner.name}
         </span>
       )}
-      <span className="text-[9px] font-semibold uppercase tracking-[0.22em] text-muted opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-        {partner.offer}
-      </span>
+      <span className="caption text-center">{partner.offer}</span>
     </li>
   );
 }
 
-// The brands behind the fittings, as a slow carousel of logos. Each brand
+// The brands behind the fittings, as one quiet row of logos. Each brand
 // shows its official logo once one is set in data/content.ts, and its name
-// in the display face until then.
-export default function Partners({ number }: { number: string }) {
+// until then.
+export default function Partners() {
   if (partners.length === 0) return null;
 
-  // Repeat the list until one pass is wider than a large screen, then run
-  // two passes so the -50% loop in .marquee is seamless.
-  const pass: Partner[] = [];
-  while (pass.length < 8) pass.push(...partners);
-
   return (
-    <section
-      id="partners"
-      data-tone="light"
-      aria-labelledby="partners-title"
-      className="section-tight"
-    >
+    <section id="partners" aria-labelledby="partners-title" className="section-tight">
       <div className="shell">
         <Reveal>
-          <Folio number={number} label="Partners" aside="Fittings & systems" />
+          <Folio label="Partners" aside="Fittings & systems" />
         </Reveal>
 
         <Reveal className="mt-12 grid gap-8 lg:mt-16 lg:grid-cols-12 lg:items-end lg:gap-0">
@@ -63,31 +51,15 @@ export default function Partners({ number }: { number: string }) {
             trust, chosen for how it feels on the ten-thousandth opening.
           </p>
         </Reveal>
+
+        <Reveal delay={120}>
+          <ul className="mt-10 grid grid-cols-2 border-l border-t border-line sm:grid-cols-3 lg:mt-12 lg:grid-cols-5">
+            {partners.map((p) => (
+              <Mark key={p.name} partner={p} />
+            ))}
+          </ul>
+        </Reveal>
       </div>
-
-      {/* For screen readers: the list once, without the motion. */}
-      <ul className="sr-only">
-        {partners.map((p) => (
-          <li key={p.name}>
-            {p.name}, {p.offer}
-          </li>
-        ))}
-      </ul>
-
-      <Reveal
-        delay={120}
-        className="partner-strip mt-14 overflow-hidden border-y border-line lg:mt-20"
-      >
-        <div aria-hidden="true" className="marquee" style={{ animationDuration: `${pass.length * 5}s` }}>
-          {[0, 1].map((copy) => (
-            <ul key={copy} className="flex shrink-0">
-              {pass.map((p, i) => (
-                <Mark key={`${p.name}-${i}`} partner={p} />
-              ))}
-            </ul>
-          ))}
-        </div>
-      </Reveal>
     </section>
   );
 }

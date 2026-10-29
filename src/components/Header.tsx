@@ -13,13 +13,22 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
 
   // These pages open with a full-bleed dark image, so the header sits
   // transparently over it until the visitor scrolls.
   const hasHero = pathname === "/" || pathname.startsWith("/services/");
 
+  // Over a hero the header stays clear until the hero has scrolled out from
+  // under it; the home page's hero is pinned for more than a screen.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      const hero = document.querySelector("[data-hero]");
+      const height = headerRef.current?.offsetHeight ?? 0;
+      setScrolled(
+        hero ? hero.getBoundingClientRect().bottom <= height + 1 : window.scrollY > 24
+      );
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -33,11 +42,31 @@ export default function Header() {
         menuButton.current?.focus();
       }
     };
+    // The menu is xl:hidden, so close it if the window grows past that,
+    // or the page would stay inert behind a menu nobody can see.
+    const wide = window.matchMedia("(min-width: 80rem)");
+    const onWide = () => wide.matches && setMenuOpen(false);
+
+    // Keep keyboard and screen-reader focus inside the open menu: everything
+    // beside the header (page, footer, WhatsApp button) goes inert.
+    const header = headerRef.current;
+    const behind = Array.from(header?.parentElement?.children ?? []).filter(
+      (el): el is HTMLElement =>
+        el !== header &&
+        el instanceof HTMLElement &&
+        !["SCRIPT", "NOSCRIPT", "STYLE", "LINK", "TEMPLATE"].includes(el.tagName)
+    );
+    behind.forEach((el) => (el.inert = true));
+    header?.querySelector<HTMLElement>("#mobile-menu a")?.focus();
+
     document.documentElement.style.overflow = "hidden";
     window.addEventListener("keydown", onKey);
+    wide.addEventListener("change", onWide);
     return () => {
+      behind.forEach((el) => (el.inert = false));
       document.documentElement.style.overflow = "";
       window.removeEventListener("keydown", onKey);
+      wide.removeEventListener("change", onWide);
     };
   }, [menuOpen]);
 
@@ -46,6 +75,7 @@ export default function Header() {
 
   return (
     <header
+      ref={headerRef}
       // No backdrop-filter while the menu is open: it would become the
       // containing block for the fixed menu panel and collapse it.
       data-solid={transparent || menuOpen ? undefined : ""}

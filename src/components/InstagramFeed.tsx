@@ -67,7 +67,7 @@ function Tile({ post, image }: { post: InstagramPost; image: NonNullable<Instagr
             <ArrowUpRight size={18} strokeWidth={1.5} />
           </span>
           {post.caption && (
-            <span className="font-serif text-lg italic leading-snug">{post.caption}</span>
+            <span className="text-lg font-light leading-snug">{post.caption}</span>
           )}
         </span>
       </span>
@@ -77,7 +77,7 @@ function Tile({ post, image }: { post: InstagramPost; image: NonNullable<Instagr
 
 // The studio's Instagram as a swipeable row of posts: scroll-snap on touch,
 // arrow buttons on desktop, each tile opening the post on Instagram.
-export default function InstagramFeed({ number }: { number: string }) {
+export default function InstagramFeed() {
   const row = useRef<HTMLUListElement>(null);
   const posts = instagramPosts.length > 0 ? instagramPosts : placeholders;
   // Instagram's player needs ~330px, so rows with embeds show three across.
@@ -103,7 +103,7 @@ export default function InstagramFeed({ number }: { number: string }) {
     >
       <div className="shell">
         <Reveal>
-          <Folio number={number} label="Instagram" aside={site.instagramHandle} />
+          <Folio label="Instagram" aside={site.instagramHandle} />
         </Reveal>
 
         <Reveal className="mt-12 flex flex-wrap items-end justify-between gap-8 lg:mt-16">
@@ -140,7 +140,7 @@ export default function InstagramFeed({ number }: { number: string }) {
         </Reveal>
       </div>
 
-      <Reveal delay={120} className="mt-12 lg:mt-16">
+      <Reveal delay={120} className="mt-8 lg:mt-10">
         <ul
           ref={row}
           className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-[var(--gutter)] px-[var(--gutter)] pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"

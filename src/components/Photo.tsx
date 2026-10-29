@@ -10,12 +10,14 @@ export default function Photo({
   image,
   sizes,
   priority = false,
+  quality = 80,
   fit = "cover",
   className = "",
 }: {
   image: Img;
   sizes: string;
   priority?: boolean;
+  quality?: 70 | 75 | 80; // must be listed in images.qualities in next.config.ts
   fit?: "cover" | "contain";
   className?: string;
 }) {
@@ -33,7 +35,7 @@ export default function Photo({
                 Photograph to come
               </span>
             )}
-            <span className="block font-serif text-[15px] italic leading-snug sm:text-[17px]">
+            <span className="block text-[15px] font-light leading-snug sm:text-[17px]">
               {image.alt}
             </span>
           </span>
@@ -49,7 +51,7 @@ export default function Photo({
       fill
       sizes={sizes}
       priority={priority}
-      quality={80}
+      quality={quality}
       onError={() => setFailed(true)}
       className={`${fit === "contain" ? "object-contain" : "object-cover"} ${className}`}
     />

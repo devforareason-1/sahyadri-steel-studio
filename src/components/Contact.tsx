@@ -11,20 +11,20 @@ const steps = [
   "We plan a consultation and prepare a clear quotation.",
 ];
 
-export default function Contact({ number }: { number: string }) {
+export default function Contact() {
   return (
     <section
       id="contact"
       data-tone="sand"
       aria-labelledby="contact-title"
-      className="section grain bg-travertine"
+      className="section bg-travertine"
     >
       <div className="shell">
         <Reveal>
-          <Folio number={number} label="Enquiries & quotations" aside="Shivamogga · Udupi" />
+          <Folio label="Enquiries & quotations" aside="Shivamogga · Udupi" />
         </Reveal>
       </div>
-      <div className="shell mt-14 grid gap-14 lg:mt-20 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
+      <div className="shell mt-10 grid gap-10 lg:mt-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
         <Reveal className="lg:sticky lg:top-[calc(var(--header-height)+40px)] lg:self-start">
           <div>
             <h2 id="contact-title" className="display h-lg">

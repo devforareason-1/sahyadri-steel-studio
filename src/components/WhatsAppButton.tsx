@@ -43,12 +43,12 @@ export default function WhatsAppButton() {
       rel="noopener noreferrer"
       aria-label="Chat with us on WhatsApp"
       tabIndex={hidden ? -1 : undefined}
-      className={`group fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-4 z-40 flex h-14 items-center gap-3 rounded-full bg-[#1f7a4a] pl-4 pr-4 text-white shadow-[0_10px_30px_-8px_rgba(0,0,0,.45)] transition-[opacity,transform,background-color] duration-500 hover:bg-[#17603a] md:bottom-6 md:right-6 md:pr-6 ${
+      className={`group fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-4 z-40 flex h-14 items-center gap-3 rounded-full border border-ivory/10 bg-graphite pl-4 pr-4 text-ivory shadow-[0_10px_30px_-10px_rgba(0,0,0,.4)] transition-[opacity,transform,background-color] duration-500 hover:bg-walnut md:bottom-6 md:right-6 md:pr-6 ${
         hidden ? "pointer-events-none translate-y-6 opacity-0" : ""
       }`}
     >
-      <WhatsAppIcon size={24} />
-      <span className="hidden text-[13px] font-semibold tracking-[0.04em] md:inline">
+      <span className="text-[#3ccf74]"><WhatsAppIcon size={22} /></span>
+      <span className="hidden text-[13px] font-medium md:inline">
         Chat with us
       </span>
     </a>

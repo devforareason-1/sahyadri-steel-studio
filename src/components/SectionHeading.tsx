@@ -3,7 +3,6 @@ import Folio from "./Folio";
 import Reveal from "./Reveal";
 
 export default function SectionHeading({
-  number,
   eyebrow,
   aside,
   title,
@@ -12,7 +11,6 @@ export default function SectionHeading({
   align = "split",
   id,
 }: {
-  number: string;
   eyebrow: string;
   aside?: ReactNode;
   title: ReactNode;
@@ -25,12 +23,12 @@ export default function SectionHeading({
 
   return (
     <Reveal>
-      <Folio number={number} label={eyebrow} aside={aside} dark={dark} />
+      <Folio label={eyebrow} aside={aside} dark={dark} />
       <div
         className={
           align === "split"
-            ? "mt-12 grid gap-8 lg:mt-16 lg:grid-cols-[1.35fr_1fr] lg:items-end lg:gap-20"
-            : "mt-12 max-w-[760px] lg:mt-16"
+            ? "mt-8 grid gap-8 lg:mt-10 lg:grid-cols-[1.35fr_1fr] lg:items-end lg:gap-20"
+            : "mt-8 max-w-[760px] lg:mt-10"
         }
       >
         <h2 id={id} className="display h-lg">

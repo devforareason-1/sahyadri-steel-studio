@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { ArrowRight, ChevronDown, CircleAlert, ImagePlus, LoaderCircle, X } from "lucide-react";
+import { ArrowRight, Check, ChevronDown, CircleAlert, ImagePlus, LoaderCircle, X } from "lucide-react";
 import { locations, site, whatsappLink } from "@/data/site";
 import WhatsAppIcon from "./WhatsAppIcon";
 
@@ -23,6 +23,12 @@ const budgets = [
   "Above ₹20 lakh",
   "Prefer to discuss",
 ];
+
+const NOT_SURE = "Not sure yet";
+// Several project types can be chosen; they travel as one comma-separated
+// value so the form endpoint and WhatsApp message stay unchanged.
+const SEPARATOR = ", ";
+const splitProjects = (value: string) => (value ? value.split(SEPARATOR) : []);
 
 const MAX_FILES = 3;
 const MAX_FILE_MB = 5;
@@ -62,9 +68,9 @@ function validate(v: Values, files: File[]): Errors {
   const e: Errors = {};
   if (v.name.trim().length < 2) e.name = "Please enter your full name.";
   if (!/^[6-9]\d{9}$/.test(normalisePhone(v.phone)))
-    e.phone = "Enter a 10-digit mobile number, for example 98765 43210.";
+    e.phone = "Enter a valid 10-digit Indian mobile number.";
   if (!v.studio) e.studio = "Choose the studio nearest to you.";
-  if (!v.project) e.project = "Select the type of project.";
+  if (!v.project) e.project = "Select at least one type of project.";
   if (files.length > MAX_FILES) e.files = `Please attach up to ${MAX_FILES} images.`;
   else if (files.some((f) => !f.type.startsWith("image/")))
     e.files = "Reference files must be images (JPG, PNG, HEIC or WebP).";
@@ -90,9 +96,9 @@ function summary(v: Values) {
 
 const label = "block text-[11px] font-semibold uppercase tracking-[0.18em] text-muted";
 const input =
-  "mt-2 w-full border-0 border-b border-line-strong bg-transparent px-0 py-3 text-base outline-none transition-colors placeholder:text-graphite/30 focus:border-graphite aria-[invalid=true]:border-error";
+  "mt-2 w-full border-0 border-b border-line-strong bg-transparent px-0 py-2 text-base outline-none transition-colors placeholder:text-graphite/30 focus:border-graphite aria-[invalid=true]:border-error";
 const chip =
-  "inline-flex min-h-11 items-center border border-line-strong px-4 text-[13px] transition-colors hover:border-graphite peer-checked:border-graphite peer-checked:bg-graphite peer-checked:text-ivory peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-champagne-ink";
+  "inline-flex min-h-10 items-center border border-line-strong px-3.5 text-[13px] transition-colors hover:border-graphite peer-checked:border-graphite peer-checked:bg-graphite peer-checked:text-ivory peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-champagne-ink";
 
 function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
@@ -142,6 +148,18 @@ export default function EnquiryForm() {
     const next = { ...values, [field]: value };
     setValues(next);
     if (touched[field]) setErrors(validate(next, files));
+  };
+
+  // "Not sure yet" stands alone: choosing it clears the others, and
+  // choosing any other type clears it.
+  const toggleProject = (p: string) => {
+    const current = splitProjects(values.project);
+    const next = current.includes(p)
+      ? current.filter((x) => x !== p)
+      : p === NOT_SURE
+        ? [p]
+        : [...current.filter((x) => x !== NOT_SURE), p];
+    set("project", projectTypes.filter((x) => next.includes(x)).join(SEPARATOR));
   };
 
   const blur = (field: Field) => {
@@ -282,7 +300,7 @@ export default function EnquiryForm() {
       onSubmit={onSubmit}
       noValidate
       aria-labelledby="contact-title"
-      className="relative border border-line bg-ivory p-6 sm:p-10 lg:p-12"
+      className="relative border border-line bg-ivory p-5 sm:p-8 lg:p-9"
     >
       {/* Honeypot: hidden from people, bots fill it */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
@@ -292,7 +310,7 @@ export default function EnquiryForm() {
         </label>
       </div>
 
-      <div className="grid gap-x-8 gap-y-8 sm:grid-cols-2">
+      <div className="grid gap-x-8 gap-y-6 sm:grid-cols-2">
         <div>
           <label htmlFor="f-name" className={label}>
             Full name <span aria-hidden="true">*</span>
@@ -325,21 +343,27 @@ export default function EnquiryForm() {
             autoComplete="tel"
             maxLength={20}
             required
-            placeholder="98765 43210"
             value={values.phone}
             onChange={(e) => set("phone", e.target.value)}
             onBlur={() => blur("phone")}
             className={input}
             {...a11y("phone")}
+            aria-describedby={errorFor("phone") ? "err-phone" : "hint-phone"}
           />
-          <FieldError id="err-phone" message={errorFor("phone")} />
+          {errorFor("phone") ? (
+            <FieldError id="err-phone" message={errorFor("phone")} />
+          ) : (
+            <p id="hint-phone" className="mt-2 text-[12px] text-muted">
+              10-digit mobile number, ideally on WhatsApp
+            </p>
+          )}
         </div>
 
         <fieldset className="sm:col-span-2" aria-describedby={errorFor("studio") ? "err-studio" : undefined}>
           <legend className={label}>
             Preferred studio <span aria-hidden="true">*</span>
           </legend>
-          <div className="mt-3 grid grid-cols-2 gap-3">
+          <div className="mt-2.5 grid grid-cols-2 gap-2">
             {locations.map((loc, i) => (
               <label key={loc.slug} className="cursor-pointer">
                 <input
@@ -353,7 +377,7 @@ export default function EnquiryForm() {
                   className="peer sr-only"
                   required
                 />
-                <span className="flex min-h-16 items-center justify-between border border-line-strong px-5 font-serif text-xl transition-colors hover:border-graphite peer-checked:border-graphite peer-checked:bg-graphite peer-checked:text-ivory peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-champagne-ink">
+                <span className="flex min-h-12 items-center justify-between border border-line-strong px-4 text-[17px] transition-colors hover:border-graphite peer-checked:border-graphite peer-checked:bg-graphite peer-checked:text-ivory peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-champagne-ink">
                   {loc.city}
                   <span className="hidden font-sans text-[10px] uppercase tracking-[0.18em] opacity-60 sm:inline">
                     {String(i + 1).padStart(2, "0")}
@@ -367,23 +391,26 @@ export default function EnquiryForm() {
 
         <fieldset className="sm:col-span-2" aria-describedby={errorFor("project") ? "err-project" : undefined}>
           <legend className={label}>
-            Project type <span aria-hidden="true">*</span>
+            Project type <span aria-hidden="true">*</span>{" "}
+            <span className="normal-case tracking-normal">(choose all that apply)</span>
           </legend>
-          <div className="mt-3 flex flex-wrap gap-2">
+          <div className="mt-2.5 flex flex-wrap gap-2">
             {projectTypes.map((p, i) => (
               <label key={p} className="cursor-pointer">
                 <input
-                  type="radio"
+                  type="checkbox"
                   name="project"
                   value={p}
-                  checked={values.project === p}
-                  onChange={() => set("project", p)}
+                  checked={splitProjects(values.project).includes(p)}
+                  onChange={() => toggleProject(p)}
                   onBlur={() => blur("project")}
                   data-field={i === 0 ? "project" : undefined}
                   className="peer sr-only"
-                  required
                 />
-                <span className={chip}>{p}</span>
+                <span className={`${chip} gap-2`}>
+                  <Check size={14} strokeWidth={2} aria-hidden="true" className="hidden [:checked+*>&]:block" />
+                  {p}
+                </span>
               </label>
             ))}
           </div>
@@ -431,7 +458,7 @@ export default function EnquiryForm() {
             <>
               <label
                 htmlFor="f-files"
-                className="mt-2 flex min-h-[52px] cursor-pointer items-center gap-3 border-b border-dashed border-line-strong py-3 text-[14px] text-muted transition-colors hover:text-graphite"
+                className="mt-2 flex min-h-11 cursor-pointer items-center gap-3 border-b border-dashed border-line-strong py-2 text-[14px] text-muted transition-colors hover:text-graphite"
               >
                 <ImagePlus size={18} strokeWidth={1.5} />
                 Add up to {MAX_FILES} images ({MAX_FILE_MB} MB each)
@@ -473,7 +500,7 @@ export default function EnquiryForm() {
               <FieldError id="err-files" message={errorFor("files")} />
             </>
           ) : (
-            <p className="mt-2 border-b border-dashed border-line-strong py-3 text-[14px] leading-6 text-muted">
+            <p className="mt-2 border-b border-dashed border-line-strong py-2 text-[14px] leading-6 text-muted">
               Share photos, plans or inspiration on{" "}
               <a
                 href={whatsappLink(
@@ -506,7 +533,7 @@ export default function EnquiryForm() {
         </div>
       </div>
 
-      <div className="mt-10 flex flex-col gap-5 border-t border-line pt-8 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mt-8 flex flex-col gap-4 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
         <p className="max-w-[360px] text-[12px] leading-5 text-muted">
           We use your details only to respond to this enquiry. See our{" "}
           <Link href="/privacy" className="underline underline-offset-4 hover:text-graphite">

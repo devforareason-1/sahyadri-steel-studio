@@ -126,7 +126,7 @@ export const services: Service[] = [
     intro:
       "When you are building or renovating a whole home, we can take on every room: kitchen, wardrobes, vanities, and the TV, crockery and storage units between them, in one consistent language of steel and glass.",
     image: images.fullHome,
-    gallery: [images.fullHome, images.kitchenGrey, images.mirrorWardrobe],
+    gallery: [images.fullHome, images.mirrorWardrobe, images.kitchenGrey],
     considerations: [
       {
         title: "Planned together",

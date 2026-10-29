@@ -3,139 +3,182 @@
 const svg = (markup: string) =>
   `url("data:image/svg+xml,${encodeURIComponent(markup)}")`;
 
-// Fine grain used to give flat colours a tactile, matte surface.
-const grain = svg(
+// Fine grain that gives a flat colour the tactile surface of a matt finish.
+export const matteGrain = svg(
   `<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(#n)'/></svg>`
 );
 
-// Soft mottling for stone-inspired surfaces.
-const stoneCloud = (opacity: number, seed: number) =>
-  svg(
-    `<svg xmlns='http://www.w3.org/2000/svg' width='1000' height='1000'><filter id='s'><feTurbulence type='fractalNoise' baseFrequency='.012 .035' numOctaves='4' seed='${seed}' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .2 0 0 0 0 .17 0 0 0 0 .13 ${opacity} 0 0 0 -${opacity / 3}'/></filter><rect width='100%' height='100%' filter='url(#s)'/></svg>`
-  );
+// The finish library follows the way steel-interiors studios present their
+// range: solid colours, wood-look finishes and stone & metal effects, all
+// applied over a stainless-steel cabinet. "Wood-look" is a printed finish on
+// steel, so the promise of no wood anywhere still holds.
+//
+// Solid colours are standard RAL colours, the references powder-coaters and
+// lacquer suppliers order by. RAL publishes no official screen values, so
+// the hex values here are common sRGB approximations; the physical sample
+// is always the reference. Textures are close-up photographs of the real
+// material (royalty-free, Unsplash License), cropped square by Unsplash's
+// image service, which also applies the tone and zoom settings given.
 
-const brushed =
-  "repeating-linear-gradient(90deg, rgba(255,255,255,.10) 0 1px, transparent 1px 3px), repeating-linear-gradient(90deg, rgba(0,0,0,.05) 0 1px, transparent 1px 7px)";
-
-// A soft diagonal sheen, for glass.
-const sheen =
-  "linear-gradient(120deg, rgba(255,255,255,0) 30%, rgba(255,255,255,.28) 46%, rgba(255,255,255,0) 60%)";
-
-// Vertical ribs, for fluted glass.
-const flutes =
-  "repeating-linear-gradient(90deg, rgba(255,255,255,.35) 0 2px, rgba(255,255,255,0) 2px 7px, rgba(0,0,0,.06) 7px 9px, rgba(255,255,255,0) 9px 12px)";
+export type FinishKind = "colour" | "texture" | "glass";
 
 export type Finish = {
   id: string;
   name: string;
   family: string;
-  surface: string; // CSS background
+  code?: string; // the reference to order it by, e.g. a RAL colour
+  kind: FinishKind;
+  base: string; // flat colour: the swatch while a photo loads, and the colour itself
+  image?: string; // photograph of the material, for textures
 };
 
-export const finishes = {
-  steel: {
-    id: "steel",
-    name: "Brushed stainless",
-    family: "Stainless steel",
-    surface: `${brushed}, linear-gradient(115deg, #c9cccd 0%, #9fa4a7 38%, #dfe1e1 58%, #a9aeb1 100%)`,
-  },
-  graphite: {
-    id: "graphite",
-    name: "Matte graphite",
-    family: "Powder-coated steel",
-    surface: `${grain}, #34332f`,
-  },
-  clay: {
-    id: "clay",
-    name: "Matte clay",
-    family: "Powder-coated steel",
-    surface: `${grain}, #a8927a`,
-  },
-  smoked: {
-    id: "smoked",
-    name: "Smoked glass",
-    family: "Glass",
-    surface: `${sheen}, linear-gradient(160deg, #5d6467, #3b4144 55%, #4d5457)`,
-  },
-  fluted: {
-    id: "fluted",
+export type Hardware = {
+  id: string;
+  name: string;
+  bar: string; // CSS background of a bar handle, lit from above
+};
+
+const photo = (id: string, adjust = "") =>
+  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=900&h=900&q=70${adjust}`;
+
+// The CSS background that shows a finish: its photograph, or its colour.
+export function finishBackground(f: Finish) {
+  return f.image ? `url("${f.image}") center / cover, ${f.base}` : f.base;
+}
+
+const colour = (id: string, name: string, code: string, base: string): Finish => ({
+  id,
+  name,
+  family: "Solid colour",
+  code,
+  kind: "colour",
+  base,
+});
+
+export const colourFinishes: Finish[] = [
+  colour("ral-9010", "Pure white", "RAL 9010", "#f1ece1"),
+  colour("ral-9001", "Cream", "RAL 9001", "#e9e0d2"),
+  colour("ral-1015", "Light ivory", "RAL 1015", "#e6d2b5"),
+  colour("ral-1019", "Grey beige", "RAL 1019", "#a48f7a"),
+  colour("ral-7035", "Light grey", "RAL 7035", "#cbd0cc"),
+  colour("ral-7024", "Graphite grey", "RAL 7024", "#474a51"),
+  colour("ral-7016", "Anthracite", "RAL 7016", "#383e42"),
+  colour("ral-9005", "Jet black", "RAL 9005", "#0e0e10"),
+  colour("ral-3004", "Purple red", "RAL 3004", "#6b1c23"),
+  colour("ral-3027", "Raspberry red", "RAL 3027", "#c51d34"),
+  colour("ral-4010", "Telemagenta", "RAL 4010", "#cf3476"),
+  colour("ral-2004", "Pure orange", "RAL 2004", "#e75b12"),
+  colour("ral-1023", "Traffic yellow", "RAL 1023", "#f0ca00"),
+  colour("ral-6021", "Pale green", "RAL 6021", "#89ac76"),
+  colour("ral-6005", "Moss green", "RAL 6005", "#2f4538"),
+  colour("ral-5024", "Pastel blue", "RAL 5024", "#5d9b9b"),
+  colour("ral-5014", "Pigeon blue", "RAL 5014", "#606e8c"),
+  colour("ral-5011", "Steel blue", "RAL 5011", "#232c3f"),
+];
+
+const wood = (id: string, name: string, photoId: string, base: string, adjust = ""): Finish => ({
+  id,
+  name,
+  family: "Wood-look on steel",
+  kind: "texture",
+  base,
+  image: photo(photoId, adjust),
+});
+
+export const woodFinishes: Finish[] = [
+  wood("ash-oak", "Ash grey oak", "1611600700192-d87eaeed4f81", "#8f7f6c"),
+  wood("natural-teak", "Natural teak", "1644931551533-02906718127f", "#8c7356"),
+  wood("smoked-walnut", "Smoked walnut", "1576092762791-dd9e2220abd1", "#4a3226"),
+  wood("wenge", "Wenge", "1546484396-fb3fc6f95f98", "#2b211d"),
+];
+
+const effect = (
+  id: string,
+  name: string,
+  family: string,
+  photoId: string,
+  base: string,
+  adjust = ""
+): Finish => ({ id, name, family, kind: "texture", base, image: photo(photoId, adjust) });
+
+const brushedSteel = effect(
+  "brushed-steel",
+  "Brushed stainless",
+  "Stainless steel",
+  "1667892702884-faa077e80d7b",
+  "#a9adb0",
+  // Zoomed into the evenly lit corner, clear of the dark reflection band.
+  "&sat=-100&crop=focalpoint&fp-x=0.25&fp-y=0.2&fp-z=2.5"
+);
+
+export const effectFinishes: Finish[] = [
+  brushedSteel,
+  effect("statuario", "Statuario marble", "Marble effect", "1566041510394-cf7c8fe21800", "#ecebe8"),
+  effect("nero-marquina", "Nero marble", "Marble effect", "1550053808-52a75a05955d", "#1c1f22"),
+  effect(
+    "travertine",
+    "Travertine",
+    "Stone effect",
+    "1780253460324-9d49f88c74fc",
+    "#d9c8ad",
+    // Zoomed into a single tile, clear of the grout lines.
+    "&crop=focalpoint&fp-x=0.36&fp-y=0.36&fp-z=6"
+  ),
+  effect("concrete", "Grey concrete", "Concrete effect", "1521459467264-802e2ef3141f", "#9a9a98"),
+  effect("ivory-concrete", "Ivory concrete", "Concrete effect", "1617713965103-9fda56c89fad", "#dcdad6"),
+  effect("corten", "Corten rust", "Metal effect", "1614535683569-129faaa108f7", "#8f4a2c"),
+  effect("copper-patina", "Copper patina", "Metal effect", "1781021541218-3968570b173f", "#1f5e5c"),
+  {
+    id: "fluted-glass",
     name: "Fluted glass",
     family: "Glass",
-    surface: `${flutes}, ${sheen}, linear-gradient(160deg, #d3dad8, #b9c3c1 60%, #cdd5d3)`,
-  },
-  linen: {
-    id: "linen",
-    name: "Linen white",
-    family: "Lacquered glass",
-    surface: `${sheen}, #ece6da`,
-  },
-  sand: {
-    id: "sand",
-    name: "Sand beige",
-    family: "Lacquered glass",
-    surface: `${sheen}, #d5c5ab`,
-  },
-  travertine: {
-    id: "travertine",
-    name: "Travertine",
-    family: "Stone-inspired",
-    surface: `${stoneCloud(0.5, 11)}, ${grain}, #ddd0bb`,
-  },
-  basalt: {
-    id: "basalt",
-    name: "Basalt grey",
-    family: "Stone-inspired",
-    surface: `${stoneCloud(0.9, 5)}, ${grain}, #6e6b65`,
-  },
-  hwSteel: {
-    id: "hw-steel",
-    name: "Brushed steel",
-    family: "Hardware",
-    surface: `${brushed}, linear-gradient(180deg, #e3e5e6, #9ea3a6 55%, #c8cbcd)`,
-  },
-  hwChampagne: {
-    id: "hw-champagne",
-    name: "Champagne",
-    family: "Hardware",
-    surface: `${brushed}, linear-gradient(180deg, #e6d4af, #b39668 55%, #d5c095)`,
-  },
-  hwBlack: {
-    id: "hw-black",
-    name: "Matte black",
-    family: "Hardware",
-    surface: `${grain}, linear-gradient(180deg, #3a3936, #1b1b19)`,
-  },
-} satisfies Record<string, Finish>;
-
-export const finishGroups: {
-  key: "fronts" | "surface" | "hardware";
-  label: string;
-  options: Finish[];
-}[] = [
-  {
-    key: "fronts",
-    label: "Cabinet fronts",
-    options: [
-      finishes.steel,
-      finishes.graphite,
-      finishes.clay,
-      finishes.smoked,
-      finishes.fluted,
-      finishes.linen,
-      finishes.sand,
-    ],
+    kind: "glass",
+    base: "#b9c1c0",
+    image: photo("1652862730507-32988eb23a67", "&sat=-80&exp=10"),
   },
   {
-    key: "surface",
-    label: "Worktop & backsplash",
-    options: [finishes.travertine, finishes.basalt, finishes.steel, finishes.linen],
-  },
-  {
-    key: "hardware",
-    label: "Hardware",
-    options: [finishes.hwSteel, finishes.hwChampagne, finishes.hwBlack],
+    id: "tinted-glass",
+    name: "Grey-tinted glass",
+    family: "Glass",
+    kind: "glass",
+    base: "linear-gradient(160deg, #5a6062, #3c4143 55%, #4b5153)",
   },
 ];
+
+// Worktop and backsplash surfaces: the stone, concrete and steel effects.
+export const worktopFinishes: Finish[] = effectFinishes.filter((f) =>
+  ["statuario", "nero-marquina", "travertine", "concrete", "ivory-concrete", "brushed-steel"].includes(f.id)
+);
+
+export const hardwareFinishes: Hardware[] = [
+  {
+    id: "hw-steel",
+    name: "Brushed steel",
+    bar: "linear-gradient(90deg, #7f8487, #e6e8e9 45%, #b7bbbd 60%, #8a8f92)",
+  },
+  {
+    id: "hw-champagne",
+    name: "Champagne",
+    bar: "linear-gradient(90deg, #8f7650, #ecdab2 45%, #c9b086 60%, #9a8158)",
+  },
+  {
+    id: "hw-black",
+    name: "Matte black",
+    bar: "linear-gradient(90deg, #111, #3a3a3a 45%, #222 60%, #111)",
+  },
+];
+
+// The size of each full range, as you would quote it to a client, e.g.
+// "200+". Leave "" until confirmed with your suppliers; the library then
+// says only how many are shown here and that the rest are in the studio.
+export const finishRange = {
+  colours: "",
+  wood: "",
+  effects: "",
+};
+
+export const findFinish = (id: string) =>
+  [...colourFinishes, ...woodFinishes, ...effectFinishes].find((f) => f.id === id)!;
 
 /* ── Testimonials ───────────────────────────────────────────────────── */
 

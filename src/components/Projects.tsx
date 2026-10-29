@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, Maximize2, X } from "lucide-react";
+import Link from "next/link";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Maximize2, X } from "lucide-react";
 import {
   projectCategories,
   projects,
@@ -30,6 +31,43 @@ const layout = [
   { span: "lg:col-span-4", aspect: "aspect-[4/5]" },
   { span: "lg:col-span-12", aspect: "aspect-[4/3] sm:aspect-[21/9]" },
 ];
+
+// What goes into each kind of space, listed beside a lone concept so the
+// filtered view reads as a brief rather than an empty row.
+const includes: Record<ProjectCategory, string[]> = {
+  Kitchens: [
+    "Stainless-steel carcasses and shutters",
+    "An accessory plan, drawer by drawer",
+    "Soft-close drawer and hinge systems",
+    "Worktop and backsplash from our stone range",
+  ],
+  Wardrobes: [
+    "Glass shutters in slim steel frames",
+    "Lit shelves and hanging, bay by bay",
+    "Sliding or hinged systems, soft-close",
+    "Steel carcass, so no wood to swell or warp",
+  ],
+  Vanities: [
+    "Moisture-proof steel carcass",
+    "Stone or marble-effect counter",
+    "Soft-close drawers sized to what you store",
+    "Mirror and lighting planned in",
+  ],
+  "Full home": [
+    "Kitchen, wardrobes, vanities and living units",
+    "One palette of finishes, room to room",
+    "A single team from first visit to handover",
+    "Steel and glass throughout, no wood",
+  ],
+};
+
+// A filtered view sizes its cards so every row is full: one concept sits
+// beside its notes, two share a row, three or more run in threes.
+function filteredSlot(count: number) {
+  if (count === 1) return { span: "lg:col-span-7", aspect: "aspect-[4/3]" };
+  if (count === 2) return { span: "lg:col-span-6", aspect: "aspect-[4/3]" };
+  return { span: "lg:col-span-4", aspect: "aspect-[4/5]" };
+}
 
 function ConceptTag({ project }: { project: Project }) {
   if (project.completed) return null;
@@ -71,7 +109,6 @@ export default function Projects() {
       <div className="shell">
         <SectionHeading
           dark
-          number="05"
           id="projects-title"
           eyebrow="Selected work"
           aside="Concept visuals"
@@ -83,7 +120,7 @@ export default function Projects() {
           intro="A curated set of concept visuals that show the direction of our work: steel kitchens organised drawer by drawer, glass wardrobes and vanities made for wet rooms."
         />
 
-        <Reveal className="mt-14 flex flex-wrap items-center justify-between gap-6 border-y border-ivory/15 py-4">
+        <Reveal className="mt-10 flex flex-wrap items-center justify-between gap-6 border-y border-ivory/15 py-4">
           <div role="group" aria-label="Filter projects" className="flex flex-wrap gap-x-6 gap-y-2">
             {(["All", ...projectCategories] as const).map((cat) => (
               <button
@@ -91,7 +128,7 @@ export default function Projects() {
                 type="button"
                 aria-pressed={filter === cat}
                 onClick={() => setFilter(cat)}
-                className={`nav-link text-[12px] uppercase tracking-[0.16em] transition-colors ${
+                className={`nav-link font-mono text-[11px] uppercase tracking-[0.12em] transition-colors ${
                   filter === cat
                     ? "text-ivory"
                     : "text-ivory/55 hover:text-ivory"
@@ -106,12 +143,12 @@ export default function Projects() {
           </p>
         </Reveal>
 
-        <ul className="mt-10 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-12">
+        <ul className="mt-10 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-12">
           {visible.map((project, i) => {
             const slot =
               filter === "All"
                 ? layout[i % layout.length]
-                : { span: "lg:col-span-6", aspect: "aspect-[4/3]" };
+                : filteredSlot(visible.length);
             const wide = slot.span === "lg:col-span-12";
             return (
               <li
@@ -140,10 +177,10 @@ export default function Projects() {
                     </span>
                   </span>
                   <span className="mt-5 grid grid-cols-[2.2rem_1fr] items-baseline border-t border-ivory/15 pt-4">
-                    <span className="font-serif text-base italic text-champagne">
+                    <span className="font-mono text-[12px] text-champagne">
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                    <span className="flex flex-col gap-1.5">
                       <span className="display text-[1.6rem] leading-tight transition-colors duration-500 group-hover:text-champagne">
                         {project.title}
                       </span>
@@ -157,9 +194,57 @@ export default function Projects() {
               </li>
             );
           })}
+          {filter !== "All" && visible.length === 1 && (
+            <li className="border-t border-ivory/15 pt-8 lg:col-span-5 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
+              <Reveal className="flex h-full flex-col gap-10 lg:pb-[5.25rem]">
+                <div>
+                  <p className="eyebrow">{visible[0].label}</p>
+                  <p className="display mt-5 text-[clamp(1.8rem,2.6vw,2.4rem)] leading-[1.1]">
+                    {visible[0].title}
+                  </p>
+                  <p className="mt-4 max-w-[440px] text-pretty text-[15px] leading-7 text-ivory/75">
+                    {visible[0].description}
+                  </p>
+                </div>
+
+                <div className="lg:my-auto">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-ivory/50">
+                    What goes into it
+                  </p>
+                  <ul className="mt-3 border-t border-ivory/15">
+                    {includes[visible[0].category].map((item, n) => (
+                      <li
+                        key={item}
+                        className="grid grid-cols-[2.2rem_1fr] items-baseline border-b border-ivory/15 py-3 text-[14px] text-ivory/85"
+                      >
+                        <span className="font-mono text-[11px] text-champagne">
+                          {String(n + 1).padStart(2, "0")}
+                        </span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div>
+                  <Link
+                    href="/#contact"
+                    className="inline-flex items-center gap-2 border-b border-ivory/40 pb-1 text-[14px] text-ivory transition-colors hover:border-champagne hover:text-champagne"
+                  >
+                    Discuss a project like this
+                    <ArrowUpRight size={15} strokeWidth={1.5} />
+                  </Link>
+                  <p className="mt-4 max-w-[440px] text-pretty text-[12px] leading-5 text-ivory/50">
+                    Further concepts, and photographs of our own completed
+                    work, will follow here.
+                  </p>
+                </div>
+              </Reveal>
+            </li>
+          )}
         </ul>
 
-        <p className="mt-16 max-w-[640px] text-[12px] leading-6 text-ivory/50">
+        <p className="mt-12 max-w-[640px] text-[12px] leading-6 text-ivory/50">
           Concept visuals for illustration and inspiration. They are not
           completed Sahyadri Steel Studio projects. Our own project photography
           will be added here soon.

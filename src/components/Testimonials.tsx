@@ -43,8 +43,17 @@ function Avatar({ t, size }: { t: Testimonial; size: "lg" | "sm" }) {
 const enlarge =
   "origin-left transition-transform duration-700 ease-[var(--ease-out)] group-hover:scale-[1.04]";
 
+// Columns for the quotes under the lead, chosen so rows fill evenly: one
+// quote lines up under the lead, threes run three across, other even counts
+// two across.
+function restColumns(count: number) {
+  if (count === 1) return "lg:w-7/12 lg:ml-[41.666%]";
+  if (count % 3 === 0 || count % 2 === 1) return "md:grid-cols-2 lg:grid-cols-3";
+  return "md:grid-cols-2";
+}
+
 // Hidden until data/content.ts has at least one review.
-export default function Testimonials({ number }: { number: string }) {
+export default function Testimonials() {
   if (testimonials.length === 0) return null;
   const [lead, ...rest] = testimonials;
 
@@ -57,9 +66,9 @@ export default function Testimonials({ number }: { number: string }) {
     >
       <div className="shell">
         <Reveal>
-          <Folio number={number} label="In their words" />
+          <Folio label="In their words" />
         </Reveal>
-        <div className="mt-14 grid gap-12 lg:mt-20 lg:grid-cols-12 lg:gap-0">
+        <div className="mt-10 grid gap-12 lg:mt-12 lg:grid-cols-12 lg:gap-0">
           <Reveal className="lg:col-span-4">
             <h2 id="testimonials-title" className="display h-lg">
               Homes, <em>as lived in.</em>
@@ -86,7 +95,7 @@ export default function Testimonials({ number }: { number: string }) {
         </div>
 
         {rest.length > 0 && (
-          <div className="mt-20 grid gap-10 border-t border-line pt-12 md:grid-cols-2 lg:grid-cols-3">
+          <div className={`mt-14 grid gap-x-16 gap-y-10 border-t border-line pt-10 ${restColumns(rest.length)}`}>
             {rest.map((t, i) => (
               <Reveal key={t.name + i} delay={i * 100}>
                 <figure className="group">

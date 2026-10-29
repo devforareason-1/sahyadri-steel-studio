@@ -9,7 +9,7 @@ import Wordmark from "./Wordmark";
 function Column({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-champagne">
+      <p className="font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-ivory/50">
         {title}
       </p>
       <div className="mt-6 flex flex-col items-start gap-3 text-sm text-ivory/65">
@@ -24,15 +24,15 @@ const linkClass = "transition-colors hover:text-ivory";
 export default function Footer() {
   return (
     <footer className="on-dark bg-graphite text-ivory">
-      <div className="shell pt-20 sm:pt-28">
+      <div className="shell pt-16 sm:pt-20">
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-4">
             <Link href="/" aria-label="Sahyadri Steel Studio, home" className="inline-block">
               <Wordmark size="lg" />
             </Link>
             <p className="mt-8 max-w-[340px] text-[15px] leading-7 text-ivory/65">
-              A women-led studio for stainless-steel kitchens, glass-and-steel
-              wardrobes and vanity units, with full-home interiors on request.
+              A women-led interior design studio for kitchens, wardrobes and
+              vanities, all built in stainless steel, with full homes on request.
               Shivamogga and Udupi, Karnataka.
             </p>
             <div className="mt-8 flex gap-3">
@@ -112,7 +112,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="steel-rule mt-20 opacity-40" aria-hidden="true" />
+        <div className="steel-rule mt-14 opacity-40" aria-hidden="true" />
         <div className="flex flex-col gap-3 py-8 text-[12px] text-ivory/45 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} Sahyadri Steel Studio. All rights reserved.</p>
           <div className="flex gap-6">

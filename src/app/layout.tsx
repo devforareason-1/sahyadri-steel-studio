@@ -1,23 +1,23 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Manrope } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MotionProvider from "@/components/MotionProvider";
-import ToneScroller from "@/components/ToneScroller";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { site } from "@/data/site";
+import { businessJsonLd, serializeJsonLd } from "@/lib/structured-data";
 
-const display = Cormorant_Garamond({
-  variable: "--font-display",
+// One precise sans for headings and text, and its mono for labels, specs
+// and figures: the studio's voice is architectural, not decorative.
+const sans = Geist({
+  variable: "--font-geist",
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  style: ["normal", "italic"],
   display: "swap",
 });
 
-const body = Manrope({
-  variable: "--font-body",
+const mono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
   display: "swap",
 });
@@ -67,9 +67,13 @@ export default function RootLayout({
     <html
       lang="en-IN"
       data-scroll-behavior="smooth"
-      className={`${display.variable} ${body.variable} antialiased`}
+      className={`${sans.variable} ${mono.variable} antialiased`}
     >
       <body className="flex min-h-screen flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(businessJsonLd(description)) }}
+        />
         <noscript>
           <style>{`[data-reveal]{opacity:1!important;transform:none!important;filter:none!important;clip-path:none!important}`}</style>
         </noscript>
@@ -86,7 +90,6 @@ export default function RootLayout({
           </div>
           <Footer />
           <WhatsAppButton />
-          <ToneScroller />
         </MotionProvider>
       </body>
     </html>

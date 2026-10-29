@@ -12,7 +12,7 @@ export default function PrivacyPage() {
   return (
     <main className="pb-24 pt-[calc(var(--header-height)+64px)] sm:pb-32">
       <div className="shell max-w-[760px]">
-        <p className="eyebrow text-champagne-ink">Privacy</p>
+        <p className="eyebrow text-muted">Privacy</p>
         <h1 className="display h-lg mt-6">
           Your details, <em>handled with care.</em>
         </h1>

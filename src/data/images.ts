@@ -26,6 +26,11 @@ export type Img = { src: string; alt: string };
 
 export const images = {
   /* Kitchens */
+  // The home page's opening scene: starts in the dark and is lit by scroll.
+  kitchenNight: {
+    src: unsplash("photo-1695542958346-d51b0c2f1917"),
+    alt: "Black kitchen with a dark marble island, marble backsplash and brushed-steel trims",
+  },
   kitchenSteel: {
     src: unsplash("photo-1639405069836-f82aa6dcb900"),
     alt: "Kitchen with metallic graphite cabinetry, built-in steel appliances and a stone island",
@@ -85,6 +90,16 @@ export const images = {
   vanityMarble: {
     src: pexels(6301184),
     alt: "Vanity with soft-grey drawers, a marble counter and a round mirror",
+  },
+
+  /* The studio */
+  studioSamples: {
+    src: unsplash("photo-1763076470404-23554ef26747"),
+    alt: "Sample board of a graphite lacquer front with a steel handle, marble, stone and fabric",
+  },
+  processSwatches: {
+    src: unsplash("photo-1667400104764-a5fd01a919b0"),
+    alt: "Designer holding a fan of colour swatches over a floor plan",
   },
 
   /* Full home */

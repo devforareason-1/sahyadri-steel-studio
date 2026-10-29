@@ -51,34 +51,38 @@ export default async function ServicePage({ params }: Props) {
           <Photo image={service.image} sizes="100vw" priority />
         </div>
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--ink-rgb)/.55),rgb(var(--ink-rgb)/.1)_35%,rgb(var(--ink-rgb)/.8))]" />
-        <div aria-hidden="true" className="hero-curtain absolute inset-0 bg-graphite" />
 
-        <div className="shell relative pb-14 pt-[calc(var(--header-height)+40px)] sm:pb-20">
+        {/* The way back sits where people look for it, top left under the
+            header, as a solid button that reads against any photo. */}
+        <div className="shell absolute inset-x-0 top-[calc(var(--header-height)+24px)] z-10">
           <Link
-            href="/#solutions"
-            className="fade-up inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.18em] text-ivory/75 transition-colors hover:text-ivory"
-            style={{ animationDelay: "600ms" }}
+            href="/#spaces"
+            className="fade-up group inline-flex min-h-11 items-center gap-2.5 rounded-full border border-ivory/35 bg-graphite/55 py-2 pl-3.5 pr-5 text-[14px] text-ivory backdrop-blur-md transition-colors hover:border-ivory hover:bg-ivory hover:text-graphite"
+            style={{ animationDelay: "200ms" }}
           >
-            <ArrowLeft size={14} />
-            All solutions
+            <ArrowLeft size={16} strokeWidth={1.6} className="transition-transform group-hover:-translate-x-0.5" />
+            Back to all spaces
           </Link>
+        </div>
+
+        <div className="shell relative pb-14 pt-[calc(var(--header-height)+96px)] sm:pb-20">
           <p
-            className="fade-up mt-10 flex items-baseline gap-4"
-            style={{ animationDelay: "700ms" }}
+            className="fade-up flex items-baseline gap-4"
+            style={{ animationDelay: "300ms" }}
           >
-            <span className="font-serif text-2xl italic text-champagne">{service.number}</span>
-            <span className="text-[11px] uppercase tracking-[0.22em] text-ivory/75">
+            <span className="font-mono text-[13px] text-champagne">{service.number}</span>
+            <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ivory/75">
               {service.kicker}
             </span>
           </p>
           <h1 id="service-title" className="display h-xl mt-5 max-w-[900px]">
             <span className="line-mask">
-              <span style={{ animationDelay: "800ms" }}>{service.title}</span>
+              <span style={{ animationDelay: "400ms" }}>{service.title}</span>
             </span>
           </h1>
           <p
             className="fade-up mt-7 max-w-[520px] text-base leading-7 text-ivory/80"
-            style={{ animationDelay: "1000ms" }}
+            style={{ animationDelay: "600ms" }}
           >
             {service.summary}
           </p>
@@ -88,7 +92,7 @@ export default async function ServicePage({ params }: Props) {
       <section data-tone="light" className="section">
         <div className="shell grid gap-14 lg:grid-cols-12 lg:gap-0">
           <Reveal className="lg:col-span-5">
-            <p className="eyebrow text-champagne-ink">Our approach</p>
+            <p className="eyebrow text-muted">Our approach</p>
             <p className="display h-md mt-6">{service.intro}</p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Link
@@ -124,7 +128,7 @@ export default async function ServicePage({ params }: Props) {
         </div>
       </section>
 
-      {service.slug === "stainless-steel-kitchens" && <Materials number="02" />}
+      {service.slug === "stainless-steel-kitchens" && <Materials />}
 
       {service.slug === "glass-steel-wardrobes" && (
         <section
@@ -164,14 +168,28 @@ export default async function ServicePage({ params }: Props) {
             <Reveal
               key={img.alt}
               delay={i * 100}
-              className={`group ${
-                i === 0 ? "md:col-span-7" : i === 1 ? "md:col-span-5 md:mt-24" : "md:col-span-8 md:col-start-3"
+              // A wide/narrow pair of equal height, then one image across the
+              // full width, so every edge lines up with the grid.
+              className={`group flex flex-col ${
+                i === 0 ? "md:col-span-7" : i === 1 ? "md:col-span-5" : "md:col-span-12"
               }`}
             >
-              <div className={`media media-zoom ${i === 1 ? "aspect-[4/5]" : "aspect-[4/3]"} ${i === 2 ? "md:aspect-[16/9]" : ""}`}>
-                <Photo image={img} sizes="(max-width: 768px) 100vw, 60vw" />
+              <div
+                className={`media media-zoom ${
+                  i === 0
+                    ? "aspect-[4/3]"
+                    : i === 1
+                      ? "aspect-[4/5] md:aspect-auto md:flex-1"
+                      : "aspect-[4/3] md:aspect-[21/9]"
+                }`}
+              >
+                <Photo image={img} sizes={i === 2 ? "100vw" : "(max-width: 768px) 100vw, 60vw"} />
               </div>
-              {img.src && <p className="caption mt-3">{img.alt} · concept visual</p>}
+              {img.src && (
+                <p className={`caption mt-3 ${i < 2 ? "md:min-h-[2lh]" : ""}`}>
+                  {img.alt} · concept visual
+                </p>
+              )}
             </Reveal>
           ))}
         </div>
