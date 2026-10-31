@@ -76,8 +76,15 @@ the enquiry form (`EnquiryForm.tsx`).
   photos don't use Vercel's image-optimisation allowance. Local files in
   `public/` are served as they are. An empty `src` shows a brushed-steel
   "photograph to come" plate.
-- **SEO**: metadata in `src/app/layout.tsx`, business structured data in
-  `src/lib/structured-data.ts`, plus `sitemap.ts` and `robots.ts`.
+- **SEO**: each page builds its title, description, canonical address and
+  link-preview tags through `pageMetadata` in `src/lib/metadata.ts` (the
+  home page's wording lives there too). Structured data for the business,
+  and for each solution page with its breadcrumb, is in
+  `src/lib/structured-data.ts`. Plus `sitemap.ts` and `robots.ts`.
+- **Link previews**: the picture shown when a page is shared is drawn by
+  `src/lib/og-card.tsx` from the `opengraph-image.tsx` files (one for the
+  home page, one per solution) and saved as a small JPEG with `sharp`, so
+  WhatsApp shows it.
 
 ## Rules for content
 

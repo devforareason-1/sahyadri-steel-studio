@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
 import { site, whatsappUrl } from "@/data/site";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Privacy",
   description: "How Sahyadri Steel Studio handles the details you share through this website.",
-};
+  path: "/privacy",
+});
 
 // PLACEHOLDER: replace with a privacy policy reviewed for the business
 // before launch. Keep it consistent with how enquiries are actually stored.

@@ -10,6 +10,14 @@ import InstagramFeed from "@/components/InstagramFeed";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import { showInstagram } from "@/data/instagram";
+import { homeDescription, homeTitle, pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata({
+  title: homeTitle,
+  description: homeDescription,
+  path: "/",
+  absoluteTitle: true,
+});
 
 // A design studio first: who we are, the rooms we design, the finishes
 // and the way we work, the work itself, then why it is all built in steel

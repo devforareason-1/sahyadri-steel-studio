@@ -7,6 +7,7 @@ import MotionProvider from "@/components/MotionProvider";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { site } from "@/data/site";
 import { businessJsonLd, serializeJsonLd } from "@/lib/structured-data";
+import { homeDescription, homeTitle } from "@/lib/metadata";
 
 // One precise sans for headings and text, and its mono for labels, specs
 // and figures: the studio's voice is architectural, not decorative.
@@ -22,36 +23,23 @@ const mono = Geist_Mono({
   display: "swap",
 });
 
-const title =
-  "Sahyadri Steel Studio | Stainless-Steel Kitchens, Wardrobes & Vanities in Shivamogga and Udupi";
-const description =
-  "A women-led studio for stainless-steel kitchen accessories, glass-and-steel wardrobes and vanity units, with full-home interiors on request. No wood. Studios in Shivamogga and Udupi, Karnataka.";
-
+// Defaults for pages that set none of their own (such as the 404 page).
+// Each indexed page sets its full metadata through lib/metadata.ts.
 export const metadata: Metadata = {
   metadataBase: new URL(site.url + "/"),
   title: {
-    default: title,
+    default: homeTitle,
     template: "%s | Sahyadri Steel Studio",
   },
-  description,
-  keywords: [
-    "stainless steel kitchen Shivamogga",
-    "stainless steel kitchen Udupi",
-    "stainless steel kitchen accessories",
-    "glass wardrobe Shivamogga",
-    "steel wardrobe Udupi",
-    "stainless steel vanity unit",
-    "interior design Shivamogga",
-    "interior design Udupi",
-    "Sahyadri Steel Studio",
-  ],
+  description: homeDescription,
   openGraph: {
     type: "website",
     locale: "en_IN",
     siteName: site.name,
-    title,
-    description,
+    title: homeTitle,
+    description: homeDescription,
   },
+  twitter: { card: "summary_large_image" },
   // TEMPORARY: remove this line at launch, once real photos and contact details are in.
   robots: { index: false, follow: false },
 };
@@ -72,7 +60,7 @@ export default function RootLayout({
       <body className="flex min-h-screen flex-col">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: serializeJsonLd(businessJsonLd(description)) }}
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(businessJsonLd(homeDescription)) }}
         />
         <noscript>
           <style>{`[data-reveal]{opacity:1!important;transform:none!important;filter:none!important;clip-path:none!important}`}</style>

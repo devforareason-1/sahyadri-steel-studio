@@ -6,6 +6,7 @@ export type Service = {
   title: string;
   kicker: string;
   summary: string; // one line, for the homepage
+  searchDescription: string; // about 150 characters, for the search result and link previews
   intro: string; // a short paragraph, for the solution page
   image: Img;
   gallery: Img[];
@@ -24,6 +25,8 @@ export const services: Service[] = [
     kicker: "Steel, drawer by drawer",
     summary:
       "Stainless-steel kitchen accessories and cabinets: baskets, pull-outs, tall units and corner systems, sized to your kitchen.",
+    searchDescription:
+      "Stainless-steel modular kitchens in Shivamogga and Udupi: plate baskets, pull-outs, tall pantry units and corner systems, planned around your kitchen.",
     intro:
       "An Indian kitchen works hard: heavy vessels, pressure cookers, water on every surface, a wash every day. We fit it out in stainless steel, from plate baskets to tall pantry pull-outs, so nothing swells, warps or sags with the years.",
     image: images.kitchenSteel,
@@ -57,6 +60,8 @@ export const services: Service[] = [
     kicker: "Order, behind glass",
     summary:
       "Wardrobes in glass and steel: sliding or hinged shutters, lit interiors and steel fittings that never warp.",
+    searchDescription:
+      "Glass and steel wardrobes in Shivamogga and Udupi, with sliding or hinged shutters, lit interiors and steel fittings that never swell or warp.",
     intro:
       "Glass shutters in slim steel profiles let a wardrobe feel light, even when it fills a wall. Behind them, steel interiors are planned around what you own, and nothing swells or smells through the monsoon.",
     image: images.wardrobeGlass,
@@ -90,6 +95,8 @@ export const services: Service[] = [
     kicker: "Made for wet rooms",
     summary:
       "Stainless-steel vanities for bathrooms and wash areas, with mirror cabinets and glass shelves.",
+    searchDescription:
+      "Stainless-steel vanity units for bathrooms and wash areas in Shivamogga and Udupi, with mirror cabinets and glass shelves made for water.",
     intro:
       "A bathroom is the hardest room on furniture. Our vanities are built in stainless steel, so they stand up to water and steam for years, with mirrors, glass and storage planned around your basin.",
     image: images.vanityMarble,
@@ -123,6 +130,8 @@ export const services: Service[] = [
     kicker: "One team, every room",
     summary:
       "Complete interiors in steel and glass, from the kitchen to the bedrooms, planned as one.",
+    searchDescription:
+      "Full-home interiors in steel and glass in Shivamogga and Udupi: kitchen, wardrobes, vanities and living units, designed together by one team.",
     intro:
       "When you are building or renovating a whole home, we can take on every room: kitchen, wardrobes, vanities, and the TV, crockery and storage units between them, in one consistent language of steel and glass.",
     image: images.fullHome,

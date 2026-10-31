@@ -36,6 +36,35 @@ export function businessJsonLd(description: string) {
   };
 }
 
+// A solution page: the service the studio offers, and where the page sits
+// in the site, so a search result can show "Home › Vanity Units".
+export function serviceJsonLd(service: { slug: string; title: string; searchDescription: string }) {
+  const home = `${site.url}/`;
+  const url = `${site.url}/services/${service.slug}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": `${url}#service`,
+        name: service.title,
+        description: service.searchDescription,
+        url,
+        provider: { "@id": `${home}#business` },
+        areaServed: locations.map((loc) => ({ "@type": "City", name: loc.city })),
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: home },
+          { "@type": "ListItem", position: 2, name: service.title, item: url },
+        ],
+      },
+    ],
+  };
+}
+
 // Serialised for a <script type="application/ld+json">, with "<" escaped so
 // no value can close the script tag early.
 export function serializeJsonLd(data: object) {

@@ -9,6 +9,8 @@ import Photo from "@/components/Photo";
 import Reveal from "@/components/Reveal";
 import WardrobePlanner from "@/components/WardrobePlanner";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
+import { pageMetadata } from "@/lib/metadata";
+import { serializeJsonLd, serviceJsonLd } from "@/lib/structured-data";
 
 export const dynamicParams = false;
 
@@ -22,11 +24,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const service = services.find((s) => s.slug === slug);
   if (!service) return {};
-  return {
+  return pageMetadata({
     title: `${service.title} in Shivamogga & Udupi`,
-    description: service.summary,
-    alternates: { canonical: `/services/${service.slug}` },
-  };
+    description: service.searchDescription,
+    path: `/services/${service.slug}`,
+  });
 }
 
 export default async function ServicePage({ params }: Props) {
@@ -41,6 +43,10 @@ export default async function ServicePage({ params }: Props) {
 
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(serviceJsonLd(service)) }}
+      />
       <section
         data-hero
         data-tone="dark"

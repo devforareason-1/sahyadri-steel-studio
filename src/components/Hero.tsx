@@ -46,12 +46,14 @@ function Copy() {
 function Name({ className = "" }: { className?: string }) {
   return (
     <h1 id="hero-title" className={`flex flex-col items-center leading-none ${className}`}>
-      <span className="text-[clamp(2.8rem,9vw,7.5rem)] font-light [text-shadow:0_0_60px_rgb(255_226_180/0.25)]">
-        SAHYADRI
-      </span>
+      {/* Set in capitals by CSS, so search engines and screen readers get
+          the name as written: "Sahyadri Steel Studio". */}
+      <span className="text-[clamp(2.8rem,9vw,7.5rem)] font-light uppercase [text-shadow:0_0_60px_rgb(255_226_180/0.25)]">
+        Sahyadri
+      </span>{" "}
       <span aria-hidden="true" className="steel-rule my-[clamp(12px,1.6vw,22px)] w-full" />
-      <span className="text-[clamp(12px,1.35vw,17px)] font-semibold tracking-[0.62em] text-ivory [text-shadow:0_1px_2px_rgb(0_0_0/0.9),0_0_18px_rgb(0_0_0/0.75)]">
-        STEEL STUDIO
+      <span className="text-[clamp(12px,1.35vw,17px)] font-semibold uppercase tracking-[0.62em] text-ivory [text-shadow:0_1px_2px_rgb(0_0_0/0.9),0_0_18px_rgb(0_0_0/0.75)]">
+        Steel Studio
       </span>
     </h1>
   );
