@@ -10,7 +10,7 @@ import Reveal from "./Reveal";
 function SampleTag({ t }: { t: Testimonial }) {
   if (!t.sample) return null;
   return (
-    <span className="ml-3 inline-block border border-dashed border-champagne-ink/60 px-2 py-0.5 align-middle text-[10px] font-semibold uppercase tracking-[0.16em] text-champagne-ink">
+    <span className="ml-3 inline-block border border-dashed border-champagne-ink/60 px-2 py-0.5 align-middle text-[11px] font-semibold uppercase tracking-[0.16em] text-champagne-ink">
       Sample
     </span>
   );

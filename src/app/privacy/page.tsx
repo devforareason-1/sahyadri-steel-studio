@@ -17,7 +17,7 @@ export default function PrivacyPage() {
         <h1 className="display h-lg mt-6">
           Your details, <em>handled with care.</em>
         </h1>
-        <p className="mt-6 inline-block border border-dashed border-champagne-ink/60 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-champagne-ink">
+        <p className="mt-6 inline-block border border-dashed border-champagne-ink/60 px-3 py-1.5 text-[12px] font-semibold uppercase tracking-[0.16em] text-champagne-ink">
           Placeholder · full policy to be published
         </p>
 

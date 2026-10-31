@@ -30,7 +30,16 @@ export const services: Service[] = [
     intro:
       "An Indian kitchen works hard: heavy vessels, pressure cookers, water on every surface, a wash every day. We fit it out in stainless steel, from plate baskets to tall pantry pull-outs, so nothing swells, warps or sags with the years.",
     image: images.kitchenSteel,
-    gallery: [images.plateBasket, images.steelVessels, images.kitchenGrey],
+    gallery: [
+      images.kitchenGlossGrey,
+      images.plateBasket,
+      images.kitchenTallOven,
+      images.steelVessels,
+      images.kitchenGlassLit,
+      images.steelPots,
+      images.kitchenGrey,
+      images.kitchenMatteCharcoal,
+    ],
     considerations: [
       {
         title: "An accessory for every drawer",
@@ -65,7 +74,15 @@ export const services: Service[] = [
     intro:
       "Glass shutters in slim steel profiles let a wardrobe feel light, even when it fills a wall. Behind them, steel interiors are planned around what you own, and nothing swells or smells through the monsoon.",
     image: images.wardrobeGlass,
-    gallery: [images.glassShutters, images.mirrorWardrobe, images.wardrobeGlass],
+    gallery: [
+      images.wardrobeBronzeGlass,
+      images.wardrobeCorridor,
+      images.glassShutters,
+      images.wardrobeSmokedGlass,
+      images.mirrorWardrobe,
+      images.wardrobeFrostedGrid,
+      images.wardrobeGlass,
+    ],
     considerations: [
       {
         title: "Glass, your way",
@@ -100,7 +117,16 @@ export const services: Service[] = [
     intro:
       "A bathroom is the hardest room on furniture. Our vanities are built in stainless steel, so they stand up to water and steam for years, with mirrors, glass and storage planned around your basin.",
     image: images.vanityMarble,
-    gallery: [images.vanityMarble, images.vanityGloss, images.steelTap],
+    gallery: [
+      images.vanityBrass,
+      images.vanityMarble,
+      images.vanityMatteBlack,
+      images.basinBlackOval,
+      images.vanityGloss,
+      images.vanityBlackMarble,
+      images.steelTap,
+      images.vanityRoundMirror,
+    ],
     considerations: [
       {
         title: "Water is no problem",
@@ -135,7 +161,16 @@ export const services: Service[] = [
     intro:
       "When you are building or renovating a whole home, we can take on every room: kitchen, wardrobes, vanities, and the TV, crockery and storage units between them, in one consistent language of steel and glass.",
     image: images.fullHome,
-    gallery: [images.fullHome, images.mirrorWardrobe, images.kitchenGrey],
+    gallery: [
+      images.fullHome,
+      images.homeMarbleLiving,
+      images.homeCharcoalIsland,
+      images.wardrobeBronzeGlass,
+      images.homeWhiteOpenPlan,
+      images.vanityBlackMarble,
+      images.kitchenGrey,
+      images.mirrorWardrobe,
+    ],
     considerations: [
       {
         title: "Planned together",

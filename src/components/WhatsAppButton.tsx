@@ -37,6 +37,7 @@ export default function WhatsAppButton() {
   const hidden = nearForm || !pastHero;
 
   return (
+    <aside aria-label="WhatsApp">
     <a
       href={whatsappUrl}
       target="_blank"
@@ -52,5 +53,6 @@ export default function WhatsAppButton() {
         Chat with us
       </span>
     </a>
+    </aside>
   );
 }

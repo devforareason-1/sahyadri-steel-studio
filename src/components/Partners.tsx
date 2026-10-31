@@ -12,6 +12,8 @@ function Mark({ partner }: { partner: Partner }) {
         <img
           src={partner.logo}
           alt={partner.name}
+          width={partner.logoSize?.[0]}
+          height={partner.logoSize?.[1]}
           loading="lazy"
           draggable={false}
           style={{ "--s": partner.logoScale ?? 1 } as React.CSSProperties}
@@ -54,7 +56,7 @@ export default function Partners() {
 
         <Reveal delay={120}>
           {/* On phones an odd last logo spans the row instead of sitting alone. */}
-          <ul className="mt-10 grid grid-cols-2 border-l border-t border-line sm:grid-cols-3 lg:mt-12 lg:grid-cols-5 max-sm:[&>li:last-child:nth-child(odd)]:col-span-2">
+          <ul className="mt-10 grid grid-cols-2 border-l border-t border-line sm:grid-cols-3 lg:mt-12 lg:grid-cols-6 max-sm:[&>li:last-child:nth-child(odd)]:col-span-2">
             {partners.map((p) => (
               <Mark key={p.name} partner={p} />
             ))}

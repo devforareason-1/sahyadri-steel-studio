@@ -8,14 +8,14 @@ export default function Wordmark({ size = "md" }: { size?: "md" | "lg" }) {
         }`}
       >
         SAHYADRI
-      </span>
+      </span>{" "}
       <span
         aria-hidden="true"
         className={`steel-rule w-full ${large ? "my-3" : "my-[6px]"}`}
       />
       <span
-        className={`font-sans font-medium tracking-[0.42em] opacity-75 ${
-          large ? "text-[12px]" : "text-[8.5px] sm:text-[9px]"
+        className={`font-sans font-medium tracking-[0.38em] opacity-85 ${
+          large ? "text-[12px]" : "text-[9.5px] sm:text-[10px]"
         }`}
       >
         STEEL STUDIO

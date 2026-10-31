@@ -3,10 +3,6 @@
 import { useMotionValue } from "motion/react";
 import { useEffect } from "react";
 
-// Shared feel for scroll-linked motion: a soft spring, so movement trails
-// the scroll slightly and settles rather than snapping.
-export const scrollSpring = { stiffness: 140, damping: 32, mass: 0.35 };
-
 // 1 when motion is welcome, 0 when the visitor prefers reduced motion.
 // Starts at 0 so the server render and first client render match, then
 // eases in after mount. Multiply scroll effects by it.

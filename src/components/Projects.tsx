@@ -72,7 +72,7 @@ function filteredSlot(count: number) {
 function ConceptTag({ project }: { project: Project }) {
   if (project.completed) return null;
   return (
-    <span className="absolute left-4 top-4 bg-graphite/70 px-2.5 py-1.5 text-[10px] uppercase tracking-[0.18em] text-ivory backdrop-blur-sm">
+    <span className="absolute left-4 top-4 bg-graphite/70 px-2.5 py-1.5 text-[11px] uppercase tracking-[0.18em] text-ivory backdrop-blur-sm">
       Concept
     </span>
   );
@@ -128,7 +128,7 @@ export default function Projects() {
                 type="button"
                 aria-pressed={filter === cat}
                 onClick={() => setFilter(cat)}
-                className={`nav-link inline-flex min-h-11 items-center font-mono text-[11px] uppercase tracking-[0.12em] transition-colors lg:min-h-0 ${
+                className={`nav-link inline-flex min-h-11 min-w-11 items-center font-mono text-[12px] uppercase tracking-[0.12em] transition-colors lg:min-h-0 ${
                   filter === cat
                     ? "text-ivory"
                     : "text-ivory/55 hover:text-ivory"
@@ -160,8 +160,8 @@ export default function Projects() {
                   type="button"
                   onClick={() => setActive(i)}
                   className="group flex flex-1 flex-col text-left"
-                  aria-label={`View ${project.title}, ${project.label}`}
                 >
+                  <span className="sr-only">View </span>
                   <span className={`media media-zoom block w-full bg-graphite-soft ${slot.aspect} lg:flex-1`}>
                     <Photo
                       image={project.image}
@@ -177,14 +177,14 @@ export default function Projects() {
                     </span>
                   </span>
                   <span className="mt-5 grid grid-cols-[2.2rem_1fr] items-baseline border-t border-ivory/15 pt-4">
-                    <span className="font-mono text-[12px] text-champagne">
+                    <span aria-hidden="true" className="font-mono text-[12px] text-champagne">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span className="flex flex-col gap-1.5">
                       <span className="display text-[1.6rem] leading-tight transition-colors duration-500 group-hover:text-champagne">
                         {project.title}
                       </span>
-                      <span className="text-[11px] uppercase tracking-[0.18em] text-ivory/50">
+                      <span className="text-[12px] uppercase tracking-[0.18em] text-ivory/50">
                         {project.label}
                       </span>
                     </span>
@@ -208,7 +208,7 @@ export default function Projects() {
                 </div>
 
                 <div className="lg:my-auto">
-                  <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-ivory/50">
+                  <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-ivory/50">
                     What goes into it
                   </p>
                   <ul className="mt-3 border-t border-ivory/15">
@@ -217,7 +217,7 @@ export default function Projects() {
                         key={item}
                         className="grid grid-cols-[2.2rem_1fr] items-baseline border-b border-ivory/15 py-3 text-[14px] text-ivory/85"
                       >
-                        <span className="font-mono text-[11px] text-champagne">
+                        <span className="font-mono text-[12px] text-champagne">
                           {String(n + 1).padStart(2, "0")}
                         </span>
                         {item}
@@ -295,7 +295,7 @@ export default function Projects() {
 
             <div className="mt-5 grid items-end gap-5 sm:grid-cols-[1fr_auto]">
               <div>
-                <p className="text-[11px] uppercase tracking-[0.2em] text-champagne">
+                <p className="text-[12px] uppercase tracking-[0.2em] text-champagne">
                   {current.label}
                   {!current.completed && " · Concept visual"}
                 </p>

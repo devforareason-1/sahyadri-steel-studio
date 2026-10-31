@@ -60,6 +60,232 @@
   --font-mono: var(--font-label);
 }
 
+/* Themes under review, colours and fonts, switched by PaletteSwitch.tsx. Once one
+   is chosen, move its values into :root (and the button ones into .btn-dark) and
+   delete the rest, with lib/review-fonts.ts. */
+html[data-palette="bronze"] {
+  --ivory: #f6eee3;
+  --ivory-deep: #ecdfce;
+  --travertine: #e3d3bf;
+  --sand: #d2bea6;
+  --graphite: #2b1f16;
+  --graphite-soft: #3a2b20;
+  --ink-rgb: 43 31 22;
+  --walnut: #4a3627;
+  --steel: #b5a593;
+  --steel-light: #e0d3c2;
+  --champagne: #d6ab6c;
+  --champagne-ink: #76501f;
+  --champagne-ink-deep: #6a4719;
+  --muted: #5f4e3b;
+  --headline-soft: #84705a;
+  --button: #7a4f28;
+  --button-hover: #5f3d1e;
+  --button-ink: #f6eee3;
+}
+
+html[data-palette="noir"] {
+  --ivory: #f8f6f1;
+  --ivory-deep: #efebe2;
+  --travertine: #e5dfd2;
+  --sand: #d3cab6;
+  --graphite: #111111;
+  --graphite-soft: #1d1c1a;
+  --ink-rgb: 17 17 17;
+  --walnut: #2a2825;
+  --steel: #aaa59a;
+  --steel-light: #dcd8ce;
+  --champagne: #d4af5a;
+  --champagne-ink: #7a5b12;
+  --champagne-ink-deep: #6b4f0e;
+  --muted: #57534b;
+  --headline-soft: #7c776c;
+  --button: #c9a227;
+  --button-hover: #b08c1c;
+  --button-ink: #111111;
+}
+
+html[data-palette="emerald"] {
+  --ivory: #f6f3e9;
+  --ivory-deep: #ece7d7;
+  --travertine: #e1dac5;
+  --sand: #cfc6aa;
+  --graphite: #07251c;
+  --graphite-soft: #103b2e;
+  --ink-rgb: 7 37 28;
+  --walnut: #15493a;
+  --steel: #a6ae9e;
+  --steel-light: #d9dccb;
+  --champagne: #d9b36c;
+  --champagne-ink: #75581c;
+  --champagne-ink-deep: #654b15;
+  --muted: #4d5a4f;
+  --headline-soft: #6f7f72;
+  --button: #07251c;
+  --button-hover: #15493a;
+  --button-ink: #f6f3e9;
+}
+
+html[data-palette="navy"] {
+  --ivory: #f6f4ef;
+  --ivory-deep: #ece9e1;
+  --travertine: #e1ddd2;
+  --sand: #cdc8ba;
+  --graphite: #101c33;
+  --graphite-soft: #1a2a47;
+  --ink-rgb: 16 28 51;
+  --walnut: #24375a;
+  --steel: #a5acb8;
+  --steel-light: #d8dce3;
+  --champagne: #d9bd84;
+  --champagne-ink: #765a26;
+  --champagne-ink-deep: #664c1d;
+  --muted: #4f5563;
+  --headline-soft: #6f7787;
+  --button: #101c33;
+  --button-hover: #24375a;
+  --button-ink: #f6f4ef;
+}
+
+html[data-palette="wine"] {
+  --ivory: #f8f0ea;
+  --ivory-deep: #f0e3da;
+  --travertine: #e7d5c9;
+  --sand: #d6bfb0;
+  --graphite: #3a0f1b;
+  --graphite-soft: #4a1726;
+  --ink-rgb: 58 15 27;
+  --walnut: #5a1f30;
+  --steel: #b6a39f;
+  --steel-light: #e3d5cf;
+  --champagne: #e3b197;
+  --champagne-ink: #8a4630;
+  --champagne-ink-deep: #7a3b27;
+  --muted: #664a47;
+  --headline-soft: #8d6f6b;
+  --button: #7a1f34;
+  --button-hover: #5a1f30;
+  --button-ink: #f8f0ea;
+}
+
+html[data-palette="copper"] {
+  --ivory: #f3f3f1;
+  --ivory-deep: #e9e9e6;
+  --travertine: #dededa;
+  --sand: #c9c9c3;
+  --graphite: #1f2326;
+  --graphite-soft: #2b3034;
+  --ink-rgb: 31 35 38;
+  --walnut: #383e43;
+  --steel: #a3a8ab;
+  --steel-light: #d6d9da;
+  --champagne: #d98f5f;
+  --champagne-ink: #8f4c22;
+  --champagne-ink-deep: #7f421c;
+  --muted: #53585c;
+  --headline-soft: #737a80;
+  --button: #a85a2a;
+  --button-hover: #8a4820;
+  --button-ink: #ffffff;
+}
+
+html[data-palette="bronze"] {
+  --font-display: var(--font-marcellus);
+  --font-body: var(--font-mulish);
+  --font-label: var(--font-mulish);
+  --font-accent: var(--font-cormorant);
+  --display-tracking: -0.005em;
+  --accent-size: 1.08em;
+}
+
+html[data-palette="noir"] {
+  --font-display: var(--font-italiana);
+  --font-body: var(--font-jost);
+  --font-label: var(--font-jost);
+  --font-accent: var(--font-bodoni);
+  --display-tracking: 0.01em;
+  --accent-size: 0.96em;
+}
+
+html[data-palette="emerald"] {
+  --font-display: var(--font-cormorant);
+  --font-body: var(--font-jost);
+  --font-label: var(--font-jost);
+  --font-accent: var(--font-cormorant);
+  --display-tracking: -0.01em;
+  --accent-size: 1em;
+}
+
+html[data-palette="navy"] {
+  --font-display: var(--font-gilda);
+  --font-body: var(--font-dm-sans);
+  --font-label: var(--font-dm-sans);
+  --font-accent: var(--font-caslon);
+  --display-tracking: -0.005em;
+  --accent-size: 0.94em;
+}
+
+html[data-palette="wine"] {
+  --font-display: var(--font-bellefair);
+  --font-body: var(--font-figtree);
+  --font-label: var(--font-figtree);
+  --font-accent: var(--font-playfair);
+  --display-tracking: 0;
+  --accent-size: 0.94em;
+}
+
+html[data-palette="copper"] {
+  --font-display: var(--font-tenor);
+  --font-body: var(--font-manrope);
+  --font-label: var(--font-manrope);
+  --font-accent: var(--font-instrument);
+  --display-tracking: -0.01em;
+  --accent-size: 1.06em;
+}
+
+/* Subtle headlines want more air than the current tight sans, and no faked bold. */
+html[data-palette] {
+  font-synthesis-weight: none;
+}
+
+html[data-palette] .display,
+html[data-palette] .h-statement {
+  letter-spacing: var(--display-tracking);
+}
+
+/* The accent: the second half of a headline, and the hero's line, in an italic
+   face and the theme's metal. */
+html[data-palette] .display em {
+  font-family: var(--font-accent), Georgia, serif;
+  font-size: var(--accent-size);
+  font-style: italic;
+  letter-spacing: 0;
+  color: var(--champagne-ink);
+}
+
+html[data-palette] .on-dark .display em {
+  color: var(--champagne);
+}
+
+html[data-palette] .accent-line {
+  font-family: var(--font-accent), Georgia, serif;
+  font-size: calc(clamp(1.1rem, 1.6vw, 1.35rem) * 1.14);
+  font-style: italic;
+}
+
+html[data-palette] [data-tone="sand"] {
+  --champagne-ink: var(--champagne-ink-deep);
+}
+
+html[data-palette] .btn-dark {
+  background: var(--button);
+  color: var(--button-ink);
+}
+
+html[data-palette] .btn-dark:hover {
+  background: var(--button-hover);
+}
+
 /* ── Base ───────────────────────────────────────────────────────────── */
 
 @layer base {
@@ -185,7 +411,7 @@
   align-items: center;
   gap: 12px;
   font-family: var(--font-label), ui-monospace, monospace;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.12em;
   line-height: 1.6;
@@ -213,7 +439,7 @@
 
 .caption {
   font-family: var(--font-label), ui-monospace, monospace;
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.04em;
   line-height: 1.6;
   color: var(--muted);
@@ -228,7 +454,7 @@
   gap: 0 14px;
   flex-wrap: wrap;
   font-family: var(--font-label), ui-monospace, monospace;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.12em;
   line-height: 1.6;
@@ -331,6 +557,7 @@
 }
 
 .link-line {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -342,6 +569,13 @@
   background-repeat: no-repeat;
   background-size: 100% 1px;
   transition: background-size 400ms var(--ease-out);
+}
+
+/* A 44px tap area around the underlined text, without moving the line. */
+.link-line::after {
+  content: "";
+  position: absolute;
+  inset: -9px 0;
 }
 
 .link-line:hover {
@@ -466,9 +700,9 @@
 }
 
 /* ── Motion ─────────────────────────────────────────────────────────────
-   Kept deliberately quiet: the home page's hero is lit by the visitor's
-   scroll (see Hero.tsx), a solution page's hero settles once, sections
-   fade in, and nothing else moves on its own. */
+   Kept deliberately quiet: the home page's hero plays once on load (see
+   Hero.tsx), a solution page's hero settles once, sections fade in, and
+   nothing else moves on its own. */
 
 /* A solution page's hero photograph. Scale only: fading it in from
    transparent would hold back the largest paint on the page. */
@@ -547,6 +781,35 @@
 
 dialog::backdrop {
   background: rgb(var(--ink-rgb) / 0.94);
+}
+
+/* Over the home page's hero the nav takes its colour from the scene: Hero.tsx
+   sets the variable as the lights come on. Other heroes leave it unset. */
+.hero-nav a {
+  color: var(--hero-nav-ink, inherit);
+}
+
+/* While the home page's hero shows the studio's name, the header leaves the
+   logo out; Header.tsx lifts this once the name has left the screen. */
+.header-wordmark {
+  opacity: 0;
+}
+
+/* A visitor who has already seen the opening film starts from its last frame:
+   set before the first paint by Hero.tsx, so there is no dark flash. */
+html[data-film-seen] .hero-scene [data-lit] {
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+}
+
+html[data-film-seen] .hero-scene [data-late] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important;
+}
+
+html[data-film-seen] .hero-scene h1 {
+  letter-spacing: 0.2em;
 }
 
 .site-header {

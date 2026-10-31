@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero";
 import Studio from "@/components/Studio";
+import Metrics from "@/components/Metrics";
 import Spaces from "@/components/Spaces";
 import Materials from "@/components/Materials";
 import Process from "@/components/Process";
@@ -28,6 +29,7 @@ export default function Home() {
     <main>
       <Hero />
       <Studio />
+      <Metrics />
       <Spaces />
       <Materials />
       <Process />

@@ -39,7 +39,7 @@ never touch a component.
 | Studio addresses, hours and phone numbers | `src/data/site.ts` (`locations`) |
 | Solutions (kitchens, wardrobes, vanities, full home) and their pages | `src/data/services.ts` |
 | Concept projects (set `completed: true` for real work) | `src/data/projects.ts` |
-| Finishes, hardware, range sizes, testimonials, partner brands | `src/data/content.ts` |
+| Finishes, hardware, range sizes, kitchen accessories, the six studio numbers, testimonials, partner brands | `src/data/content.ts` |
 | Instagram posts, and the switch that shows the section | `src/data/instagram.ts` |
 | Header menu | `src/data/navigation.ts` |
 | Partner logo files | `public/images/partners/` |
@@ -54,14 +54,23 @@ the enquiry form (`EnquiryForm.tsx`).
 
 - **Home page** (`src/app/page.tsx`): Hero, Studio, Spaces, Materials
   (finish library and builder), Process, Projects, Why steel, Partners,
-  Instagram (off for now), Testimonials, Contact.
-- **Hero** (`Hero.tsx`): a dark kitchen pinned on screen while the visitor
-  scrolls; the scroll widens a pool of light and reveals the studio's name,
-  then the headline and buttons. Visitors who prefer reduced motion, and
-  browsers without JavaScript, see the lit scene straight away. The header
-  stays transparent until the hero has scrolled past.
+  Instagram (off for now), Testimonials, Contact. Metrics (the studio in
+  numbers, counting up as they come into view) follows Studio.
+- **Hero** (`Hero.tsx`): a short film that plays once a visit on load. A dark
+  kitchen island's three pendants switch on one after another, warm light
+  spreads over the room, and the studio's name then the headline and buttons
+  appear. A refresh or a return to the page shows the finished scene; scrolling
+  or pressing a key hurries it to the end; `FILM_LENGTH` sets its length.
+  Visitors who prefer reduced motion, and browsers without JavaScript, see the
+  lit scene straight away. Scrolling away has a parallax: the room drifts at a
+  fraction of the scroll while the words rise and fade.
+- **Header over the home hero**: the logo stays hidden while the hero shows the
+  name and fades in once the name has left the screen. The nav is dark against
+  the lit ceiling, gains a dark backing and pale text once the page moves, and
+  turns ivory when the hero has gone.
 - **Solution pages** (`src/app/services/[slug]/page.tsx`): one per entry in
-  `services.ts`. The kitchens page adds the finish builder; the wardrobes
+  `services.ts`, each with a photo gallery that opens to a full-screen viewer
+  (`Gallery.tsx`). The kitchens page adds the finish builder; the wardrobes
   page adds the wardrobe planner. On phones both keep their preview pinned
   under the header while the options scroll.
 - **Enquiry form** (`EnquiryForm.tsx`): posts to the Google Apps Script in
@@ -85,6 +94,19 @@ the enquiry form (`EnquiryForm.tsx`).
   `src/lib/og-card.tsx` from the `opengraph-image.tsx` files (one for the
   home page, one per solution) and saved as a small JPEG with `sharp`, so
   WhatsApp shows it.
+
+## Themes under review
+
+Swatches at the top of the page switch between the current look and six candidate
+themes, each with its own colours and fonts (headline, text, italic accent): warm
+bronze (Marcellus, Mulish, Cormorant Garamond), noir & gold (Italiana, Jost, Bodoni
+Moda), emerald & brass (Cormorant Garamond, Jost), midnight & champagne (Gilda
+Display, DM Sans, Libre Caslon Text), oxblood & rose gold (Bellefair, Figtree,
+Playfair Display) and graphite & copper (Tenor Sans, Manrope, Instrument Serif). They show locally and on
+Vercel preview links, never in production. Once one is chosen, delete
+`PaletteSwitch.tsx` and `src/lib/review-fonts.ts` with their lines in `layout.tsx`,
+load that theme's fonts in `layout.tsx`, move its values from the
+`html[data-palette]` CSS into `:root`, and delete the rest.
 
 ## Rules for content
 
@@ -110,6 +132,9 @@ the enquiry form (`EnquiryForm.tsx`).
 - [ ] Fill in `site.phone`, `site.email` and each studio's address, hours and phone.
 - [ ] Replace the sample testimonials (`sample: true`) with real reviews.
 - [ ] Set the range sizes in `finishRange` (`src/data/content.ts`).
+- [ ] Replace the placeholder `metrics` with real figures (`src/data/content.ts`).
+- [ ] Confirm the right to use the accessory photos in `public/images/accessories/`
+      (from the brochure and suppliers, some showing wood), or replace them.
 - [ ] Replace concept images with the studio's own photography, and fill
       the empty `src` entries in `images.ts`.
 - [ ] Publish a reviewed privacy policy in `src/app/privacy/page.tsx`.

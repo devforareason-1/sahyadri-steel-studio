@@ -1,3 +1,5 @@
+import { images, type Img } from "./images";
+
 /* ── Materials and finishes ─────────────────────────────────────────── */
 
 const svg = (markup: string) =>
@@ -9,7 +11,7 @@ export const matteGrain = svg(
 );
 
 // The finish library follows the way steel-interiors studios present their
-// range: solid colours, wood-look finishes and stone & metal effects, all
+// range: solid colours, wood-look finishes, and stone, steel and glass, all
 // applied over a stainless-steel cabinet. "Wood-look" is a printed finish on
 // steel, so the promise of no wood anywhere still holds.
 //
@@ -39,7 +41,7 @@ export type Hardware = {
 };
 
 const photo = (id: string, adjust = "") =>
-  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=900&h=900&q=70${adjust}`;
+  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=600&h=600&q=65${adjust}`;
 
 // The CSS background that shows a finish: its photograph, or its colour.
 export function finishBackground(f: Finish) {
@@ -126,8 +128,6 @@ export const effectFinishes: Finish[] = [
   ),
   effect("concrete", "Grey concrete", "Concrete effect", "1521459467264-802e2ef3141f", "#9a9a98"),
   effect("ivory-concrete", "Ivory concrete", "Concrete effect", "1617713965103-9fda56c89fad", "#dcdad6"),
-  effect("corten", "Corten rust", "Metal effect", "1614535683569-129faaa108f7", "#8f4a2c"),
-  effect("copper-patina", "Copper patina", "Metal effect", "1781021541218-3968570b173f", "#1f5e5c"),
   {
     id: "fluted-glass",
     name: "Fluted glass",
@@ -180,6 +180,42 @@ export const finishRange = {
 export const findFinish = (id: string) =>
   [...colourFinishes, ...woodFinishes, ...effectFinishes].find((f) => f.id === id)!;
 
+/* ── Kitchen accessories ────────────────────────────────────────────── */
+
+// The studio's range, named as in its brochure. Shown on the kitchens page.
+export const accessories: { name: string; text: string; image: Img }[] = [
+  { name: "Bottle pull-out", text: "A slim pull-out that keeps oils, spices and bottles within reach.", image: images.accessoryBottles },
+  { name: "Corner carousel", text: "Shelves that swing out, so a corner cabinet gives up what it holds.", image: images.accessoryCarousel },
+  { name: "Tandem box", text: "A deep drawer box that opens fully, for vessels and heavy pans.", image: images.accessoryTandem },
+  { name: "Ironing table", text: "A board that folds out of a drawer and tucks away when it is done.", image: images.accessoryIroning },
+  { name: "Drawer", text: "Slim-sided drawers for everyday storage, sized to what you keep.", image: images.accessoryDrawer },
+  { name: "LeMans corner", text: "Curved trays that glide out of a blind corner, one after the other.", image: images.accessoryLeMans },
+  { name: "Wicker baskets", text: "Airy pull-out baskets for onions, potatoes and fruit.", image: images.accessoryWicker },
+  { name: "PVC cutlery", text: "A divided tray that gives every spoon and ladle its own place.", image: images.accessoryCutlery },
+  { name: "Waste bin", text: "A steel bin that stays out of sight inside a cabinet.", image: images.accessoryBin },
+];
+
+/* ── Studio in numbers ──────────────────────────────────────────────── */
+
+export type Metric = {
+  value: string; // as it should read, e.g. "300+"
+  label: string; // what it counts, e.g. "Homes designed"
+};
+
+// Six figures, shown after the studio's introduction. An empty list hides the
+// section.
+//
+// PLACEHOLDERS: only "Design studios" is real. Replace the rest with the
+// studio's own figures before launch: they read as factual claims to a client.
+export const metrics: Metric[] = [
+  { value: "150+", label: "Homes designed" },
+  { value: "2", label: "Design studios" },
+  { value: "20+", label: "In-house designers" },
+  { value: "60+", label: "Trusted contractors" },
+  { value: "5", label: "Cities served" },
+  { value: "100%", label: "Transparent pricing" },
+];
+
 /* ── Testimonials ───────────────────────────────────────────────────── */
 
 export type Testimonial = {
@@ -228,6 +264,7 @@ export type Partner = {
   // Official logo file supplied by the brand or its dealer portal, e.g.
   // "/images/partners/hettich.svg". Until set, the name is typeset instead.
   logo?: string;
+  logoSize?: [number, number]; // the file's width and height, to reserve its space
   // Logos differ in shape; this evens out their visual weight (1 = default).
   logoScale?: number;
   // True for a logo drawn for dark backgrounds (white lettering); the strip
@@ -241,9 +278,10 @@ export const partners: Partner[] = [
   // Hettich and Häfele: public-domain SVGs from Wikimedia Commons.
   // CenturyPly: the logo from centuryply.com. Aristo: supplied by the studio
   // (the white, dark-background version). Carysil: the logo from carysil.com.
-  { name: "Hettich", offer: "Drawer systems & hinges", logo: "/images/partners/hettich.svg", logoScale: 1.35 },
-  { name: "Häfele", offer: "Kitchen & wardrobe fittings", logo: "/images/partners/hafele.svg", logoScale: 0.6 },
-  { name: "CenturyPly", offer: "Boards & panels", logo: "/images/partners/centuryply.png", logoScale: 1.2 },
-  { name: "Aristo", offer: "Sliding wardrobe systems", logo: "/images/partners/aristo.png", logoScale: 0.75, logoOnDark: true },
-  { name: "Carysil", offer: "Sinks & kitchen appliances", logo: "/images/partners/carysil.svg", logoScale: 0.45 },
+  { name: "Hettich", offer: "Drawer systems & hinges", logo: "/images/partners/hettich.svg", logoSize: [411, 257], logoScale: 1.35 },
+  { name: "Häfele", offer: "Kitchen & wardrobe fittings", logo: "/images/partners/hafele.svg", logoSize: [893, 153], logoScale: 0.6 },
+  { name: "CenturyPly", offer: "Boards & panels", logo: "/images/partners/centuryply.png", logoSize: [404, 180], logoScale: 1.2 },
+  { name: "Aristo", offer: "Sliding wardrobe systems", logo: "/images/partners/aristo.png", logoSize: [3246, 881], logoScale: 0.75, logoOnDark: true },
+  { name: "Carysil", offer: "Sinks & kitchen appliances", logo: "/images/partners/carysil.svg", logoSize: [278, 26], logoScale: 0.45 },
+  { name: "Cromatica", offer: "Stainless-steel kitchens & wardrobes" },
 ];

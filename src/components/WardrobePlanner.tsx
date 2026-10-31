@@ -209,7 +209,7 @@ export default function WardrobePlanner() {
                 type="button"
                 aria-pressed={view === v}
                 onClick={() => setView(v)}
-                className={`min-h-10 px-4 text-[11px] font-semibold uppercase tracking-[0.16em] transition-colors ${
+                className={`min-h-11 px-4 text-[12px] font-semibold uppercase tracking-[0.16em] transition-colors ${
                   view === v ? "bg-graphite text-ivory" : "hover:bg-ivory-deep"
                 }`}
               >
@@ -292,7 +292,7 @@ export default function WardrobePlanner() {
                   <span className="flex-1">
                     <span
                       className={`block font-serif text-[1.45rem] leading-tight transition-colors ${
-                        on ? "text-graphite" : "text-graphite/55"
+                        on ? "text-graphite" : "text-graphite/75"
                       }`}
                     >
                       {z.title}

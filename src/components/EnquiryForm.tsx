@@ -94,11 +94,11 @@ function summary(v: Values) {
   return `Hello Sahyadri Steel Studio, I would like to enquire about a customised interior project.\n\n${details.join("\n")}`;
 }
 
-const label = "block text-[11px] font-semibold uppercase tracking-[0.18em] text-muted";
+const label = "block text-[12px] font-semibold uppercase tracking-[0.18em] text-muted";
 const input =
-  "mt-2 w-full border-0 border-b border-line-strong bg-transparent px-0 py-2 text-base outline-none transition-colors placeholder:text-graphite/30 focus:border-graphite aria-[invalid=true]:border-error";
+  "mt-2 min-h-11 w-full border-0 border-b border-line-strong bg-transparent px-0 py-2 text-base outline-none transition-colors placeholder:text-graphite/30 focus:border-graphite aria-[invalid=true]:border-error";
 const chip =
-  "inline-flex min-h-10 items-center border border-line-strong px-3.5 text-[13px] transition-colors hover:border-graphite peer-checked:border-graphite peer-checked:bg-graphite peer-checked:text-ivory peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-champagne-ink";
+  "inline-flex min-h-11 items-center border border-line-strong px-3.5 text-[13px] transition-colors hover:border-graphite peer-checked:border-graphite peer-checked:bg-graphite peer-checked:text-ivory peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-champagne-ink";
 
 function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
@@ -379,7 +379,7 @@ export default function EnquiryForm() {
                 />
                 <span className="flex min-h-12 items-center justify-between border border-line-strong px-4 text-[17px] transition-colors hover:border-graphite peer-checked:border-graphite peer-checked:bg-graphite peer-checked:text-ivory peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-champagne-ink">
                   {loc.city}
-                  <span className="hidden font-sans text-[10px] uppercase tracking-[0.18em] opacity-60 sm:inline">
+                  <span className="hidden font-sans text-[11px] uppercase tracking-[0.18em] opacity-80 sm:inline">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                 </span>
@@ -553,7 +553,7 @@ export default function EnquiryForm() {
             </>
           ) : site.formEndpoint ? (
             <>
-              Send enquiry
+              Request a Quote
               <ArrowRight size={16} strokeWidth={1.6} />
             </>
           ) : (

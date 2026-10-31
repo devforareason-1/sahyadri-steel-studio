@@ -12,6 +12,8 @@ export default function Header() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [veiled, setVeiled] = useState(false);
+  const [nameGone, setNameGone] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
   const headerRef = useRef<HTMLElement>(null);
 
@@ -19,8 +21,9 @@ export default function Header() {
   // transparently over it until the visitor scrolls.
   const hasHero = pathname === "/" || pathname.startsWith("/services/");
 
-  // Over a hero the header stays clear until the hero has scrolled out from
-  // under it; the home page's hero is pinned for more than a screen.
+  // Over a hero the header stays dark until the hero has scrolled out from
+  // under it. Once the hero starts to move, a dark veil keeps its content from
+  // showing through the nav.
   useEffect(() => {
     const onScroll = () => {
       const hero = document.querySelector("[data-hero]");
@@ -28,11 +31,18 @@ export default function Header() {
       setScrolled(
         hero ? hero.getBoundingClientRect().bottom <= height + 1 : window.scrollY > 24
       );
+      setVeiled(hero ? hero.getBoundingClientRect().top < -24 : false);
+      // The home page's hero carries the studio's name itself, so the logo here
+      // waits until that has left: scrolled past, or faded out by 420px.
+      const name = document.querySelector("[data-hero-name]");
+      setNameGone(
+        !name || name.getBoundingClientRect().bottom <= height || window.scrollY >= 420
+      );
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -71,6 +81,7 @@ export default function Header() {
   }, [menuOpen]);
 
   const transparent = hasHero && !scrolled && !menuOpen;
+  const logoHidden = pathname === "/" && !nameGone && !menuOpen;
   const isCurrent = (href: string) => !href.includes("#") && href === pathname;
 
   return (
@@ -81,7 +92,9 @@ export default function Header() {
       data-solid={transparent || menuOpen ? undefined : ""}
       className={`site-header fixed inset-x-0 top-0 z-50 ${
         transparent
-          ? "on-dark border-b border-transparent text-ivory"
+          ? `on-dark border-b text-ivory ${
+              veiled ? "border-ivory/10 bg-[#060908]/85 backdrop-blur-md" : "border-transparent"
+            }`
           : menuOpen
             ? "border-b border-line bg-ivory text-graphite"
             : "border-b border-line bg-ivory/90 text-graphite backdrop-blur-md"
@@ -91,20 +104,23 @@ export default function Header() {
         <Link
           href="/"
           aria-label="Sahyadri Steel Studio, home"
-          className="relative z-10 shrink-0"
+          tabIndex={logoHidden ? -1 : undefined}
+          className={`relative z-10 shrink-0 py-1 transition-opacity duration-500 ${
+            logoHidden ? "header-wordmark" : ""
+          }`}
           onClick={() => setMenuOpen(false)}
         >
           <Wordmark />
         </Link>
 
-        <nav aria-label="Main" className="hidden xl:block">
+        <nav aria-label="Main" className={`hidden xl:block ${transparent && !veiled ? "hero-nav" : ""}`}>
           <ul className="flex items-center gap-7 text-[12.5px] tracking-[0.04em]">
             {navigation.map((item) => (
               <li key={item.label}>
                 <Link
                   href={item.href}
                   aria-current={isCurrent(item.href) ? "page" : undefined}
-                  className={`nav-link transition-opacity ${
+                  className={`nav-link transition-[color,opacity] duration-500 ${
                     transparent ? "opacity-90 hover:opacity-100" : ""
                   }`}
                 >

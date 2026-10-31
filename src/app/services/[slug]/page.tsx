@@ -4,6 +4,9 @@ import type { Metadata } from "next";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { services } from "@/data/services";
 import { whatsappLink } from "@/data/site";
+import Accessories from "@/components/Accessories";
+import Folio from "@/components/Folio";
+import Gallery from "@/components/Gallery";
 import Materials from "@/components/Materials";
 import Photo from "@/components/Photo";
 import Reveal from "@/components/Reveal";
@@ -77,7 +80,7 @@ export default async function ServicePage({ params }: Props) {
             style={{ animationDelay: "300ms" }}
           >
             <span className="font-mono text-[13px] text-champagne">{service.number}</span>
-            <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ivory/75">
+            <span className="font-mono text-[12px] uppercase tracking-[0.12em] text-ivory/75">
               {service.kicker}
             </span>
           </p>
@@ -134,6 +137,7 @@ export default async function ServicePage({ params }: Props) {
         </div>
       </section>
 
+      {service.slug === "stainless-steel-kitchens" && <Accessories />}
       {service.slug === "stainless-steel-kitchens" && <Materials />}
 
       {service.slug === "glass-steel-wardrobes" && (
@@ -166,38 +170,14 @@ export default async function ServicePage({ params }: Props) {
 
       <section
         data-tone="light"
-        aria-label="Concept imagery"
+        aria-label={`${service.title} gallery`}
         className={hasTool ? "section" : "pb-24 sm:pb-32"}
       >
-        <div className="shell grid gap-6 md:grid-cols-12">
-          {service.gallery.map((img, i) => (
-            <Reveal
-              key={img.alt}
-              delay={i * 100}
-              // A wide/narrow pair of equal height, then one image across the
-              // full width, so every edge lines up with the grid.
-              className={`group flex flex-col ${
-                i === 0 ? "md:col-span-7" : i === 1 ? "md:col-span-5" : "md:col-span-12"
-              }`}
-            >
-              <div
-                className={`media media-zoom ${
-                  i === 0
-                    ? "aspect-[4/3]"
-                    : i === 1
-                      ? "aspect-[4/5] md:aspect-auto md:flex-1"
-                      : "aspect-[4/3] md:aspect-[21/9]"
-                }`}
-              >
-                <Photo image={img} sizes={i === 2 ? "100vw" : "(max-width: 768px) 100vw, 60vw"} />
-              </div>
-              {img.src && (
-                <p className={`caption mt-3 ${i < 2 ? "md:min-h-[2lh]" : ""}`}>
-                  {img.alt} · concept visual
-                </p>
-              )}
-            </Reveal>
-          ))}
+        <div className="shell">
+          <Reveal>
+            <Folio label="Gallery" aside="Concept visuals" />
+          </Reveal>
+          <Gallery images={service.gallery} />
         </div>
         <p className="shell caption mt-10">
           Concept visuals for illustration only. They do not show completed

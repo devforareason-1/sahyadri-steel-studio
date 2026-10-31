@@ -31,7 +31,7 @@ export default function Photo({
         {!priority && (
           <span className="max-w-[280px]">
             {!image.src && (
-              <span className="mb-2 block text-[10px] font-semibold uppercase tracking-[0.24em] opacity-70">
+              <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.24em] opacity-70">
                 Photograph to come
               </span>
             )}

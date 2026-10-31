@@ -9,18 +9,18 @@ import Wordmark from "./Wordmark";
 function Column({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <p className="font-mono text-[11px] font-medium uppercase tracking-[0.12em] text-ivory/50">
+      <p className="font-mono text-[12px] font-medium uppercase tracking-[0.12em] text-ivory/65">
         {title}
       </p>
-      <div className="mt-4 flex flex-col items-start gap-0.5 text-sm text-ivory/65 lg:mt-6 lg:gap-3">
+      <div className="mt-3 flex flex-col items-start gap-0 text-sm text-ivory/65 lg:mt-6 lg:gap-3">
         {children}
       </div>
     </div>
   );
 }
 
-// Taller on touch screens, so each link is an easy tap.
-const linkClass = "inline-flex min-h-9 items-center transition-colors hover:text-ivory lg:min-h-0";
+// 44px tall on touch screens, so each link is an easy tap.
+const linkClass = "inline-flex min-h-11 items-center transition-colors hover:text-ivory lg:min-h-0";
 
 export default function Footer() {
   return (
@@ -81,7 +81,7 @@ export default function Footer() {
                   <Link href="/#studios" className={`text-ivory ${linkClass}`}>
                     {loc.city}
                   </Link>
-                  <p className="mt-1 text-[13px] leading-5 text-ivory/45">
+                  <p className="mt-1 text-[13px] leading-5 text-ivory/65">
                     {loc.address || "Address to be announced"}
                   </p>
                 </div>
@@ -97,14 +97,14 @@ export default function Footer() {
                   {site.phone}
                 </a>
               ) : (
-                <span className="text-ivory/40">Phone: to be announced</span>
+                <span className="text-ivory/65">Phone: to be announced</span>
               )}
               {site.email ? (
                 <a href={`mailto:${site.email}`} className={linkClass}>
                   {site.email}
                 </a>
               ) : (
-                <span className="text-ivory/40">Email: to be announced</span>
+                <span className="text-ivory/65">Email: to be announced</span>
               )}
               <a href={site.instagram} target="_blank" rel="noopener noreferrer" className={`${linkClass} flex-wrap gap-x-1.5`}>
                 Instagram <span className="whitespace-nowrap">{site.instagramHandle}</span>
@@ -114,7 +114,7 @@ export default function Footer() {
         </div>
 
         <div className="steel-rule mt-14 opacity-40" aria-hidden="true" />
-        <div className="flex flex-col items-center gap-3 py-8 text-center text-[12px] text-ivory/45 sm:flex-row sm:justify-between sm:text-left">
+        <div className="flex flex-col items-center gap-3 py-8 text-center text-[12px] text-ivory/65 sm:flex-row sm:justify-between sm:text-left">
           <p>© {new Date().getFullYear()} Sahyadri Steel Studio. All rights reserved.</p>
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1">
             <Link href="/privacy" className={linkClass}>

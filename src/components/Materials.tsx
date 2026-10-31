@@ -65,12 +65,12 @@ const catalogue = [
   },
   {
     key: "effects",
-    label: "Stone & metal effects",
+    label: "Stone, steel & glass",
     range: finishRange.effects,
-    noun: "stone and metal effects",
-    note: "Marble, concrete, patina and steel for shutters, worktops and cladding.",
+    noun: "stone, steel and glass finishes",
+    note: "Marble, concrete, steel and glass for shutters, worktops and cladding.",
     finishes: effectFinishes,
-    grid: "grid-cols-3 sm:grid-cols-5",
+    grid: "grid-cols-2 sm:grid-cols-4 lg:grid-cols-8",
     aspect: "aspect-square",
   },
 ] as const;
@@ -267,7 +267,7 @@ export default function Materials() {
     <section id="finishes" data-tone="stone" aria-labelledby="materials-title" className="section">
       <div className="shell">
         <SectionHeading
-          aside="Colours · Wood-look · Stone & metal"
+          aside="Colours · Wood-look · Stone, steel & glass"
           id="materials-title"
           eyebrow="Finish library"
           title={
@@ -372,7 +372,7 @@ export default function Materials() {
                     type="button"
                     aria-pressed={tab === c.key}
                     onClick={() => setTab(c.key)}
-                    className={`nav-link min-h-11 font-mono text-[11px] uppercase tracking-[0.1em] transition-colors ${
+                    className={`nav-link min-h-11 font-mono text-[12px] uppercase tracking-[0.1em] transition-colors ${
                       tab === c.key ? "text-graphite" : "text-muted hover:text-graphite"
                     }`}
                   >

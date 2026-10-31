@@ -4,10 +4,12 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MotionProvider from "@/components/MotionProvider";
+import PaletteSwitch from "@/components/PaletteSwitch";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { site } from "@/data/site";
 import { businessJsonLd, serializeJsonLd } from "@/lib/structured-data";
 import { homeDescription, homeTitle } from "@/lib/metadata";
+import { reviewFontVariables } from "@/lib/review-fonts";
 
 // One precise sans for headings and text, and its mono for labels, specs
 // and figures: the studio's voice is architectural, not decorative.
@@ -55,7 +57,8 @@ export default function RootLayout({
     <html
       lang="en-IN"
       data-scroll-behavior="smooth"
-      className={`${sans.variable} ${mono.variable} antialiased`}
+      suppressHydrationWarning
+      className={`${sans.variable} ${mono.variable} ${reviewFontVariables} antialiased`}
     >
       <body className="flex min-h-screen flex-col">
         <script
@@ -78,6 +81,7 @@ export default function RootLayout({
           </div>
           <Footer />
           <WhatsAppButton />
+          <PaletteSwitch />
         </MotionProvider>
       </body>
     </html>
