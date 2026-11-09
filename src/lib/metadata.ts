@@ -3,7 +3,7 @@ import { site } from "@/data/site";
 
 // The home page's search result. Google shows about 60 characters of a
 // title and 155 of a description, so the words that matter come first.
-export const homeTitle = "Sahyadri Steel Studio | Steel Kitchens & Wardrobes, Shivamogga & Udupi";
+export const homeTitle = "Sahyadri Steel Studio | Steel Kitchens, Shivamogga & Udupi";
 export const homeDescription =
   "Women-led design studio for stainless-steel kitchens, glass-and-steel wardrobes and vanities, with no wood anywhere. Studios in Shivamogga and Udupi.";
 

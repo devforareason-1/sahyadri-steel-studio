@@ -1,6 +1,5 @@
 import { ArrowRight } from "lucide-react";
 import { images } from "@/data/images";
-import Folio from "./Folio";
 import Photo from "./Photo";
 import Reveal from "./Reveal";
 
@@ -10,49 +9,49 @@ const facts = [
   { label: "Built in", value: "Stainless steel, no wood" },
 ];
 
-// Who the studio is, before what it makes: a design practice first, with
-// steel as the material everything is built on.
+// Who the studio is, before what it makes: one statement across the page, then
+// the photograph and the detail beneath it.
 export default function Studio() {
   return (
-    <section id="about" aria-labelledby="studio-title" className="section">
+    <section id="about" aria-labelledby="studio-title" className="section pb-(--space-passage)!">
       <div className="shell">
         <Reveal>
-          <Folio label="The studio" aside="Interior design · Shivamogga & Udupi" />
+          <h2 id="studio-title" className="display h-statement max-w-[1180px]">
+            {/* We design kitchens, wardrobes and vanities around the way your
+            family lives, <em>then build every one of them in stainless steel.</em> */}
+            We design complete interiors around the way you live, with <em>stainless steel</em> at the heart of what we build.
+          </h2>
         </Reveal>
 
-        <div className="mt-10 grid gap-10 lg:mt-12 lg:grid-cols-12 lg:gap-0">
-          <Reveal className="flex flex-col lg:col-span-6">
-            <h2 id="studio-title" className="display h-statement">
-              We design kitchens, wardrobes and vanities around the way your
-              family lives, <em>then build every one of them in stainless steel.</em>
-            </h2>
-            <p className="lede mt-8 max-w-[480px]">
+        <div className="mt-14 grid gap-10 lg:mt-20 lg:grid-cols-12 lg:gap-0">
+          <Reveal variant="media" className="lg:col-span-5">
+            <div className="media aspect-[4/3] lg:aspect-[4/5]">
+              <Photo image={images.studioSamples} sizes="(max-width: 1024px) 100vw, 40vw" />
+            </div>
+            <p className="caption mt-3">Sample board</p>
+          </Reveal>
+
+          <Reveal className="flex flex-col lg:col-span-5 lg:col-start-7 lg:pb-8 lg:justify-end">
+            <p className="lede">
               Sahyadri Steel Studio is a women-led interior design studio. We
               plan each space with you, choose its finishes together, and make
               it on a steel core that will not swell, warp or rot through the
               Malnad monsoon or the coastal damp.
             </p>
 
-            <dl className="mt-12 grid border-t border-line sm:grid-cols-3 lg:mt-auto lg:pt-0">
+            <dl className="mt-10">
               {facts.map((f) => (
-                <div key={f.label} className="border-b border-line py-5 sm:border-b-0 sm:pr-6">
-                  <dt className="caption uppercase tracking-[0.12em]">{f.label}</dt>
-                  <dd className="mt-2 text-[15px]">{f.value}</dd>
+                <div key={f.label} className="grid grid-cols-[6.5rem_1fr] gap-x-4 border-t border-line py-3.5 last:border-b">
+                  <dt className="caption self-center">{f.label}</dt>
+                  <dd>{f.value}</dd>
                 </div>
               ))}
             </dl>
 
-            <a href="#contact" className="link-line mt-10 self-start">
-              Visit a studio
+            <a href="#contact" className="link-line mt-9 self-start">
+              Talk to a studio
               <ArrowRight size={15} strokeWidth={1.6} />
             </a>
-          </Reveal>
-
-          <Reveal variant="media" className="lg:col-span-5 lg:col-start-8">
-            <div className="media aspect-[4/5]">
-              <Photo image={images.studioSamples} sizes="(max-width: 1024px) 100vw, 40vw" />
-            </div>
-            <p className="caption mt-3">Sample board · concept visual</p>
           </Reveal>
         </div>
       </div>

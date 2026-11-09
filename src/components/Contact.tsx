@@ -1,7 +1,6 @@
 import { Mail, Phone } from "lucide-react";
 import { locations, site, telLink, whatsappLink, whatsappUrl } from "@/data/site";
 import EnquiryForm from "./EnquiryForm";
-import Folio from "./Folio";
 import Reveal from "./Reveal";
 import WhatsAppIcon from "./WhatsAppIcon";
 
@@ -11,6 +10,8 @@ const steps = [
   "We plan a consultation and prepare a clear quotation.",
 ];
 
+// Where the whole page has been heading: the largest line after the film, and
+// the form straight under it, with the other ways in beside it.
 export default function Contact() {
   return (
     <section
@@ -21,27 +22,32 @@ export default function Contact() {
     >
       <div className="shell">
         <Reveal>
-          <Folio label="Enquiries & quotations" aside="Shivamogga · Udupi" />
+          <h2 id="contact-title" className="display h-peak">
+            Let&rsquo;s design <em>your space.</em>
+          </h2>
         </Reveal>
-      </div>
-      <div className="shell mt-10 grid gap-10 lg:mt-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
-        <Reveal className="lg:sticky lg:top-[calc(var(--header-height)+40px)] lg:self-start">
-          <div>
-            <h2 id="contact-title" className="display h-lg">
-              Let&rsquo;s design <em>your space.</em>
-            </h2>
-            <p className="lede mt-6 max-w-[420px]">
-              Tell us a little about your project and we will get back to you
-              to discuss the next steps. Prefer to chat? WhatsApp is often the
+
+        <div className="mt-12 grid gap-14 lg:mt-20 lg:grid-cols-12 lg:gap-0">
+          <Reveal className="lg:col-span-7">
+            <EnquiryForm />
+          </Reveal>
+
+          <Reveal delay={120} className="lg:col-span-4 lg:col-start-9">
+            <p className="lede">
+              Tell us a little about your project and we will get back to you to
+              discuss the next steps. Prefer to chat? WhatsApp is often the
               quickest way to reach us.
             </p>
+            {site.replyPromise && (
+              <p className="note mt-3 font-medium text-graphite">{site.replyPromise}</p>
+            )}
 
-            <div className="mt-9 flex flex-wrap gap-3">
+            <div className="mt-7 flex flex-wrap gap-3">
               <a
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-whatsapp"
+                className="btn btn-outline"
               >
                 <WhatsAppIcon size={17} />
                 {site.whatsappDisplay}
@@ -60,35 +66,27 @@ export default function Contact() {
               )}
             </div>
 
-            <ol className="mt-14 border-t border-line-strong">
+            <ol className="mt-12 space-y-3">
               {steps.map((s, i) => (
-                <li
-                  key={s}
-                  className="flex gap-5 border-b border-line py-4 text-[15px] leading-6"
-                >
-                  <span className="numeral w-6 shrink-0 text-lg">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
+                <li key={s} className="grid grid-cols-[2.5rem_1fr] text-[15px] leading-6">
+                  <span className="numeral pt-px">{String(i + 1).padStart(2, "0")}</span>
                   {s}
                 </li>
               ))}
             </ol>
 
             {/* The two studios, in brief. */}
-            <div id="studios" className="mt-14 grid gap-10 sm:grid-cols-2 sm:gap-8">
+            <div id="studios" className="mt-12 grid grid-cols-2 gap-6">
               {locations.map((loc) => (
                 <div key={loc.slug}>
-                  <p className="caption uppercase tracking-[0.2em]">{loc.coordinates}</p>
-                  <h3 className="display mt-3 text-[2.4rem]">{loc.city}</h3>
-                  <p className="mt-3 text-[14px] leading-6 text-muted">
-                    {loc.address || "Address to be announced"}
-                    {loc.hours && (
-                      <>
-                        <br />
-                        {loc.hours}
-                      </>
-                    )}
-                  </p>
+                  <h3 className="display h-md">{loc.city}</h3>
+                  {(loc.address || loc.hours) && (
+                    <p className="note mt-2">
+                      {loc.address}
+                      {loc.address && loc.hours && <br />}
+                      {loc.hours}
+                    </p>
+                  )}
                   <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3">
                     <a
                       href={whatsappLink(
@@ -100,7 +98,7 @@ export default function Contact() {
                       className="link-line"
                     >
                       <WhatsAppIcon size={14} />
-                      WhatsApp
+                      {loc.whatsapp ? "WhatsApp" : "WhatsApp · main line"}
                     </a>
                     {loc.phone && (
                       <a href={telLink(loc.phone)} className="link-line">
@@ -112,12 +110,8 @@ export default function Contact() {
                 </div>
               ))}
             </div>
-          </div>
-        </Reveal>
-
-        <Reveal delay={120}>
-          <EnquiryForm />
-        </Reveal>
+          </Reveal>
+        </div>
       </div>
     </section>
   );

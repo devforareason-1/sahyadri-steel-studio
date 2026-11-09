@@ -1,18 +1,27 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Fraunces, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MotionProvider from "@/components/MotionProvider";
-import PaletteSwitch from "@/components/PaletteSwitch";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { site } from "@/data/site";
 import { businessJsonLd, serializeJsonLd } from "@/lib/structured-data";
 import { homeDescription, homeTitle } from "@/lib/metadata";
-import { reviewFontVariables } from "@/lib/review-fonts";
 
-// One precise sans for headings and text, and its mono for labels, specs
-// and figures: the studio's voice is architectural, not decorative.
+// A warm old-style serif with a real italic for headlines, a precise sans for
+// everything you read, and its mono for figures only.
+const display = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  axes: ["opsz"],
+  display: "swap",
+  // The home page's name arrives with the film, after the font does. Preloading
+  // would only hold back the first paint on a slow phone.
+  preload: false,
+});
+
 const sans = Geist({
   variable: "--font-geist",
   subsets: ["latin"],
@@ -23,6 +32,7 @@ const mono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
   display: "swap",
+  preload: false,
 });
 
 // Defaults for pages that set none of their own (such as the 404 page).
@@ -42,12 +52,16 @@ export const metadata: Metadata = {
     description: homeDescription,
   },
   twitter: { card: "summary_large_image" },
-  // TEMPORARY: remove this line at launch, once real photos and contact details are in.
-  robots: { index: false, follow: false },
+  // Only the live production site is indexed. Previews and local builds stay
+  // hidden from search engines, so this can't be forgotten at launch.
+  robots:
+    process.env.VERCEL_ENV === "production"
+      ? { index: true, follow: true }
+      : { index: false, follow: false },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#1a2520",
+  themeColor: "#2b211b",
 };
 
 export default function RootLayout({
@@ -58,7 +72,7 @@ export default function RootLayout({
       lang="en-IN"
       data-scroll-behavior="smooth"
       suppressHydrationWarning
-      className={`${sans.variable} ${mono.variable} ${reviewFontVariables} antialiased`}
+      className={`${display.variable} ${sans.variable} ${mono.variable} antialiased`}
     >
       <body className="flex min-h-screen flex-col">
         <script
@@ -81,7 +95,6 @@ export default function RootLayout({
           </div>
           <Footer />
           <WhatsAppButton />
-          <PaletteSwitch />
         </MotionProvider>
       </body>
     </html>

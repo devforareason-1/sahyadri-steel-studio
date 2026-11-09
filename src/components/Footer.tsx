@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { services } from "@/data/services";
-import { locations, site, telLink, whatsappUrl } from "@/data/site";
+import { locations, showFooterMap, site, telLink, whatsappUrl } from "@/data/site";
 import { navigation } from "@/data/navigation";
 import InstagramIcon from "./InstagramIcon";
 import WhatsAppIcon from "./WhatsAppIcon";
@@ -9,10 +9,10 @@ import Wordmark from "./Wordmark";
 function Column({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <p className="font-mono text-[12px] font-medium uppercase tracking-[0.12em] text-ivory/65">
+      <p className="text-[13px] font-medium uppercase tracking-[0.08em] text-ivory/65">
         {title}
       </p>
-      <div className="mt-3 flex flex-col items-start gap-0 text-sm text-ivory/65 lg:mt-6 lg:gap-3">
+      <div className="mt-3 flex flex-col items-start gap-0 text-[15px] text-ivory/70 lg:mt-5 lg:gap-2.5">
         {children}
       </div>
     </div>
@@ -81,9 +81,7 @@ export default function Footer() {
                   <Link href="/#studios" className={`text-ivory ${linkClass}`}>
                     {loc.city}
                   </Link>
-                  <p className="mt-1 text-[13px] leading-5 text-ivory/65">
-                    {loc.address || "Address to be announced"}
-                  </p>
+                  {loc.address && <p className="mt-1 text-[13px] leading-5 text-ivory/65">{loc.address}</p>}
                 </div>
               ))}
             </Column>
@@ -92,19 +90,15 @@ export default function Footer() {
               <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className={`${linkClass} flex-wrap gap-x-1.5`}>
                 WhatsApp <span className="whitespace-nowrap">{site.whatsappDisplay}</span>
               </a>
-              {site.phone ? (
+              {site.phone && (
                 <a href={telLink(site.phone)} className={linkClass}>
                   {site.phone}
                 </a>
-              ) : (
-                <span className="text-ivory/65">Phone: to be announced</span>
               )}
-              {site.email ? (
+              {site.email && (
                 <a href={`mailto:${site.email}`} className={linkClass}>
                   {site.email}
                 </a>
-              ) : (
-                <span className="text-ivory/65">Email: to be announced</span>
               )}
               <a href={site.instagram} target="_blank" rel="noopener noreferrer" className={`${linkClass} flex-wrap gap-x-1.5`}>
                 Instagram <span className="whitespace-nowrap">{site.instagramHandle}</span>
@@ -113,8 +107,36 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="steel-rule mt-14 opacity-40" aria-hidden="true" />
-        <div className="flex flex-col items-center gap-3 py-8 text-center text-[12px] text-ivory/65 sm:flex-row sm:justify-between sm:text-left">
+        {showFooterMap && locations.filter((l) => l.mapUrl).map((loc) => (
+          <div key={loc.slug} className="mt-14">
+            <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+              <p className="text-[13px] font-medium uppercase tracking-[0.08em] text-ivory/65">
+                Find our {loc.city} studio
+              </p>
+              <a
+                href={loc.mapUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 items-center text-[15px] underline underline-offset-4 hover:text-ivory"
+              >
+                Open in Google Maps
+              </a>
+            </div>
+            <iframe
+              title={`Map of the Sahyadri Steel Studio ${loc.city} studio`}
+              src={
+                loc.mapEmbed ||
+                `https://www.google.com/maps?q=${encodeURIComponent(`Sahyadri Steel Studio ${loc.city}`)}&output=embed`
+              }
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="mt-2 h-72 w-full border border-ivory/25 sm:h-80"
+            />
+          </div>
+        ))}
+
+        <span className="dim mt-14" aria-hidden="true" />
+        <div className="flex flex-col items-center gap-3 py-8 text-center text-[13px] text-ivory/65 sm:flex-row sm:justify-between sm:text-left">
           <p>© {new Date().getFullYear()} Sahyadri Steel Studio. All rights reserved.</p>
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1">
             <Link href="/privacy" className={linkClass}>

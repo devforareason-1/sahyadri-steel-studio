@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { ArrowRight, Check, ChevronDown, CircleAlert, ImagePlus, LoaderCircle, X } from "lucide-react";
 import { locations, site, whatsappLink } from "@/data/site";
+import { isValidPhone, normalisePhone } from "@/lib/enquiry";
 import WhatsAppIcon from "./WhatsAppIcon";
 
 export const projectTypes = [
@@ -56,19 +57,11 @@ const empty: Values = {
   notes: "",
 };
 
-// Accepts 10-digit Indian mobile numbers, with or without +91 / 0.
-function normalisePhone(raw: string) {
-  let digits = raw.replace(/\D/g, "");
-  if (digits.length === 12 && digits.startsWith("91")) digits = digits.slice(2);
-  if (digits.length === 11 && digits.startsWith("0")) digits = digits.slice(1);
-  return digits;
-}
-
 function validate(v: Values, files: File[]): Errors {
   const e: Errors = {};
   if (v.name.trim().length < 2) e.name = "Please enter your full name.";
-  if (!/^[6-9]\d{9}$/.test(normalisePhone(v.phone)))
-    e.phone = "Enter a valid 10-digit Indian mobile number.";
+  if (!isValidPhone(v.phone))
+    e.phone = "Enter a valid mobile number: 10 digits, or with a + country code.";
   if (!v.studio) e.studio = "Choose the studio nearest to you.";
   if (!v.project) e.project = "Select at least one type of project.";
   if (files.length > MAX_FILES) e.files = `Please attach up to ${MAX_FILES} images.`;
@@ -94,11 +87,11 @@ function summary(v: Values) {
   return `Hello Sahyadri Steel Studio, I would like to enquire about a customised interior project.\n\n${details.join("\n")}`;
 }
 
-const label = "block text-[12px] font-semibold uppercase tracking-[0.18em] text-muted";
+const label = "block text-[13px] font-medium text-graphite";
 const input =
-  "mt-2 min-h-11 w-full border-0 border-b border-line-strong bg-transparent px-0 py-2 text-base outline-none transition-colors placeholder:text-graphite/30 focus:border-graphite aria-[invalid=true]:border-error";
+  "mt-2 min-h-11 w-full border-0 border-b border-line-strong bg-transparent px-0 py-2 text-base outline-none transition-colors placeholder:text-muted focus:border-graphite aria-[invalid=true]:border-error";
 const chip =
-  "inline-flex min-h-11 items-center border border-line-strong px-3.5 text-[13px] transition-colors hover:border-graphite peer-checked:border-graphite peer-checked:bg-graphite peer-checked:text-ivory peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-champagne-ink";
+  "inline-flex min-h-11 items-center border border-line-strong px-3.5 text-[14px] transition-colors hover:border-graphite peer-checked:border-graphite peer-checked:bg-graphite peer-checked:text-ivory peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-champagne-ink";
 
 function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
@@ -225,18 +218,14 @@ export default function EnquiryForm() {
     };
 
     try {
-      let body: URLSearchParams | FormData;
-      if (site.formAcceptsFiles && files.length) {
-        const fd = new FormData();
-        Object.entries(fields).forEach(([k, v]) => fd.append(k, v));
-        files.forEach((f) => fd.append("images", f));
-        body = fd;
-      } else {
-        body = new URLSearchParams(fields);
-      }
-      // no-cors: Apps Script can't return CORS headers, so the reply can't be
-      // read. A network failure throws; otherwise the request was delivered.
-      await fetch(site.formEndpoint, { method: "POST", mode: "no-cors", body });
+      // Our own route hands it to the studio's sheet and says whether that
+      // worked, so "sent" is only ever shown for a delivered enquiry.
+      const res = await fetch("/api/enquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(fields),
+      });
+      if (!res.ok) throw new Error(`Enquiry not delivered (${res.status})`);
       setStatus("sent");
     } catch {
       setStatus("error");
@@ -257,9 +246,9 @@ export default function EnquiryForm() {
         ref={statusRef}
         tabIndex={-1}
         role="status"
-        className="flex flex-col justify-center border border-line bg-ivory p-8 outline-none sm:p-12 lg:min-h-[560px]"
+        className="flex flex-col justify-center outline-none lg:min-h-[560px]"
       >
-        <span className="steel-rule w-16" aria-hidden="true" />
+        <span className="dim w-24" aria-hidden="true" />
         <p className="display mt-8 text-5xl">
           Thank you{sentName ? `, ${sentName}` : ""}.
         </p>
@@ -300,7 +289,7 @@ export default function EnquiryForm() {
       onSubmit={onSubmit}
       noValidate
       aria-labelledby="contact-title"
-      className="relative border border-line bg-ivory p-5 sm:p-8 lg:p-9"
+      className="relative"
     >
       {/* Honeypot: hidden from people, bots fill it */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
@@ -353,8 +342,8 @@ export default function EnquiryForm() {
           {errorFor("phone") ? (
             <FieldError id="err-phone" message={errorFor("phone")} />
           ) : (
-            <p id="hint-phone" className="mt-2 text-[12px] text-muted">
-              10-digit mobile number, ideally on WhatsApp
+            <p id="hint-phone" className="mt-2 text-[13px] text-muted">
+              Mobile number, ideally on WhatsApp
             </p>
           )}
         </div>
@@ -377,11 +366,8 @@ export default function EnquiryForm() {
                   className="peer sr-only"
                   required
                 />
-                <span className="flex min-h-12 items-center justify-between border border-line-strong px-4 text-[17px] transition-colors hover:border-graphite peer-checked:border-graphite peer-checked:bg-graphite peer-checked:text-ivory peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-champagne-ink">
+                <span className="flex min-h-12 items-center justify-between border border-line-strong px-4 text-base transition-colors hover:border-graphite peer-checked:border-graphite peer-checked:bg-graphite peer-checked:text-ivory peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-champagne-ink">
                   {loc.city}
-                  <span className="hidden font-sans text-[11px] uppercase tracking-[0.18em] opacity-80 sm:inline">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
                 </span>
               </label>
             ))}
@@ -533,8 +519,8 @@ export default function EnquiryForm() {
         </div>
       </div>
 
-      <div className="mt-8 flex flex-col gap-4 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
-        <p className="max-w-[360px] text-[12px] leading-5 text-muted">
+      <div className="mt-8 flex flex-col gap-4 sm:flex-row-reverse sm:items-center sm:justify-between">
+        <p className="max-w-[360px] text-[13px] leading-5 text-muted">
           We use your details only to respond to this enquiry. See our{" "}
           <Link href="/privacy" className="underline underline-offset-4 hover:text-graphite">
             privacy note
@@ -544,7 +530,7 @@ export default function EnquiryForm() {
         <button
           type="submit"
           disabled={status === "sending"}
-          className="btn btn-dark shrink-0 disabled:cursor-wait disabled:opacity-70"
+          className="btn btn-primary shrink-0 self-start disabled:cursor-wait disabled:opacity-70"
         >
           {status === "sending" ? (
             <>

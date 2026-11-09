@@ -18,7 +18,8 @@ import Photo from "./Photo";
 // The opening scene plays by itself, like a short film: a kitchen island in the
 // dark, three pendant lights hanging over its counter. The middle pendant comes
 // on, then the outer two, and warm light spreads over the room as the studio's
-// name surfaces in it, then the headline and the way in. It plays once a visit.
+// name surfaces in it, then the headline and the way in. It plays on arrival and
+// on a refresh, but not on coming back to the home page from another page.
 // Scrolling or pressing a key hurries it to the end, so it never holds anyone up.
 // Visitors who prefer reduced motion, and pages without JavaScript, get the lit
 // scene straight away.
@@ -36,9 +37,9 @@ function watchReducedMotion(onChange: () => void) {
   return () => query.removeEventListener("change", onChange);
 }
 
-// Once a visit: a refresh, or coming back to the home page, shows the finished
-// scene. The note lasts until the browser tab closes; localStorage in its place
-// would make it once ever per browser.
+// Coming back to the home page shows the finished scene. The note lasts until the
+// browser tab closes, and a refresh clears it (see the script below), so reloading
+// the page always opens on the dark room again.
 const FILM_NOTE = "sahyadri-film-played";
 function filmPlayed() {
   try {
@@ -64,18 +65,19 @@ const LAMP_TOP = "30%";
 function Copy() {
   return (
     <>
-      <p className="accent-line max-w-[34ch] text-balance text-[clamp(1.1rem,1.6vw,1.35rem)] font-light leading-snug text-ivory">
-        Designed around the way you live. Built in steel.
+      {/* What the studio does, in words, from the first frame: the film is only the
+          setting for it. */}
+      <p className="max-w-[34ch] text-[clamp(1.05rem,1.7vw,1.35rem)] leading-snug text-ivory [text-shadow:0_1px_2px_rgb(0_0_0/0.8),0_0_18px_rgb(0_0_0/0.6)]">
+        Stainless-steel kitchens, wardrobes and vanities that won&rsquo;t swell, warp or
+        rot in the monsoon.
+        <span className="mt-2 block text-[0.85em] text-ivory/85">
+          A women-led design studio in Shivamogga and Udupi.
+        </span>
       </p>
-      <div className="mt-8 flex flex-wrap justify-center gap-3">
-        <a href="#contact" className="btn btn-light">
-          Request a Quote
-          <ArrowRight size={16} strokeWidth={1.6} />
-        </a>
-        <a href="#projects" className="btn btn-outline-light">
-          View our work
-        </a>
-      </div>
+      <a href="#contact" className="btn btn-primary mt-8">
+        Request a Quote
+        <ArrowRight size={16} strokeWidth={1.6} />
+      </a>
     </>
   );
 }
@@ -107,7 +109,7 @@ function Frame({ children }: { children: React.ReactNode }) {
       {children}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-[linear-gradient(#060908_1%,transparent_14%,transparent_86%,#060908_99%),linear-gradient(90deg,rgb(6_9_8/0.6),transparent_16%,transparent_76%,rgb(6_9_8/0.92)_93%)] xl:bg-[linear-gradient(transparent_86%,#060908_99%),linear-gradient(90deg,rgb(6_9_8/0.6),transparent_16%,transparent_76%,rgb(6_9_8/0.92)_93%)]"
+        className="absolute inset-0 bg-[linear-gradient(#2b211b_1%,transparent_14%,transparent_86%,#2b211b_99%),linear-gradient(90deg,rgb(43_33_27/0.6),transparent_16%,transparent_76%,rgb(43_33_27/0.92)_93%)] xl:bg-[linear-gradient(transparent_86%,#2b211b_99%),linear-gradient(90deg,rgb(43_33_27/0.6),transparent_16%,transparent_76%,rgb(43_33_27/0.92)_93%)]"
       />
     </div>
   );
@@ -118,7 +120,7 @@ function Kitchen() {
     <div className="absolute inset-0">
       <Photo
         image={images.kitchenIsland}
-        sizes="(max-width: 640px) 160vw, (max-aspect-ratio: 3/2) 150vh, 100vw"
+        sizes="(max-width: 640px) 100vw, (max-aspect-ratio: 3/2) 150vh, 100vw"
         quality={70}
         priority
       />
@@ -155,7 +157,7 @@ function Scrim({ opacity }: { opacity?: MotionValue<number> }) {
       data-late
       aria-hidden="true"
       style={{ opacity }}
-      className="absolute inset-0 bg-[radial-gradient(ellipse_95%_14%_at_50%_36%,rgb(6_9_8/0.7),transparent)] sm:bg-[radial-gradient(ellipse_56%_38%_at_50%_58%,rgb(6_9_8/0.68),transparent)]"
+      className="absolute inset-0 bg-[radial-gradient(ellipse_95%_14%_at_50%_36%,rgb(43_33_27/0.7),transparent)] sm:bg-[radial-gradient(ellipse_56%_38%_at_50%_54%,rgb(43_33_27/0.78),transparent)]"
     />
   );
 }
@@ -164,7 +166,7 @@ function Scrim({ opacity }: { opacity?: MotionValue<number> }) {
 // name sits in the photograph and the headline in the dark beneath it.
 const STAGE_LAYOUT = "flex items-center justify-center pt-[8svh] max-sm:items-start max-sm:pt-[calc(var(--header-height)+46vw)]";
 const WORDS_LAYOUT = "relative flex flex-col items-center px-[var(--gutter)] text-center";
-const COPY_LAYOUT = "mt-8 flex flex-col items-center max-sm:mt-[38vw]";
+const COPY_LAYOUT = "mt-7 flex flex-col items-center max-sm:mt-[34vw]";
 
 // The lit scene, used as is when motion is unwelcome.
 function StillHero() {
@@ -173,7 +175,7 @@ function StillHero() {
       data-hero
       data-tone="dark"
       aria-labelledby="hero-title"
-      className={`on-dark relative min-h-[max(640px,100svh)] overflow-hidden bg-[#060908] text-ivory ${STAGE_LAYOUT}`}
+      className={`on-dark relative min-h-[max(640px,100svh)] overflow-hidden bg-[#2b211b] text-ivory ${STAGE_LAYOUT}`}
     >
       <Frame>
         <Kitchen />
@@ -200,6 +202,7 @@ export default function Hero() {
     () => false
   );
   const stage = useRef<HTMLDivElement>(null);
+  const hurryRef = useRef<(() => void) | null>(null);
   const p = useMotionValue(0);
 
   // Rolls once the photograph has arrived, so the lights don't come on over an
@@ -232,6 +235,7 @@ export default function Hero() {
       film = animate(p, 1, { duration: 0.5, ease: "easeOut" });
     };
 
+    hurryRef.current = hurry;
     if (!photo || photo.complete) roll();
     else {
       photo.addEventListener("load", roll, { once: true });
@@ -241,6 +245,7 @@ export default function Hero() {
     window.addEventListener("keydown", hurry, { once: true });
 
     return () => {
+      hurryRef.current = null;
       film?.stop();
       clearTimeout(waiting);
       photo?.removeEventListener("load", roll);
@@ -278,7 +283,7 @@ export default function Hero() {
 
   // The nav's words hang against the ceiling: pale while the room is dark, and
   // dark once the lights have reached it. See .hero-nav in globals.css.
-  const navInk = useTransform(p, [0.12, 0.22], ["#f5f4f0", "#0b0f0d"]);
+  const navInk = useTransform(p, [0.12, 0.22], ["#f7f1e8", "#2b211b"]);
   useEffect(() => {
     const root = document.documentElement;
     const showInk = (v: string) => root.style.setProperty("--hero-nav-ink", v);
@@ -298,14 +303,8 @@ export default function Hero() {
   const wordsLeave = useTransform(scrollY, [0, 420], [1, 0]);
 
   const wordsY = useTransform(scrollY, (v) => v * -0.15);
-  const copyOpacity = useTransform(p, [0.5, 0.72], [0, 1]);
-  const copyY = useTransform(p, [0.5, 0.72], [24, 0]);
-  // Out of the tab order until it can be seen.
-  const copyVisibility = useTransform(p, (v) => (v > 0.45 ? "visible" : "hidden"));
-
-  // Once it has played, a quiet sign that the page goes on.
-  const cueIn = useTransform(p, [0.75, 0.9], [0, 1]);
-  const cueOpacity = useTransform([cueIn, wordsLeave], ([a, b]: number[]) => a * b);
+  // The "Skip intro" control is only there while the film is still running.
+  const skipVisibility = useTransform(p, (v) => (v < 0.95 ? "visible" : "hidden"));
 
   if (reduce) return <StillHero />;
 
@@ -314,16 +313,17 @@ export default function Hero() {
       data-hero
       data-tone="dark"
       aria-labelledby="hero-title"
-      className="hero-scene on-dark relative bg-[#060908] text-ivory"
+      className="hero-scene on-dark relative bg-[#2b211b] text-ivory"
     >
       <noscript>
-        <style>{`.hero-scene [data-lit]{mask-image:none!important;-webkit-mask-image:none!important}.hero-scene [data-late]{opacity:1!important;visibility:visible!important;transform:none!important;filter:none!important}.hero-scene h1{letter-spacing:.2em}.hero-scene [data-cue]{display:none}.header-wordmark{opacity:1!important}:root{--hero-nav-ink:#0b0f0d}`}</style>
+        <style>{`.hero-scene [data-lit]{mask-image:none!important;-webkit-mask-image:none!important}.hero-scene [data-late]{opacity:1!important;visibility:visible!important;transform:none!important;filter:none!important}.hero-scene h1{letter-spacing:.2em}.header-wordmark{opacity:1!important}.hero-skip{display:none}:root{--hero-nav-ink:#2b211b}`}</style>
       </noscript>
-      {/* Before the page's first paint: a visitor who has seen the film starts
-          from the lit scene, not from a dark flash. Lifted by the effect above. */}
+      {/* Before the page's first paint: a refresh starts the film over; otherwise a
+          visitor who has seen it starts from the lit scene, not from a dark flash.
+          Lifted by the effect above. */}
       <script
         dangerouslySetInnerHTML={{
-          __html: `try{if(sessionStorage.getItem("${FILM_NOTE}"))document.documentElement.dataset.filmSeen=""}catch(e){}`,
+          __html: `try{var n=performance.getEntriesByType("navigation")[0];if(n&&n.type==="reload")sessionStorage.removeItem("${FILM_NOTE}");if(sessionStorage.getItem("${FILM_NOTE}"))document.documentElement.dataset.filmSeen=""}catch(e){}`,
         }}
       />
 
@@ -338,7 +338,7 @@ export default function Hero() {
             <div className="absolute inset-0 brightness-[0.4]">
               <Kitchen />
             </div>
-            <div aria-hidden="true" className="absolute inset-0 bg-[rgb(6_9_8/0.88)]" />
+            <div aria-hidden="true" className="absolute inset-0 bg-[rgb(43_33_27/0.88)]" />
 
             {/* The room with the lights on, seen only inside the widening pools. */}
             <motion.div
@@ -363,7 +363,7 @@ export default function Hero() {
         {/* A soft vignette holds the edges in shadow. */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-[radial-gradient(ellipse_80vmax_55vmax_at_50%_50%,transparent_55%,rgb(6_9_8/0.6)_100%)]"
+          className="absolute inset-0 bg-[radial-gradient(ellipse_80vmax_55vmax_at_50%_50%,transparent_55%,rgb(43_33_27/0.6)_100%)]"
         />
 
         <motion.div
@@ -377,30 +377,24 @@ export default function Hero() {
           >
             <Name />
           </motion.div>
-          <motion.div
-            data-late
-            style={{ opacity: copyOpacity, y: copyY, visibility: copyVisibility }}
-            className={COPY_LAYOUT}
-          >
+          {/* The way in is there from the first frame; only the name is staged. */}
+          <div className={COPY_LAYOUT}>
             <Copy />
-          </motion.div>
+          </div>
         </motion.div>
 
-        <motion.p
-          data-cue
-          aria-hidden="true"
-          style={{ opacity: cueOpacity }}
-          className="absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3 font-mono text-[12px] uppercase tracking-[0.16em] text-ivory/60"
+        <motion.button
+          type="button"
+          onClick={() => hurryRef.current?.()}
+          style={{ visibility: skipVisibility }}
+          className="hero-skip absolute bottom-3 left-[var(--gutter)] inline-flex min-h-11 items-center text-[13px] text-ivory/85 underline underline-offset-4 hover:text-ivory"
         >
-          Scroll
-          <span className="relative block h-10 w-px overflow-hidden bg-ivory/20">
-            <span className="scroll-cue absolute inset-0 bg-ivory" />
-          </span>
-        </motion.p>
+          Skip intro
+        </motion.button>
 
-        <p className="absolute bottom-6 right-[var(--gutter)] hidden font-mono text-[12px] tracking-[0.04em] text-ivory/45 lg:block">
+        {/* <p className="absolute bottom-6 right-[var(--gutter)] hidden text-[13px] text-ivory/60 lg:block">
           Concept visual
-        </p>
+        </p> */}
       </div>
     </section>
   );

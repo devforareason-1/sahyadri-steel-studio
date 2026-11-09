@@ -14,6 +14,7 @@ export function businessJsonLd(description: string) {
     name: site.name,
     url,
     description,
+    image: `${url}opengraph-image`,
     ...optional("telephone", site.phone),
     ...optional("email", site.email),
     sameAs: [site.instagram],

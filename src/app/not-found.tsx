@@ -12,7 +12,7 @@ export default function NotFound() {
         <p className="lede mx-auto mt-6 max-w-[420px]">
           The page you are looking for does not exist or has been moved.
         </p>
-        <Link href="/" className="btn btn-dark mt-10">
+        <Link href="/" className="btn btn-primary mt-10">
           Back to home
           <ArrowRight size={16} strokeWidth={1.6} />
         </Link>

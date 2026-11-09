@@ -44,7 +44,7 @@ export default function WhatsAppButton() {
       rel="noopener noreferrer"
       aria-label="Chat with us on WhatsApp"
       tabIndex={hidden ? -1 : undefined}
-      className={`group fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-4 z-40 flex h-14 items-center gap-3 rounded-full border border-ivory/10 bg-graphite pl-4 pr-4 text-ivory shadow-[0_10px_30px_-10px_rgba(0,0,0,.4)] transition-[opacity,transform,background-color] duration-500 hover:bg-walnut md:bottom-6 md:right-6 md:pr-6 ${
+      className={`group fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-4 z-40 flex h-12 items-center gap-3 border border-ivory/25 bg-graphite pl-3 pr-3 text-ivory transition-[opacity,transform,background-color] duration-500 hover:bg-walnut md:bottom-6 md:right-6 md:pr-6 ${
         hidden ? "pointer-events-none translate-y-6 opacity-0" : ""
       }`}
     >

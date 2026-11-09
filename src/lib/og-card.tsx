@@ -13,9 +13,9 @@ export const ogContentType = "image/jpeg";
 const panelWidth = 700;
 const photoWidth = ogSize.width - panelWidth;
 
-const ivory = "#f5f4f0";
-const champagne = "#c4a675";
-const night = "#060908";
+const ivory = "#e8d8c5";
+const champagne = "#b88a52";
+const night = "#2b211b";
 
 // Asks the photo's CDN for exactly the crop the card shows.
 function cardPhoto(src: string) {

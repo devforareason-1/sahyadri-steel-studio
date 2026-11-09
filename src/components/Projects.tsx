@@ -2,11 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, ArrowUpRight, Maximize2, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, X } from "lucide-react";
 import {
   projectCategories,
   projects,
-  type Project,
   type ProjectCategory,
 } from "@/data/projects";
 import Photo from "./Photo";
@@ -21,15 +20,15 @@ const filterLabels: Record<ProjectCategory | "All", string> = {
   "Full home": "Full home",
 };
 
-// Editorial rhythm for the full set: a wide/narrow pair, a row of three,
-// then one panoramic image. Filtered views fall back to an even grid.
+// Editorial rhythm for the full set: the lead across the whole page, then a
+// wide/narrow pair and a row of three. Filtered views fall back to an even grid.
 const layout = [
+  { span: "lg:col-span-12", aspect: "aspect-[4/3] sm:aspect-[21/9]" },
   { span: "lg:col-span-7", aspect: "aspect-[4/3]" },
   { span: "lg:col-span-5", aspect: "aspect-[4/3] lg:aspect-auto lg:h-full" },
   { span: "lg:col-span-4", aspect: "aspect-[4/5]" },
   { span: "lg:col-span-4", aspect: "aspect-[4/5]" },
   { span: "lg:col-span-4", aspect: "aspect-[4/5]" },
-  { span: "lg:col-span-12", aspect: "aspect-[4/3] sm:aspect-[21/9]" },
 ];
 
 // What goes into each kind of space, listed beside a lone concept so the
@@ -69,15 +68,6 @@ function filteredSlot(count: number) {
   return { span: "lg:col-span-4", aspect: "aspect-[4/5]" };
 }
 
-function ConceptTag({ project }: { project: Project }) {
-  if (project.completed) return null;
-  return (
-    <span className="absolute left-4 top-4 bg-graphite/70 px-2.5 py-1.5 text-[11px] uppercase tracking-[0.18em] text-ivory backdrop-blur-sm">
-      Concept
-    </span>
-  );
-}
-
 export default function Projects() {
   const [filter, setFilter] = useState<ProjectCategory | "All">("All");
   const [active, setActive] = useState<number | null>(null);
@@ -110,17 +100,15 @@ export default function Projects() {
         <SectionHeading
           dark
           id="projects-title"
-          eyebrow="Selected work"
-          aside="Concept visuals"
           title={
             <>
               Spaces worth <em>coming home to.</em>
             </>
           }
-          intro="A curated set of concept visuals that show the direction of our work: steel kitchens organised drawer by drawer, glass wardrobes and vanities made for wet rooms."
+          intro="Concept visuals that show the direction of our work, not completed Sahyadri projects: steel kitchens organised drawer by drawer, glass wardrobes and vanities made for wet rooms. Our own project photography will follow."
         />
 
-        <Reveal className="mt-10 flex flex-wrap items-center justify-between gap-6 border-y border-ivory/15 py-4">
+        <Reveal className="mt-12 flex flex-wrap items-center justify-between gap-6">
           <div role="group" aria-label="Filter projects" className="flex flex-wrap gap-x-6 gap-y-2">
             {(["All", ...projectCategories] as const).map((cat) => (
               <button
@@ -128,7 +116,7 @@ export default function Projects() {
                 type="button"
                 aria-pressed={filter === cat}
                 onClick={() => setFilter(cat)}
-                className={`nav-link inline-flex min-h-11 min-w-11 items-center font-mono text-[12px] uppercase tracking-[0.12em] transition-colors lg:min-h-0 ${
+                className={`nav-link inline-flex min-h-11 min-w-11 items-center text-[15px] transition-colors lg:min-h-0 ${
                   filter === cat
                     ? "text-ivory"
                     : "text-ivory/55 hover:text-ivory"
@@ -138,7 +126,7 @@ export default function Projects() {
               </button>
             ))}
           </div>
-          <p className="text-[12px] text-ivory/55" aria-live="polite">
+          <p className="text-[13px] text-ivory/60" aria-live="polite">
             {visible.length} {visible.length === 1 ? "concept" : "concepts"}
           </p>
         </Reveal>
@@ -171,22 +159,14 @@ export default function Projects() {
                           : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
                       }
                     />
-                    <ConceptTag project={project} />
-                    <span className="absolute bottom-4 right-4 flex h-11 w-11 items-center justify-center bg-ivory text-graphite opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100">
-                      <Maximize2 size={16} strokeWidth={1.5} />
-                    </span>
                   </span>
-                  <span className="mt-5 grid grid-cols-[2.2rem_1fr] items-baseline border-t border-ivory/15 pt-4">
-                    <span aria-hidden="true" className="font-mono text-[12px] text-champagne">
-                      {String(i + 1).padStart(2, "0")}
+                  <span className="mt-4 flex flex-col gap-1">
+                    <span className={`display leading-tight transition-colors duration-500 group-hover:text-champagne ${wide ? "h-md" : "h-sm"}`}>
+                      {project.title}
                     </span>
-                    <span className="flex flex-col gap-1.5">
-                      <span className="display text-[1.6rem] leading-tight transition-colors duration-500 group-hover:text-champagne">
-                        {project.title}
-                      </span>
-                      <span className="text-[12px] uppercase tracking-[0.18em] text-ivory/50">
-                        {project.label}
-                      </span>
+                    <span className="text-[13px] text-ivory/60">
+                      {!project.completed && "Concept · "}
+                      {project.label}
                     </span>
                   </span>
                 </button>
@@ -208,7 +188,7 @@ export default function Projects() {
                 </div>
 
                 <div className="lg:my-auto">
-                  <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-ivory/50">
+                  <p className="text-[13px] text-ivory/60">
                     What goes into it
                   </p>
                   <ul className="mt-3 border-t border-ivory/15">
@@ -217,7 +197,7 @@ export default function Projects() {
                         key={item}
                         className="grid grid-cols-[2.2rem_1fr] items-baseline border-b border-ivory/15 py-3 text-[14px] text-ivory/85"
                       >
-                        <span className="font-mono text-[12px] text-champagne">
+                        <span className="numeral">
                           {String(n + 1).padStart(2, "0")}
                         </span>
                         {item}
@@ -234,7 +214,7 @@ export default function Projects() {
                     Discuss a project like this
                     <ArrowUpRight size={15} strokeWidth={1.5} />
                   </Link>
-                  <p className="mt-4 max-w-[440px] text-pretty text-[12px] leading-5 text-ivory/50">
+                  <p className="mt-4 max-w-[440px] text-pretty text-[13px] leading-5 text-ivory/60">
                     Further concepts, and photographs of our own completed
                     work, will follow here.
                   </p>
@@ -244,11 +224,15 @@ export default function Projects() {
           )}
         </ul>
 
-        <p className="mt-12 max-w-[640px] text-[12px] leading-6 text-ivory/50">
-          Concept visuals for illustration and inspiration. They are not
-          completed Sahyadri Steel Studio projects. Our own project photography
-          will be added here soon.
-        </p>
+        <Reveal className="mt-16 flex flex-wrap items-center justify-between gap-x-10 gap-y-6">
+          <p className="display h-md max-w-[20ch]">
+            Seen a direction <em>you like?</em>
+          </p>
+          <Link href="/#contact" className="btn btn-primary">
+            Request a Quote
+            <ArrowRight size={16} strokeWidth={1.6} />
+          </Link>
+        </Reveal>
       </div>
 
       <dialog
@@ -267,7 +251,7 @@ export default function Projects() {
         {current && (
           <div className="flex h-full flex-col p-4 sm:p-8">
             <div className="flex items-center justify-between gap-4">
-              <p className="text-[12px] uppercase tracking-[0.2em] text-ivory/60">
+              <p className="text-[13px] uppercase tracking-[0.2em] text-ivory/60">
                 {String(active! + 1).padStart(2, "0")} / {String(visible.length).padStart(2, "0")}
               </p>
               <button
@@ -295,7 +279,7 @@ export default function Projects() {
 
             <div className="mt-5 grid items-end gap-5 sm:grid-cols-[1fr_auto]">
               <div>
-                <p className="text-[12px] uppercase tracking-[0.2em] text-champagne">
+                <p className="text-[13px] uppercase tracking-[0.2em] text-champagne">
                   {current.label}
                   {!current.completed && " · Concept visual"}
                 </p>

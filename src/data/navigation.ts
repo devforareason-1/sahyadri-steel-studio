@@ -3,8 +3,8 @@
 export const navigation = [
   { label: "Studio", href: "/#about" },
   { label: "Spaces", href: "/#spaces" },
+  { label: "Projects", href: "/#projects" },
   { label: "Finishes", href: "/#finishes" },
   { label: "Process", href: "/#process" },
-  { label: "Projects", href: "/#projects" },
   { label: "Contact", href: "/#contact" },
 ];

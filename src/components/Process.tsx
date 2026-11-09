@@ -1,6 +1,5 @@
-import { images } from "@/data/images";
-import Folio from "./Folio";
-import Photo from "./Photo";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import Reveal from "./Reveal";
 
 const steps = [
@@ -26,54 +25,39 @@ const steps = [
   },
 ];
 
-// How a project runs, from the first conversation to handover.
+// How a project runs, measured off along one dimension line from the first
+// conversation to handover. On phones the line becomes a rule above each step.
 export default function Process() {
   return (
-    <section id="process" aria-labelledby="process-title" className="section bg-ivory-deep">
+    <section id="process" aria-labelledby="process-title" className="section">
       <div className="shell">
         <Reveal>
-          <Folio label="Process" aside="From first visit to handover" />
+          <h2 id="process-title" className="display h-lg">
+            How a space <em>comes together.</em>
+          </h2>
         </Reveal>
 
-        <div className="mt-10 grid gap-10 lg:mt-12 lg:grid-cols-12 lg:gap-0">
-          <Reveal variant="media" className="lg:col-span-5">
-            <div className="media aspect-[4/5]">
-              <Photo image={images.processSwatches} sizes="(max-width: 1024px) 100vw, 40vw" />
-            </div>
-            <p className="caption mt-3">Choosing finishes · concept visual</p>
-          </Reveal>
-
-          <div className="lg:col-span-6 lg:col-start-7">
-            <Reveal>
-              <h2 id="process-title" className="display h-lg">
-                How a space <em>comes together.</em>
-              </h2>
+        <ol className="mt-12 grid gap-y-8 lg:mt-16 lg:grid-cols-5">
+          {steps.map((step, i) => (
+            <Reveal as="li" key={step.title} delay={i * 60}>
+              <span aria-hidden="true" className="dim" />
+              <div className="mt-5 grid grid-cols-[2.5rem_1fr] lg:block lg:pr-8">
+                <span className="numeral">{String(i + 1).padStart(2, "0")}</span>
+                <div className="lg:mt-5">
+                  <h3 className="display h-sm">{step.title}</h3>
+                  <p className="note mt-2">{step.text}</p>
+                </div>
+              </div>
             </Reveal>
+          ))}
+        </ol>
 
-            <ol className="mt-12 border-t border-line">
-              {steps.map((step, i) => (
-                <Reveal
-                  as="li"
-                  key={step.title}
-                  delay={i * 60}
-                  className="grid grid-cols-[3rem_1fr] gap-x-4 border-b border-line py-7 sm:grid-cols-[4rem_1fr]"
-                >
-                  <span className="numeral pt-1 text-[15px]">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div>
-                    <h3 className="text-[1.3rem] font-light leading-tight tracking-[-0.02em]">
-                      {step.title}
-                    </h3>
-                    <p className="mt-2 max-w-[460px] text-[14px] leading-6 text-muted">
-                      {step.text}
-                    </p>
-                  </div>
-                </Reveal>
-              ))}
-            </ol>
-          </div>
-        </div>
+        <Reveal className="mt-14">
+          <Link href="/#contact" className="btn btn-primary">
+            Request a Quote
+            <ArrowRight size={16} strokeWidth={1.6} />
+          </Link>
+        </Reveal>
       </div>
     </section>
   );

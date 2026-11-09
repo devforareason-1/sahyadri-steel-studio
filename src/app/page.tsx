@@ -20,10 +20,10 @@ export const metadata = pageMetadata({
   absoluteTitle: true,
 });
 
-// A design studio first: who we are, the rooms we design, the finishes
-// and the way we work, the work itself, then why it is all built in steel
-// and how to begin. Room-by-room detail and planners live on the solution
-// pages.
+// A design studio first: who we are, the rooms we design and the work itself,
+// then why it is all built in steel, the finishes and the way we work, and how
+// to begin. Room-by-room detail, planners and the full finish library live on
+// the solution pages.
 export default function Home() {
   return (
     <main>
@@ -31,10 +31,10 @@ export default function Home() {
       <Studio />
       <Metrics />
       <Spaces />
-      <Materials />
-      <Process />
       <Projects />
       <WhySteel />
+      <Materials />
+      <Process />
       <Partners />
       {showInstagram && <InstagramFeed />}
       <Testimonials />

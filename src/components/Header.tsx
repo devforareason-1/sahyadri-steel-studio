@@ -3,10 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, ArrowUpRight, Menu, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, ChevronDown, Menu, X } from "lucide-react";
 import { navigation } from "@/data/navigation";
+import { services } from "@/data/services";
 import { site, whatsappUrl } from "@/data/site";
 import Wordmark from "./Wordmark";
+
+// The navigation entry that opens the list of the four solution pages.
+const SOLUTIONS_ITEM = "Spaces";
 
 export default function Header() {
   const pathname = usePathname();
@@ -14,12 +18,14 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [veiled, setVeiled] = useState(false);
   const [nameGone, setNameGone] = useState(false);
+  const [solutionsOpen, setSolutionsOpen] = useState(false);
+  const solutionsRef = useRef<HTMLLIElement>(null);
   const menuButton = useRef<HTMLButtonElement>(null);
   const headerRef = useRef<HTMLElement>(null);
 
-  // These pages open with a full-bleed dark image, so the header sits
-  // transparently over it until the visitor scrolls.
-  const hasHero = pathname === "/" || pathname.startsWith("/services/");
+  // The home page opens on its dark film, so the header sits transparently over
+  // it until the visitor scrolls. Every other page has a solid header.
+  const hasHero = pathname === "/";
 
   // Over a hero the header stays dark until the hero has scrolled out from
   // under it. Once the hero starts to move, a dark veil keeps its content from
@@ -45,6 +51,25 @@ export default function Header() {
   }, [pathname]);
 
   useEffect(() => {
+    if (!solutionsOpen) return;
+    const onPointer = (e: PointerEvent) => {
+      if (!solutionsRef.current?.contains(e.target as Node)) setSolutionsOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSolutionsOpen(false);
+        solutionsRef.current?.querySelector("button")?.focus();
+      }
+    };
+    document.addEventListener("pointerdown", onPointer);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("pointerdown", onPointer);
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [solutionsOpen]);
+
+  useEffect(() => {
     if (!menuOpen) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -52,9 +77,9 @@ export default function Header() {
         menuButton.current?.focus();
       }
     };
-    // The menu is xl:hidden, so close it if the window grows past that,
+    // The menu is lg:hidden, so close it if the window grows past that,
     // or the page would stay inert behind a menu nobody can see.
-    const wide = window.matchMedia("(min-width: 80rem)");
+    const wide = window.matchMedia("(min-width: 64rem)");
     const onWide = () => wide.matches && setMenuOpen(false);
 
     // Keep keyboard and screen-reader focus inside the open menu: everything
@@ -93,7 +118,7 @@ export default function Header() {
       className={`site-header fixed inset-x-0 top-0 z-50 ${
         transparent
           ? `on-dark border-b text-ivory ${
-              veiled ? "border-ivory/10 bg-[#060908]/85 backdrop-blur-md" : "border-transparent"
+              veiled ? "border-ivory/10 bg-[#2b211b]/85 backdrop-blur-md" : "border-transparent"
             }`
           : menuOpen
             ? "border-b border-line bg-ivory text-graphite"
@@ -113,9 +138,51 @@ export default function Header() {
           <Wordmark />
         </Link>
 
-        <nav aria-label="Main" className={`hidden xl:block ${transparent && !veiled ? "hero-nav" : ""}`}>
-          <ul className="flex items-center gap-7 text-[12.5px] tracking-[0.04em]">
-            {navigation.map((item) => (
+        <nav aria-label="Main" className={`hidden lg:block ${transparent && !veiled ? "hero-nav" : ""}`}>
+          <ul className="flex items-center gap-6 text-[14px] xl:gap-7">
+            {navigation.map((item) =>
+              item.label === SOLUTIONS_ITEM ? (
+                <li key={item.label} ref={solutionsRef} className="relative">
+                  <button
+                    type="button"
+                    aria-expanded={solutionsOpen}
+                    aria-controls="solutions-menu"
+                    onClick={() => setSolutionsOpen((open) => !open)}
+                    className={`nav-link inline-flex items-center gap-1 transition-[color,opacity] duration-500 ${
+                      transparent ? "opacity-90 hover:opacity-100" : ""
+                    }`}
+                  >
+                    Solutions
+                    <ChevronDown size={14} strokeWidth={1.6} aria-hidden="true" />
+                  </button>
+                  <ul
+                    id="solutions-menu"
+                    hidden={!solutionsOpen}
+                    className="absolute left-1/2 top-full mt-3 w-64 -translate-x-1/2 border border-line bg-ivory p-2 text-graphite shadow-lg"
+                  >
+                    {services.map((s) => (
+                      <li key={s.slug}>
+                        <Link
+                          href={`/services/${s.slug}`}
+                          onClick={() => setSolutionsOpen(false)}
+                          className="block px-3 py-3 text-graphite! hover:bg-ivory-deep"
+                        >
+                          {s.title}
+                        </Link>
+                      </li>
+                    ))}
+                    <li>
+                      <Link
+                        href={item.href}
+                        onClick={() => setSolutionsOpen(false)}
+                        className="block border-t border-line px-3 py-3 text-graphite! hover:bg-ivory-deep"
+                      >
+                        All spaces
+                      </Link>
+                    </li>
+                  </ul>
+                </li>
+              ) : (
               <li key={item.label}>
                 <Link
                   href={item.href}
@@ -127,7 +194,8 @@ export default function Header() {
                   {item.label}
                 </Link>
               </li>
-            ))}
+              )
+            )}
           </ul>
         </nav>
 
@@ -135,7 +203,7 @@ export default function Header() {
           <Link
             href="/#contact"
             className={`btn btn-sm px-4 sm:px-[18px] ${
-              transparent ? "btn-outline-light" : "btn-dark"
+              transparent ? "btn-outline-light" : "btn-primary"
             }`}
           >
             <span className="sm:hidden">Quote</span>
@@ -149,7 +217,7 @@ export default function Header() {
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             onClick={() => setMenuOpen((open) => !open)}
-            className={`menu-toggle flex h-11 w-11 items-center justify-center border transition-colors xl:hidden ${
+            className={`menu-toggle flex h-11 w-11 items-center justify-center border transition-colors lg:hidden ${
               transparent ? "border-ivory/40" : "border-line-strong"
             }`}
           >
@@ -161,7 +229,7 @@ export default function Header() {
       <div
         id="mobile-menu"
         hidden={!menuOpen}
-        className="fixed inset-x-0 bottom-0 top-[var(--header-height)] overflow-y-auto bg-ivory xl:hidden"
+        className="fixed inset-x-0 bottom-0 top-[var(--header-height)] overflow-y-auto bg-ivory lg:hidden"
       >
         <nav aria-label="Mobile" className="shell flex min-h-full flex-col pb-10 pt-6">
           <ul>
@@ -177,9 +245,24 @@ export default function Header() {
                   aria-current={isCurrent(item.href) ? "page" : undefined}
                   className="flex items-center justify-between py-4 font-serif text-[1.9rem] leading-tight tracking-[-0.01em]"
                 >
-                  {item.label}
+                  {item.label === SOLUTIONS_ITEM ? "Solutions" : item.label}
                   <ArrowUpRight size={18} strokeWidth={1.4} className="text-champagne-ink" />
                 </Link>
+                {item.label === SOLUTIONS_ITEM && (
+                  <ul className="-mt-1 mb-4 grid gap-0.5 pl-1">
+                    {services.map((s) => (
+                      <li key={s.slug}>
+                        <Link
+                          href={`/services/${s.slug}`}
+                          onClick={() => setMenuOpen(false)}
+                          className="flex min-h-11 items-center text-[1.05rem] text-muted"
+                        >
+                          {s.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             ))}
           </ul>
@@ -188,7 +271,7 @@ export default function Header() {
             <Link
               href="/#contact"
               onClick={() => setMenuOpen(false)}
-              className="btn btn-dark"
+              className="btn btn-primary"
             >
               Request a Quote
               <ArrowRight size={16} />
@@ -203,7 +286,7 @@ export default function Header() {
             </a>
           </div>
 
-          <p className="caption mt-auto pt-10 uppercase tracking-[0.2em]">
+          <p className="caption mt-auto pt-10">
             Shivamogga · Udupi · Karnataka
           </p>
         </nav>

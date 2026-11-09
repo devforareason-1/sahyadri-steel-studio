@@ -17,7 +17,7 @@ export default function Photo({
   image: Img;
   sizes: string;
   priority?: boolean;
-  quality?: 70 | 75 | 80; // must be listed in images.qualities in next.config.ts
+  quality?: 60 | 70 | 75 | 80; // must be listed in images.qualities in next.config.ts
   fit?: "cover" | "contain";
   className?: string;
 }) {
@@ -31,7 +31,7 @@ export default function Photo({
         {!priority && (
           <span className="max-w-[280px]">
             {!image.src && (
-              <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.24em] opacity-70">
+              <span className="mb-2 block text-[13px] font-semibold uppercase tracking-[0.24em] opacity-70">
                 Photograph to come
               </span>
             )}

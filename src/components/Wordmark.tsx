@@ -3,7 +3,7 @@ export default function Wordmark({ size = "md" }: { size?: "md" | "lg" }) {
   return (
     <span className="inline-flex flex-col items-start leading-none">
       <span
-        className={`font-serif font-medium tracking-[0.2em] ${
+        className={`font-sans font-medium tracking-[0.2em] ${
           large ? "text-[clamp(2rem,5vw,3.4rem)]" : "text-[19px] sm:text-[21px]"
         }`}
       >

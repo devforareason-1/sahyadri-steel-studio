@@ -2,14 +2,6 @@ import { images, type Img } from "./images";
 
 /* ── Materials and finishes ─────────────────────────────────────────── */
 
-const svg = (markup: string) =>
-  `url("data:image/svg+xml,${encodeURIComponent(markup)}")`;
-
-// Fine grain that gives a flat colour the tactile surface of a matt finish.
-export const matteGrain = svg(
-  `<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(#n)'/></svg>`
-);
-
 // The finish library follows the way steel-interiors studios present their
 // range: solid colours, wood-look finishes, and stone, steel and glass, all
 // applied over a stainless-steel cabinet. "Wood-look" is a printed finish on
@@ -164,7 +156,7 @@ export const hardwareFinishes: Hardware[] = [
   {
     id: "hw-black",
     name: "Matte black",
-    bar: "linear-gradient(90deg, #111, #3a3a3a 45%, #222 60%, #111)",
+    bar: "linear-gradient(90deg, #161616, #5a5a5a 45%, #2c2c2c 60%, #161616)",
   },
 ];
 
@@ -202,19 +194,13 @@ export type Metric = {
   label: string; // what it counts, e.g. "Homes designed"
 };
 
-// Six figures, shown after the studio's introduction. An empty list hides the
-// section.
+// Figures shown after the studio's introduction. An empty list hides the section.
 //
-// PLACEHOLDERS: only "Design studios" is real. Replace the rest with the
-// studio's own figures before launch: they read as factual claims to a client.
-export const metrics: Metric[] = [
-  { value: "150+", label: "Homes designed" },
-  { value: "2", label: "Design studios" },
-  { value: "20+", label: "In-house designers" },
-  { value: "60+", label: "Trusted contractors" },
-  { value: "5", label: "Cities served" },
-  { value: "100%", label: "Transparent pricing" },
-];
+// Hidden on purpose: the earlier figures (homes designed, in-house designers,
+// contractors, cities served, "100% transparent pricing") were placeholders, and
+// to a client they read as factual claims. Add a figure only once the studio can
+// back it up, for example { value: "2", label: "Design studios" }.
+export const metrics: Metric[] = [];
 
 /* ── Testimonials ───────────────────────────────────────────────────── */
 
@@ -231,30 +217,10 @@ export type Testimonial = {
   sample?: boolean;
 };
 
-// While this list is empty the section is hidden.
-export const testimonials: Testimonial[] = [
-  {
-    quote:
-      "Every vessel finally has its place. Two monsoons on, the drawers still glide and nothing has swollen or rusted.",
-    name: "Homeowner",
-    context: "Steel kitchen, Shivamogga",
-    sample: true,
-  },
-  {
-    quote:
-      "The glass wardrobe makes our bedroom feel twice the size, and the lights inside are the detail everyone asks about.",
-    name: "Homeowner",
-    context: "Glass & steel wardrobe, Udupi",
-    sample: true,
-  },
-  {
-    quote:
-      "Our old vanity peeled within a year. This one still looks new, and cleaning it takes a minute.",
-    name: "Homeowner",
-    context: "Vanity unit, Shivamogga",
-    sample: true,
-  },
-];
+// While this list is empty the section is hidden. The invented sample reviews
+// were removed: add genuine ones, with the client's permission, e.g.
+// { quote: "...", name: "Anita R.", context: "Steel kitchen, Shivamogga" }.
+export const testimonials: Testimonial[] = [];
 
 /* ── Partner brands ─────────────────────────────────────────────────── */
 
@@ -283,5 +249,5 @@ export const partners: Partner[] = [
   { name: "CenturyPly", offer: "Boards & panels", logo: "/images/partners/centuryply.png", logoSize: [404, 180], logoScale: 1.2 },
   { name: "Aristo", offer: "Sliding wardrobe systems", logo: "/images/partners/aristo.png", logoSize: [3246, 881], logoScale: 0.75, logoOnDark: true },
   { name: "Carysil", offer: "Sinks & kitchen appliances", logo: "/images/partners/carysil.svg", logoSize: [278, 26], logoScale: 0.45 },
-  { name: "Cromatica", offer: "Stainless-steel kitchens & wardrobes" },
+  { name: "Cromatica", offer: "Stainless-steel kitchens & wardrobes", logo: "/images/partners/cromatica.png", logoSize: [1416, 230], logoScale: 0.75 },
 ];

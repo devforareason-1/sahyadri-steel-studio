@@ -95,18 +95,34 @@ the enquiry form (`EnquiryForm.tsx`).
   home page, one per solution) and saved as a small JPEG with `sharp`, so
   WhatsApp shows it.
 
-## Themes under review
+## Design system
 
-Swatches at the top of the page switch between the current look and six candidate
-themes, each with its own colours and fonts (headline, text, italic accent): warm
-bronze (Marcellus, Mulish, Cormorant Garamond), noir & gold (Italiana, Jost, Bodoni
-Moda), emerald & brass (Cormorant Garamond, Jost), midnight & champagne (Gilda
-Display, DM Sans, Libre Caslon Text), oxblood & rose gold (Bellefair, Figtree,
-Playfair Display) and graphite & copper (Tenor Sans, Manrope, Instrument Serif). They show locally and on
-Vercel preview links, never in production. Once one is chosen, delete
-`PaletteSwitch.tsx` and `src/lib/review-fonts.ts` with their lines in `layout.tsx`,
-load that theme's fonts in `layout.tsx`, move its values from the
-`html[data-palette]` CSS into `:root`, and delete the rest.
+Tokens and classes live in `src/app/globals.css`. Keep to these rules when adding a section:
+
+- **Type:** Fraunces for headlines, Geist for reading, Geist Mono for real figures only.
+  Headlines have ranks: `.h-peak` (one or two per page), `.h-lg` / `.h-statement`,
+  `.h-md`, `.h-sm`. Text is `.lede`, body, `.note` or `.caption`; nothing below 13px.
+- **Emphasis:** `<em>` in a headline is the italic, never a paler colour.
+- **Colour:** brass fill (`.btn-primary`) means the next step and is used for nothing else.
+- **Ornament:** `.dim`, a dimension line from a shop drawing. No decorative gradients,
+  pills, boxes around content or shadows. Gradients stay only where they are light or
+  material: the hero's film and the finish renders.
+- **Spacing:** `--space-chapter` between chapters, `--space-passage` inside them.
+- **Layout:** no section label above every heading, and each section gets its own
+  arrangement, so the page doesn't repeat one template.
+
+## Kitchen finish preview
+
+`KitchenPreview.tsx` lays finishes over a real photograph, using the shade maps and
+material tiles in `public/images/kitchen-preview/`. `scripts/kitchen-preview.py`
+builds them, and explains how to run it.
+
+## Theme
+
+One fixed palette, defined in `:root` in `globals.css`: Warm Ivory `#E8D8C5` (ground),
+Soft Sand `#CBB49A` (panels), Deep Espresso `#2B211B` (ink), Bronze Brown `#825326`
+(accent), Antique Gold `#B88A52` (highlight), Charcoal Steel `#383331`, Warm Stone
+`#A99A8B` and Cream White `#F7F1E8`.
 
 ## Rules for content
 

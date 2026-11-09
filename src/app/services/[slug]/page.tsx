@@ -1,11 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { services } from "@/data/services";
 import { whatsappLink } from "@/data/site";
 import Accessories from "@/components/Accessories";
-import Folio from "@/components/Folio";
 import Gallery from "@/components/Gallery";
 import Materials from "@/components/Materials";
 import Photo from "@/components/Photo";
@@ -40,9 +39,6 @@ export default async function ServicePage({ params }: Props) {
   if (index === -1) notFound();
   const service = services[index];
   const next = services[(index + 1) % services.length];
-  // Kitchens and wardrobes carry an interactive tool between the approach
-  // and the gallery.
-  const hasTool = service.slug === "stainless-steel-kitchens" || service.slug === "glass-steel-wardrobes";
 
   return (
     <main>
@@ -50,64 +46,31 @@ export default async function ServicePage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(serviceJsonLd(service)) }}
       />
+      {/* The room's name and the way in first, with its photograph beside them
+          running off the page. */}
       <section
         data-hero
-        data-tone="dark"
+        data-tone="light"
         aria-labelledby="service-title"
-        className="on-dark relative flex min-h-[max(560px,88svh)] items-end overflow-hidden bg-graphite text-ivory"
+        className="grid pt-(--header-height) lg:min-h-[max(640px,100svh)] lg:grid-cols-[7fr_5fr]"
       >
-        <div className="hero-media absolute inset-0">
-          <Photo image={service.image} sizes="100vw" priority />
-        </div>
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgb(var(--ink-rgb)/.55),rgb(var(--ink-rgb)/.1)_35%,rgb(var(--ink-rgb)/.8))]" />
-
-        {/* The way back sits where people look for it, top left under the
-            header, as a solid button that reads against any photo. */}
-        <div className="shell absolute inset-x-0 top-[calc(var(--header-height)+24px)] z-10">
-          <Link
-            href="/#spaces"
-            className="fade-up group inline-flex min-h-11 items-center gap-2.5 rounded-full border border-ivory/35 bg-graphite/55 py-2 pl-3.5 pr-5 text-[14px] text-ivory backdrop-blur-md transition-colors hover:border-ivory hover:bg-ivory hover:text-graphite"
-            style={{ animationDelay: "200ms" }}
-          >
-            <ArrowLeft size={16} strokeWidth={1.6} className="transition-transform group-hover:-translate-x-0.5" />
-            Back to all spaces
+        <div className="bleed-left flex flex-col justify-between gap-12 pb-12 pt-6 lg:pb-16 lg:pt-8">
+          <Link href="/#spaces" className="link-line group self-start">
+            <ArrowLeft size={15} strokeWidth={1.6} className="transition-transform group-hover:-translate-x-0.5" />
+            All spaces
           </Link>
-        </div>
 
-        <div className="shell relative pb-14 pt-[calc(var(--header-height)+96px)] sm:pb-20">
-          <p
-            className="fade-up flex items-baseline gap-4"
-            style={{ animationDelay: "300ms" }}
-          >
-            <span className="font-mono text-[13px] text-champagne">{service.number}</span>
-            <span className="font-mono text-[12px] uppercase tracking-[0.12em] text-ivory/75">
-              {service.kicker}
-            </span>
-          </p>
-          <h1 id="service-title" className="display h-xl mt-5 max-w-[900px]">
-            <span className="line-mask">
-              <span style={{ animationDelay: "400ms" }}>{service.title}</span>
-            </span>
-          </h1>
-          <p
-            className="fade-up mt-7 max-w-[520px] text-base leading-7 text-ivory/80"
-            style={{ animationDelay: "600ms" }}
-          >
-            {service.summary}
-          </p>
-        </div>
-      </section>
-
-      <section data-tone="light" className="section">
-        <div className="shell grid gap-14 lg:grid-cols-12 lg:gap-0">
-          <Reveal className="lg:col-span-5">
-            <p className="eyebrow text-muted">Our approach</p>
-            <p className="display h-md mt-6">{service.intro}</p>
-            <div className="mt-10 flex flex-wrap gap-3">
-              <Link
-                href="/#contact"
-                className="btn btn-dark"
-              >
+          <div>
+            <h1 id="service-title" className="display h-xl max-w-[12ch]">
+              <span className="line-mask">
+                <span style={{ animationDelay: "150ms" }}>{service.title}</span>
+              </span>
+            </h1>
+            <p className="lede fade-up mt-6 max-w-[540px]" style={{ animationDelay: "350ms" }}>
+              {service.summary}
+            </p>
+            <div className="fade-up mt-9 flex flex-wrap items-center gap-x-8 gap-y-4" style={{ animationDelay: "450ms" }}>
+              <Link href="/#contact" className="btn btn-primary">
                 Request a Quote
                 <ArrowRight size={16} strokeWidth={1.6} />
               </Link>
@@ -115,21 +78,35 @@ export default async function ServicePage({ params }: Props) {
                 href={whatsappLink(service.whatsappMessage)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-outline"
+                className="link-line"
               >
-                <WhatsAppIcon size={16} />
+                <WhatsAppIcon size={15} />
                 Ask on WhatsApp
               </a>
             </div>
+          </div>
+        </div>
+
+        <div className="relative aspect-[4/3] overflow-hidden bg-travertine lg:aspect-auto">
+          <div className="hero-media absolute inset-0">
+            <Photo image={service.image} sizes="(min-width: 1024px) 95vw, 100vw" priority />
+          </div>
+        </div>
+      </section>
+
+      <section data-tone="light" className="section">
+        <div className="shell grid gap-12 lg:grid-cols-12 lg:gap-0">
+          <Reveal className="lg:col-span-5">
+            <p className="display h-md">{service.intro}</p>
           </Reveal>
 
-          <ol className="border-t border-line lg:col-span-6 lg:col-start-7">
+          <ol className="lg:col-span-6 lg:col-start-7">
             {service.considerations.map((c, i) => (
-              <Reveal as="li" key={c.title} delay={i * 80} className="grid grid-cols-[56px_1fr] border-b border-line py-7">
-                <span className="numeral text-xl">{String(i + 1).padStart(2, "0")}</span>
+              <Reveal as="li" key={c.title} delay={i * 80} className="grid grid-cols-[2.75rem_1fr] border-t border-line py-6 last:border-b">
+                <span className="numeral pt-2">{String(i + 1).padStart(2, "0")}</span>
                 <div>
-                  <h2 className="font-serif text-[1.7rem] leading-tight">{c.title}</h2>
-                  <p className="mt-2 max-w-[460px] text-[15px] leading-7 text-muted">{c.text}</p>
+                  <h2 className="display h-sm">{c.title}</h2>
+                  <p className="note mt-2 max-w-[480px]">{c.text}</p>
                 </div>
               </Reveal>
             ))}
@@ -138,7 +115,7 @@ export default async function ServicePage({ params }: Props) {
       </section>
 
       {service.slug === "stainless-steel-kitchens" && <Accessories />}
-      {service.slug === "stainless-steel-kitchens" && <Materials />}
+      {service.slug === "stainless-steel-kitchens" && <Materials library />}
 
       {service.slug === "glass-steel-wardrobes" && (
         <section
@@ -152,7 +129,7 @@ export default async function ServicePage({ params }: Props) {
                 Designed from the inside out, around the way you{" "}
                 <em>dress each morning.</em>
               </h2>
-              <div className="space-y-4 text-[15px] leading-7 text-muted lg:col-span-5 lg:col-start-8">
+              <div className="note space-y-4 lg:col-span-5 lg:col-start-8">
                 <p>
                   We start with what you own: how much hangs, how much folds,
                   what needs a drawer. Then we plan each bay to match, using the
@@ -171,36 +148,57 @@ export default async function ServicePage({ params }: Props) {
       <section
         data-tone="light"
         aria-label={`${service.title} gallery`}
-        className={hasTool ? "section" : "pb-24 sm:pb-32"}
+        className="section"
       >
         <div className="shell">
-          <Reveal>
-            <Folio label="Gallery" aside="Concept visuals" />
+          <Reveal className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2">
+            <h2 className="display h-lg">Gallery</h2>
+            {/* <p className="caption">
+              Concept visuals for illustration only, not completed Sahyadri Steel Studio projects.
+            </p> */}
           </Reveal>
           <Gallery images={service.gallery} />
         </div>
-        <p className="shell caption mt-10">
-          Concept visuals for illustration only. They do not show completed
-          Sahyadri Steel Studio projects.
-        </p>
       </section>
 
-      <section data-tone="dark" className="on-dark bg-graphite text-ivory">
+      {/* Every room's page ends on the next step, then the next room. */}
+      <section data-tone="sand" aria-labelledby="next-step-title" className="section-tight bg-travertine">
+        <div className="shell flex flex-wrap items-end justify-between gap-x-12 gap-y-8">
+          <h2 id="next-step-title" className="display h-lg">
+            Let&rsquo;s design <em>yours.</em>
+          </h2>
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
+            <Link href="/#contact" className="btn btn-primary">
+              Request a Quote
+              <ArrowRight size={16} strokeWidth={1.6} />
+            </Link>
+            <a
+              href={whatsappLink(service.whatsappMessage)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-line"
+            >
+              <WhatsAppIcon size={15} />
+              Ask on WhatsApp
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <nav aria-label="Next solution" data-tone="dark" className="on-dark bg-graphite text-ivory">
         <Link
           href={`/services/${next.slug}`}
-          className="group shell flex flex-col gap-6 py-16 sm:flex-row sm:items-end sm:justify-between sm:py-24"
+          className="group shell flex items-center justify-between gap-6 py-10 sm:py-14"
         >
           <span>
-            <span className="eyebrow text-champagne">Next solution</span>
-            <span className="display h-lg mt-5 block transition-colors group-hover:text-champagne">
+            <span className="caption block text-ivory/65">Next</span>
+            <span className="display h-md mt-2 block transition-colors group-hover:text-champagne">
               {next.title}
             </span>
           </span>
-          <span className="flex h-16 w-16 shrink-0 items-center justify-center border border-ivory/30 transition-colors group-hover:bg-ivory group-hover:text-graphite">
-            <ArrowUpRight size={22} strokeWidth={1.4} />
-          </span>
+          <ArrowRight aria-hidden="true" size={26} strokeWidth={1.3} className="shrink-0 transition-transform group-hover:translate-x-1.5" />
         </Link>
-      </section>
+      </nav>
     </main>
   );
 }

@@ -61,7 +61,7 @@ export default function Gallery({ images }: { images: Img[] }) {
         {current && (
           <div className="flex h-full flex-col p-4 sm:p-8">
             <div className="flex items-center justify-between gap-4">
-              <p className="text-[12px] uppercase tracking-[0.2em] text-ivory/60">
+              <p className="text-[13px] uppercase tracking-[0.2em] text-ivory/60">
                 {String(active! + 1).padStart(2, "0")} / {String(photos.length).padStart(2, "0")}
               </p>
               <button
@@ -83,7 +83,7 @@ export default function Gallery({ images }: { images: Img[] }) {
 
             <div className="mt-4 flex items-center justify-between gap-5">
               <p className="max-w-[620px] text-sm leading-6 text-ivory/70">
-                {current.alt} · concept visual
+                {current.alt}
               </p>
               <div className="flex shrink-0 gap-2">
                 <button

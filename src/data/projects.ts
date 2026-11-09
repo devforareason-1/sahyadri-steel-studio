@@ -32,7 +32,7 @@ export const projects: Project[] = [
     description:
       "Steel-fronted cabinetry, built-in appliances and a stone island, for a kitchen that is precise and easy to keep.",
     image: images.kitchenSteel,
-    completed: false,
+    completed: true,
   },
   {
     slug: "accessory-kitchen",
@@ -42,7 +42,7 @@ export const projects: Project[] = [
     description:
       "Plate baskets, cutlery trays, a tall pantry pull-out and a corner carousel, all in stainless steel.",
     image: images.plateBasket,
-    completed: false,
+    completed: true,
   },
   {
     slug: "glass-wardrobe",
@@ -52,7 +52,7 @@ export const projects: Project[] = [
     description:
       "Glass-fronted hanging, lit shelves and sliding panels, with an interior planned bay by bay.",
     image: images.wardrobeGlass,
-    completed: false,
+    completed: true,
   },
   {
     slug: "matte-kitchen",
@@ -62,7 +62,7 @@ export const projects: Project[] = [
     description:
       "Handle-less matte graphite fronts with a steel sink and tap, quiet and easy to clean.",
     image: images.kitchenGraphite,
-    completed: false,
+    completed: true,
   },
   {
     slug: "steel-vanity",
@@ -72,7 +72,7 @@ export const projects: Project[] = [
     description:
       "A vanity with soft-grey drawers, a marble counter and a round mirror.",
     image: images.vanityMarble,
-    completed: false,
+    completed: true,
   },
   {
     slug: "full-home",
@@ -82,6 +82,6 @@ export const projects: Project[] = [
     description:
       "Kitchen, wardrobes, vanities and living units, planned together in one language of steel and glass.",
     image: images.fullHome,
-    completed: false,
+    completed: true,
   },
 ];

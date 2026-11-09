@@ -209,7 +209,7 @@ export default function WardrobePlanner() {
                 type="button"
                 aria-pressed={view === v}
                 onClick={() => setView(v)}
-                className={`min-h-11 px-4 text-[12px] font-semibold uppercase tracking-[0.16em] transition-colors ${
+                className={`min-h-11 px-4 text-[13px] font-semibold uppercase tracking-[0.16em] transition-colors ${
                   view === v ? "bg-graphite text-ivory" : "hover:bg-ivory-deep"
                 }`}
               >
